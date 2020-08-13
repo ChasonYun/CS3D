@@ -1,0 +1,288 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Config>
+	<Model3D>
+		<CodingRules>6,5,36	</CodingRules><!--排层列-->
+		
+		<GoodsSize>1000,1200,1300</GoodsSize><!--货物长宽高-->
+		
+		<ProductOriPos>17455,3000,655</ProductOriPos><!--货物模型 起始绝对坐标 -->
+		
+		<StockInEntranceOriPos>17455,200,1425</StockInEntranceOriPos><!--入库口坐标-->
+
+		<ShelfOriPos>12694.44,-1999.992,1347</ShelfOriPos><!--01.01.01 坐标-->
+
+		<ShelfDistance>-2390</ShelfDistance><!--货架 x 方向间距-->
+		
+		<StackerOriPos_1>13749.056, -3407.414, 4108.809</StackerOriPos_1><!--堆垛机立柱1 -->
+
+		<PlatformOriPos_1>13967.191, -3334.417, 699.658</PlatformOriPos_1><!-- 载货台 1-->
+
+		<TopForkOriPos_1>13967.191, -3342.328, 820.658</TopForkOriPos_1><!--上叉 1-->
+
+		<MiddleForkOriPos_1>13967.191, -3342.43, 785.158</MiddleForkOriPos_1><!--中叉 1-->
+
+		<BottomForkOriPos_1>13967.191, -3342.478, 747.158</BottomForkOriPos_1><!--下叉 1-->
+
+		<VIFS_1>13978.008, -3351.014, 1849.265</VIFS_1><!--VISF 1-->
+
+		<StackerOriPos_2>13735.319, -8983.278, 4108.809</StackerOriPos_2>
+		<!--堆垛机立柱2 -->
+
+		<PlatformOriPos_2>13953.455, -8910.281, 701.015</PlatformOriPos_2>
+		<!-- 载货台 2-->
+
+		<TopForkOriPos_2>13953.455, -8918.193, 822.015</TopForkOriPos_2>
+		<!--上叉 2-->
+
+		<MiddleForkOriPos_2>13953.455, -8918.295, 786.515</MiddleForkOriPos_2>
+		<!--中叉 2-->
+
+		<BottomForkOriPos_2>13953.455, -8918.343, 748.515</BottomForkOriPos_2>
+		<!--下叉 2-->
+
+		<VIFS_2>13964.271, -8926.879, 1850.622</VIFS_2>
+		<!--VISF 2-->
+		
+		<conveyor_1>
+			<speed>
+				1
+			</speed>
+			
+			<backPos>
+				17455,200,1425
+			</backPos>
+			<frontPos>
+				17455,-800,1425
+			</frontPos>
+			
+			<leftPos>
+				0,0,0
+			</leftPos>
+			<rightPos>
+				0,0,0
+			</rightPos>
+		</conveyor_1>
+		<ds_1>
+			<speed>
+				1
+			</speed>
+			
+
+			<backPos>
+				17455,-1965,1425
+			</backPos>
+			<frontPos>
+				17455,-1965,1425
+			</frontPos>
+			
+			<leftPos>
+				0,0,0
+			</leftPos>
+			<rightPos>
+				0,0,0
+			</rightPos>
+		</ds_1>
+		<conveyor_4>
+			<speed>
+				1
+			</speed>
+
+			<backPos>
+				0,0,0
+			</backPos>
+			<frontPos>
+				0,0,0
+			</frontPos>
+
+			<leftPos>
+				17800,-1965,1425
+			</leftPos>
+			<rightPos>
+				16980,-1965,1425
+			</rightPos>
+		</conveyor_4>
+		<conveyor_3>
+			<speed>
+				1
+			</speed>
+
+			<backPos>
+				0,0,0
+			</backPos>
+			<frontPos>
+				0,0,0
+			</frontPos>
+			
+			<leftPos>
+				15880,-1965,1425
+			</leftPos>
+			<rightPos>
+				13967.191,-1965,1425
+			</rightPos>
+		</conveyor_3>
+		<stacker1_1>
+			<speed>
+				1
+			</speed>
+
+			<backPos>
+				13967.191,-1965,1425
+			</backPos>
+			<frontPos>
+				13967.191,-3331.24,1425
+			</frontPos>
+			
+			<leftPos>
+				0,0,0
+			</leftPos>
+			<rightPos>
+				0,0,0
+			</rightPos>
+		</stacker1_1>
+
+		<stacker1_2>
+			<speed>
+				1
+			</speed>
+
+			<backPos>
+				13967.161,-1965,1425
+			</backPos>
+			<frontPos>
+				13967.161,-3331.24,1425
+			</frontPos>
+
+			<leftPos>
+				0,0,0
+			</leftPos>
+			<rightPos>
+				0,0,0
+			</rightPos>
+
+			<leftbottomPos>
+				13967.161,-3331.24,1425
+			</leftbottomPos>
+			<righttopPos>
+				
+			</righttopPos>
+		</stacker1_2>
+		
+		<stacker1_3>
+			<speed>
+				1
+			</speed>
+
+			<backPos>
+				13967.161,-1965,1425
+			</backPos>
+			<frontPos>
+				13967.161,-3331.24,1425
+			</frontPos>
+
+			<leftPos>
+				0,0,0
+			</leftPos>
+			<rightPos>
+				0,0,0
+			</rightPos>
+
+			<leftbottomPos>
+				13967.161,-3331.24,1425
+			</leftbottomPos>
+			<righttopPos>
+				
+			</righttopPos>
+		</stacker1_3>
+		
+		<stacker_1>
+			<speed_upperfork>
+				1
+			</speed_upperfork>
+			<speed_platform>
+				1
+			</speed_platform>
+			<speed_stacker>
+				1
+			</speed_stacker>
+			
+			<startPos_UpperFork><!--y upperfork-->
+				-1940
+			</startPos_UpperFork>
+
+			<endPos_UpperFork><!--y-->
+				-3337.416
+			</endPos_UpperFork>
+
+			<startPos_Stacker><!--x  stacker-->
+				12749.189
+			</startPos_Stacker>
+
+			<endPos_Stacker><!--x-->
+				
+			</endPos_Stacker>
+
+			<startPos_Platform><!--z platform-->
+				699.658
+			</startPos_Platform>
+
+			<endPos_Platform><!--z-->
+				
+			</endPos_Platform>
+		</stacker_1>
+	</Model3D>
+
+
+
+
+
+	<GoodsPath>
+		<!--货物路径 路径格式  起点 转折点  终点-->
+		<forkLift>
+			{
+			(17473.848,5590.877,1740.546);
+			(17474.215,-2189.734,830.161);
+			(12694.44,-1999.992,6911.056)
+			}
+		</forkLift>
+	</GoodsPath>
+	<ConveyorPathNode>
+		<!--传送带 路径信息-->
+		<Node1>
+			17455,200,1350
+			17455,-800,1350
+		</Node1>
+		<Node2>
+			17455,-800,1350
+			17455,-1980,1350
+		</Node2>
+		<Node3>
+			17455,-800,1350
+			13950,-1980,1350
+		</Node3>
+	</ConveyorPathNode>
+	<StackerPathNode>
+		<Node1>
+			13950,-1980,1350
+			13950,-3350,1350
+		</Node1>
+		<Node2>
+			13950,-3350,1350
+			11577,-3350,6912
+		</Node2>
+		<Node3>
+			11577,-3350,6912
+			11577,-2000,6912
+		</Node3>
+	</StackerPathNode>
+
+	<MySqlParam>
+		<!--数据库名称-->
+		<DataBase>db_lps</DataBase>
+		<!--数据源-->
+		<DataSource>127.0.0.1</DataSource>
+		<!--用户名称-->
+		<UserId>root</UserId>
+		<!--密码-->
+		<Passsword>1234</Passsword>
+	</MySqlParam>
+</Config>

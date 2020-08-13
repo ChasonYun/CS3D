@@ -1,0 +1,31 @@
+﻿<Window x:Class="CS3D.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CS3D"
+        mc:Ignorable="d"
+        Title="测试WPF" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="获取库位信息" x:Name="btnInitWareHouse" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnInitWareHouse_Click" />
+                <Button Content="入库（01.04.20）" x:Name="btnPutIn" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnPutIn_Click" />
+                <Button Content="conveyor_1" x:Name="btnC_1" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnC_1_Click" />
+                <Button Content="ds_1" x:Name="btnD_1" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnD_1_Click" />
+                <Button Content="conveyor_4" x:Name="btnC_4" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnC_4_Click" />
+                <Button Content="conveyor_3" x:Name="btnC_3" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnC_3_Click" />
+                <Button Content="stacker1-1" x:Name="btnS_1" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnS_1_Click" />
+                <Button Content="stacker1-2" x:Name="btnS_2" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnS_2_Click" />
+                <Button Content="stacker1-3" x:Name="btnS_3" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnS_3_Click" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <ContentControl x:Name="testControl"/>
+        </Grid>
+    </Grid>
+</Window>
