@@ -17,65 +17,74 @@ namespace CS3D
         Top_Left,
         Bottom_Left
     }
-    public abstract class Conveyor
+    public class Conveyor
     {
-        public abstract string name { get; }
-        public abstract bool isReady { get; set; }//是否被占用
+        private bool isReady_;
+        private Direction direction_;
+        private Point3D innerOffSet_;
 
-        public abstract Direction direction { get; set; }//运动方向（前、后、左、右）
+        private string name_;
+        private double speed_;
 
-        /// <summary>
-        /// 内部偏移量
-        /// </summary>
-        public abstract Point3D innerOffSet { get; set; }
+        private Point3D backPos_;
+        private Point3D frontPos_;
+        private Point3D leftPos_;
+        private Point3D rightPos_;
 
-        /// <summary>
-        /// 传送带速度
-        /// </summary>
-        public abstract double speed { get; }
+        private Point3D rightTopPos_;
+        private Point3D rightBottomPos_;
+        private Point3D leftTopPos_;
+        private Point3D leftBottomPos_;
+        public Conveyor(string name, Direction direction)
+        {
+            this.name_ = name;
+            this.direction_ = direction;
+            this.speed_ = GetSpeed(name_);
+            this.backPos_ = GetBackPos(name_);
+            this.frontPos_ = GetFrontPos(name_);
+            this.rightPos_ = GetRightPos(name_);
+            this.leftPos_ = GetLeftPos(name_);
+            this.rightTopPos_ = GetRightTopPos(name_);
+            this.rightBottomPos_ = GetRightBottomPos(name_);
+            this.leftTopPos_ = GetLeftTopPos(name_);
+            this.leftBottomPos_ = GetLeftBottomPos(name_);
+        }
+        public bool IsReady { get => isReady_; set => isReady_ = value; }
 
-        /// <summary>
-        /// 后绝对位置
-        /// </summary>
-        public abstract Point3D backPos { get; }
 
-        /// <summary>
-        /// 前绝对位置
-        /// </summary>
-        public abstract Point3D frontPos { get; }
+        public double Speed { get => speed_; }
+        public Point3D InnerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
 
-        /// <summary>
-        /// 左绝对位置
-        /// </summary>
-        public abstract Point3D leftPos { get; }
-        /// <summary>
-        /// 右绝对位置
-        /// </summary>
-        public abstract Point3D rightPos { get; }
+        public Point3D BackPos { get => backPos_; }
 
-        /// <summary>
-        /// 堆垛机 左下 坐标
-        /// </summary>
-        public abstract Point3D leftBottomPos { get; }
-        /// <summary>
-        /// 堆垛机  右上 坐标
-        /// </summary>
-        public abstract Point3D rightTopPos { get; }
-        /// <summary>
-        /// 堆垛机 左上 坐标
-        /// </summary>
-        public abstract Point3D leftTopPos { get; }
+        public Point3D FrontPos { get => frontPos_; }
 
-        /// <summary>
-        /// 堆垛机 右下坐标 
-        /// </summary>
-        public abstract Point3D rightBottomPos { get; }
+        public Point3D LeftPos { get => leftPos_; }
+        public Point3D RightPos { get => rightPos_; }
+
+        public string Name { get => name_; }
+
+        public Direction Direction { get => direction_; set => direction_ = value; }
+
+        public Point3D LeftBottomPos { get => leftBottomPos_; set => leftBottomPos_ = value; }
+
+        public Point3D RightTopPos { get => rightTopPos_; set => rightTopPos_ = value; }
+
+        public Point3D LeftTopPos { get => leftTopPos_; set => leftTopPos_ = value; }
+
+        public Point3D RightBottomPos { get => rightBottomPos_; set => rightBottomPos_ = value; }
 
         protected ArrayList observers = new ArrayList();//
 
-        public abstract void Attach(IMission mission);//
+        public void Attach(IMission mission)
+        {
+            observers.Add(mission);
+        }
 
-        public abstract void Detach(IMission observer);//
+        public void Detach(IMission mission)
+        {
+            observers.Remove(mission);
+        }
 
         public virtual double GetSpeed(string conveyorName)
         {
@@ -125,9 +134,39 @@ namespace CS3D
             return new Point3D(x, y, z);
         }
 
-        public virtual Point3D GetBottomLeftPos(string conveyorName)
+        public virtual Point3D GetLeftBottomPos(string conveyorName)
         {
-            string tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/leftbottomPos");
+            string tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/leftBottomPos");
+            string[] tempStrs = tempStr.Trim().Split(',');
+            double x = Convert.ToDouble(tempStrs[0]);
+            double y = Convert.ToDouble(tempStrs[1]);
+            double z = Convert.ToDouble(tempStrs[2]);
+            return new Point3D(x, y, z);
+        }
+
+        public virtual Point3D GetLeftTopPos(string conveyorName)
+        {
+            string tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/leftTopPos");
+            string[] tempStrs = tempStr.Trim().Split(',');
+            double x = Convert.ToDouble(tempStrs[0]);
+            double y = Convert.ToDouble(tempStrs[1]);
+            double z = Convert.ToDouble(tempStrs[2]);
+            return new Point3D(x, y, z);
+        }
+
+        public virtual Point3D GetRightTopPos(string conveyorName)
+        {
+            string tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/rightTopPos");
+            string[] tempStrs = tempStr.Trim().Split(',');
+            double x = Convert.ToDouble(tempStrs[0]);
+            double y = Convert.ToDouble(tempStrs[1]);
+            double z = Convert.ToDouble(tempStrs[2]);
+            return new Point3D(x, y, z);
+        }
+
+        public virtual Point3D GetRightBottomPos(string conveyorName)
+        {
+            string tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/rightBottomPos");
             string[] tempStrs = tempStr.Trim().Split(',');
             double x = Convert.ToDouble(tempStrs[0]);
             double y = Convert.ToDouble(tempStrs[1]);
@@ -139,809 +178,290 @@ namespace CS3D
         {
             foreach (var obs in observers)
             {
-                ((IMission)obs).Update(name, isReady);
+                ((IMission)obs).Update(Name, IsReady);
             }
         }
     }
 
     public class Conveyor_1 : Conveyor
     {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public Conveyor_1()
+        public Conveyor_1(Direction direction) : base("conveyor_1", direction)
         {
 
-        }
-        public Conveyor_1(Direction direction)
-        {
-            this.name_ = "conveyor_1";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            this.backPos_ = base.GetBackPos(name_);
-            this.frontPos_ = base.GetFrontPos(name_);
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
-
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
         }
     }
 
-    public class Conveyor_4 : Conveyor
+    public class Conveyor_2 : Conveyor
     {
-
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public Conveyor_4()
+        public Conveyor_2(Direction direction) : base("conveyor_2", direction)
         {
 
-        }
-        public Conveyor_4(Direction direction)
-        {
-            this.name_ = "conveyor_4";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            this.leftPos_ = base.GetLeftPos(name_);
-            this.rightPos_ = base.GetRightPos(name_);
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
-
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
         }
     }
     public class Conveyor_3 : Conveyor
     {
 
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public Conveyor_3()
+        public Conveyor_3(Direction direction) : base("conveyor_3", direction)
         {
 
-        }
-        public Conveyor_3(Direction direction)
-        {
-            this.name_ = "conveyor_3";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            this.leftPos_ = base.GetLeftPos(name_);
-            this.rightPos_ = base.GetRightPos(name_);
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
-
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
         }
     }
-    public class DS_1 : Conveyor
+    public class Conveyor_4 : Conveyor
     {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
 
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public DS_1()
+        public Conveyor_4(Direction direction) : base("conveyor_4", direction)
         {
 
         }
-        public DS_1(Direction direction)
+    }
+    public class Conveyor_5 : Conveyor
+    {
+
+        public Conveyor_5(Direction direction) : base("conveyor_5", direction)
         {
-            this.name_ = "ds_1";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            this.backPos_ = base.GetBackPos(name_);
-            this.frontPos_ = base.GetFrontPos(name_);
-            this.rightPos_ = base.GetRightPos(name_);
-            this.leftPos_ = base.GetLeftPos(name_);
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
 
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
         }
     }
 
+    public class Conveyor_6 : Conveyor
+    {
+
+        public Conveyor_6(Direction direction) : base("conveyor_6", direction)
+        {
+
+        }
+    }
+    public class Conveyor_7 : Conveyor
+    {
+        public Conveyor_7(Direction direction) : base("conveyor_7", direction)
+        {
+
+        }
+    }
     public class Conveyor_8 : Conveyor
     {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public Conveyor_8()
+        public Conveyor_8(Direction direction) : base("conveyor_8", direction)
         {
 
         }
-        public Conveyor_8(Direction direction)
+    }
+    public class Conveyor_9 : Conveyor
+    {
+
+        public Conveyor_9(Direction direction) : base("conveyor_9", direction)
         {
-            this.name_ = "conveyor_8";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
 
         }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
+    }
+    public class Conveyor_10 : Conveyor
+    {
 
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
+        public Conveyor_10(Direction direction) : base("conveyor_10", direction)
         {
-            observers.Add(mission);
+
         }
+    }
+    public class Conveyor_11 : Conveyor
+    {
 
-        public override void Detach(IMission mission)
+        public Conveyor_11(Direction direction) : base("conveyor_11", direction)
         {
-            observers.Remove(mission);
+
+        }
+    }
+    public class Conveyor_12 : Conveyor
+    {
+
+        public Conveyor_12(Direction direction) : base("conveyor_12", direction)
+        {
+
+        }
+    }
+    public class Conveyor_13 : Conveyor
+    {
+
+        public Conveyor_13(Direction direction) : base("conveyor_13", direction)
+        {
+
+        }
+    }
+
+    public class Conveyor_14 : Conveyor
+    {
+
+        public Conveyor_14(Direction direction) : base("conveyor_14", direction)
+        {
+
         }
     }
 
     public class Conveyor_15 : Conveyor
     {
         private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public Conveyor_15()
+        public Conveyor_15(Direction direction) : base("conveyor_15", direction)
         {
 
-        }
-        public Conveyor_15(Direction direction)
-        {
-            this.name_ = "conveyor_15";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
-
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
         }
     }
+    public class Conveyor_16 : Conveyor
+    {
 
+        public Conveyor_16(Direction direction) : base("conveyor_16", direction)
+        {
+
+        }
+    }
+    public class Conveyor_17 : Conveyor
+    {
+        public Conveyor_17(Direction direction) : base("conveyor_17", direction)
+        {
+
+        }
+    }
     public class Conveyor_18 : Conveyor
     {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public Conveyor_18()
+        public Conveyor_18(Direction direction) : base("conveyor_18", direction)
         {
 
         }
-        public Conveyor_18(Direction direction)
+    }
+    public class Conveyor_19 : Conveyor
+    {
+
+        public Conveyor_19(Direction direction) : base("conveyor_19", direction)
         {
-            this.name_ = "conveyor_18";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            //this.width_ = base.GetWidth(name_);
-            //this.length_ = base.GetLength(name_);
+
         }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
+    }
+    public class Conveyor_20 : Conveyor
+    {
 
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
+        public Conveyor_20(Direction direction) : base("conveyor_20", direction)
         {
-            observers.Add(mission);
+
         }
+    }
+    public class Conveyor_21 : Conveyor
+    {
 
-        public override void Detach(IMission mission)
+        public Conveyor_21(Direction direction) : base("conveyor_21", direction)
         {
-            observers.Remove(mission);
+
         }
     }
 
+    public class DS_1 : Conveyor
+    {
+        public DS_1(Direction direction) : base("ds_1", direction)
+        {
 
+        }
+    }
+    public class DS_2 : Conveyor
+    {
+        public DS_2(Direction direction) : base("ds_2", direction)
+        {
 
+        }
+    }
     public class DS_3 : Conveyor
     {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public DS_3()
+        public DS_3(Direction direction) : base("ds_3", direction)
         {
 
         }
-        public DS_3(Direction direction)
+    }
+    public class DS_4 : Conveyor
+    {
+        public DS_4(Direction direction) : base("ds_4", direction)
         {
-            this.name_ = "ds_3";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            //this.width_ = base.GetWidth(name_);
-            //this.length_ = base.GetLength(name_);
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
 
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
         }
     }
     public class DS_5 : Conveyor
     {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public DS_5()
+        public DS_5(Direction direction) : base("ds_5", direction)
         {
 
-        }
-        public DS_5(Direction direction)
-        {
-            this.name_ = "ds_5";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            //this.width_ = base.GetWidth(name_);
-            //this.length_ = base.GetLength(name_);
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
-
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
         }
     }
 
-    public class Conveyor_17 : Conveyor
-    {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
 
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public Conveyor_17()
-        {
-
-        }
-        public Conveyor_17(Direction direction)
-        {
-            this.name_ = "conveyor_17";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            //this.width_ = base.GetWidth(name_);
-            //this.length_ = base.GetLength(name_);
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
-
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
-        }
-    }
 
 
     public class Stacker1_1 : Conveyor
     {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-        public Stacker1_1()
+        public Stacker1_1(Direction direction) : base("stacker1_1", direction)
         {
 
-        }
-        public Stacker1_1(Direction direction)
-        {
-            this.name_ = "stacker1_1";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            this.backPos_ = base.GetBackPos(name_);
-            this.frontPos_ = base.GetFrontPos(name_);
-
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
-
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
         }
     }
 
     public class Stacker1_2 : Conveyor
     {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-
-        private Point3D leftBottomPos_;
-        private Point3D rightTopPos_;
-        public Stacker1_2()
+        public Stacker1_2(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker1_2", direction)
         {
 
-        }
-        public Stacker1_2(Direction direction, string shelfNo,ModelPosition modelPosition)
-        {
-            this.name_ = "stacker1_2";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            this.leftBottomPos_ = base.GetBottomLeftPos(name_);
-            this.rightTopPos_ = modelPosition.GetShelfPos(shelfNo);
-            this.rightTopPos_ = new Point3D(rightTopPos_.X, -3331.24, rightTopPos_.Z);
-        }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
-
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos { get => leftBottomPos_; }
-
-        public override Point3D rightTopPos { get => rightTopPos_; }
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
-        {
-            observers.Add(mission);
-        }
-
-        public override void Detach(IMission mission)
-        {
-            observers.Remove(mission);
         }
     }
 
     public class Stacker1_3 : Conveyor
     {
-        private bool isReady_;
-        private Direction direction_;
-        private Point3D innerOffSet_;
-
-        private string name_;
-        private double speed_;
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
-
-      
-        public Stacker1_3()
+        public Stacker1_3(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker1_3", direction)
         {
 
         }
-        public Stacker1_3(Direction direction, string shelfNo,ModelPosition modelPosition)
+    }
+    public class Stacker1_4 : Conveyor
+    {
+        public Stacker1_4(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker1_4", direction)
         {
-            this.name_ = "stacker1_3";
-            this.direction_ = direction;
-            this.speed_ = base.GetSpeed(name_);
-            this.backPos_ = modelPosition.GetShelfPos(shelfNo);
-            if (direction == Direction.Back)
-            {
-                this.frontPos_ = new Point3D(backPos_.X, backPos_.Y + 1331.248, backPos_.Z);
-            }
-            else if (direction == Direction.Front)
-            {
-                this.frontPos_ = new Point3D(backPos_.X, backPos_.Y - 1331.248, backPos_.Z);
-            }
 
-            //this.width_ = base.GetWidth(name_);
-            //this.length_ = base.GetLength(name_);
         }
-        public override bool isReady { get => isReady_; set => isReady_ = value; }
-
-
-        public override double speed { get => speed_; }
-        public override Point3D innerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
-
-        public override Point3D backPos { get => backPos_; }
-
-        public override Point3D frontPos { get => frontPos_; }
-
-        public override Point3D leftPos { get => leftPos_; }
-        public override Point3D rightPos { get => rightPos_; }
-
-      
-
-        public override string name { get => name_; }
-
-        public override Direction direction { get => direction_; set => direction_ = value; }
-
-        public override Point3D leftBottomPos => throw new NotImplementedException();
-
-        public override Point3D rightTopPos => throw new NotImplementedException();
-
-        public override Point3D leftTopPos => throw new NotImplementedException();
-
-        public override Point3D rightBottomPos => throw new NotImplementedException();
-
-        public override void Attach(IMission mission)
+    }
+    public class Stacker1_5 : Conveyor
+    {
+        public Stacker1_5(Direction direction) : base("stacker1_5", direction)
         {
-            observers.Add(mission);
+
         }
+    }
 
-        public override void Detach(IMission mission)
+    public class Stacker2_1 : Conveyor
+    {
+        public Stacker2_1(Direction direction) : base("stacker2_1", direction)
         {
-            observers.Remove(mission);
+
+        }
+    }
+
+    public class Stacker2_2 : Conveyor
+    {
+        public Stacker2_2(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker2_2", direction)
+        {
+
+        }
+    }
+
+    public class Stacker2_3 : Conveyor
+    {
+        public Stacker2_3(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker2_3", direction)
+        {
+
+        }
+    }
+    public class Stacker2_4 : Conveyor
+    {
+        public Stacker2_4(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker2_4", direction)
+        {
+
+        }
+    }
+    public class Stacker2_5 : Conveyor
+    {
+        public Stacker2_5(Direction direction) : base("stacker2_5", direction)
+        {
+
         }
     }
 }

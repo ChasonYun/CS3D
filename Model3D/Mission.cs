@@ -11,7 +11,7 @@ namespace CS3D
 {
     public interface IMission
     {
-        void Update(string conveyorName, bool isReady);
+        void Update(string conveyorName, bool IsReady);
     }
 
     /// <summary>
@@ -187,61 +187,61 @@ namespace CS3D
             if (pathNodes.Count > 0)
             {
                 tempConv = pathNodes[0];//获取首元素
-                if (tempConv.isReady)
+                if (tempConv.IsReady)
                 {
                     tempOffSet = product_Info[shelfNo].ProductOffSet;
                     x = tempOffSet.X + modelPosition.ProductOriPos.X;
                     y = tempOffSet.Y + modelPosition.ProductOriPos.Y;
                     z = tempOffSet.Z + modelPosition.ProductOriPos.Z;
-                    switch (tempConv.direction)
+                    switch (tempConv.Direction)
                     {
                         case Direction.Front://
-                            if (y > tempConv.frontPos.Y)
+                            if (y > tempConv.FrontPos.Y)
                             {
-                                tempConv.innerOffSet = new Point3D(tempConv.innerOffSet.X, tempConv.innerOffSet.Y - tempConv.speed, tempConv.innerOffSet.Z);
-                                product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.innerOffSet.X, tempOffSet.Y + tempConv.innerOffSet.Y, tempOffSet.Z + tempConv.innerOffSet.Z);
+                                tempConv.InnerOffSet = new Point3D(tempConv.InnerOffSet.X, tempConv.InnerOffSet.Y - tempConv.Speed, tempConv.InnerOffSet.Z);
+                                product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.InnerOffSet.X, tempOffSet.Y + tempConv.InnerOffSet.Y, tempOffSet.Z + tempConv.InnerOffSet.Z);
                             }
                             else
                             {
-                                product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.frontPos.X - modelPosition.ProductOriPos.X, tempConv.frontPos.Y - modelPosition.ProductOriPos.Y, tempConv.frontPos.Z - modelPosition.ProductOriPos.Z);
+                                product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.FrontPos.X - modelPosition.ProductOriPos.X, tempConv.FrontPos.Y - modelPosition.ProductOriPos.Y, tempConv.FrontPos.Z - modelPosition.ProductOriPos.Z);
                                 pathNodes.RemoveAt(0);
                             }
                             break;
                         case Direction.Back:
-                            if (y < tempConv.backPos.Y)
+                            if (y < tempConv.BackPos.Y)
                             {
-                                tempConv.innerOffSet = new Point3D(tempConv.innerOffSet.X, tempConv.innerOffSet.Y + tempConv.speed, tempConv.innerOffSet.Z);
-                                product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.innerOffSet.X, tempOffSet.Y + tempConv.innerOffSet.Y, tempOffSet.Z + tempConv.innerOffSet.Z);
+                                tempConv.InnerOffSet = new Point3D(tempConv.InnerOffSet.X, tempConv.InnerOffSet.Y + tempConv.Speed, tempConv.InnerOffSet.Z);
+                                product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.InnerOffSet.X, tempOffSet.Y + tempConv.InnerOffSet.Y, tempOffSet.Z + tempConv.InnerOffSet.Z);
                             }
                             else
                             {
-                                product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.backPos.X - modelPosition.ProductOriPos.X, tempConv.backPos.Y - modelPosition.ProductOriPos.Y, tempConv.backPos.Z - modelPosition.ProductOriPos.Z);
+                                product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.BackPos.X - modelPosition.ProductOriPos.X, tempConv.BackPos.Y - modelPosition.ProductOriPos.Y, tempConv.BackPos.Z - modelPosition.ProductOriPos.Z);
                                 pathNodes.RemoveAt(0);
                             }
 
                             break;
                         case Direction.Right:
-                            if (x > tempConv.rightPos.X)
+                            if (x > tempConv.RightPos.X)
                             {
-                                tempConv.innerOffSet = new Point3D(tempConv.innerOffSet.X - tempConv.speed, tempConv.innerOffSet.Y, tempConv.innerOffSet.Z);
-                                product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.innerOffSet.X, tempOffSet.Y + tempConv.innerOffSet.Y, tempOffSet.Z + tempConv.innerOffSet.Z);
+                                tempConv.InnerOffSet = new Point3D(tempConv.InnerOffSet.X - tempConv.Speed, tempConv.InnerOffSet.Y, tempConv.InnerOffSet.Z);
+                                product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.InnerOffSet.X, tempOffSet.Y + tempConv.InnerOffSet.Y, tempOffSet.Z + tempConv.InnerOffSet.Z);
                             }
                             else
                             {
-                                product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.rightPos.X - modelPosition.ProductOriPos.X, tempConv.rightPos.Y - modelPosition.ProductOriPos.Y, tempConv.rightPos.Z - modelPosition.ProductOriPos.Z);
+                                product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.RightPos.X - modelPosition.ProductOriPos.X, tempConv.RightPos.Y - modelPosition.ProductOriPos.Y, tempConv.RightPos.Z - modelPosition.ProductOriPos.Z);
                                 pathNodes.RemoveAt(0);
                             }
 
                             break;
                         case Direction.Left:
-                            if (x > tempConv.leftPos.X)
+                            if (x > tempConv.LeftPos.X)
                             {
-                                tempConv.innerOffSet = new Point3D(tempConv.innerOffSet.X + tempConv.speed, tempConv.innerOffSet.Y, tempConv.innerOffSet.Z);
-                                product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.innerOffSet.X, tempOffSet.Y + tempConv.innerOffSet.Y, tempOffSet.Z + tempConv.innerOffSet.Z);
+                                tempConv.InnerOffSet = new Point3D(tempConv.InnerOffSet.X + tempConv.Speed, tempConv.InnerOffSet.Y, tempConv.InnerOffSet.Z);
+                                product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.InnerOffSet.X, tempOffSet.Y + tempConv.InnerOffSet.Y, tempOffSet.Z + tempConv.InnerOffSet.Z);
                             }
                             else
                             {
-                                product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.leftPos.X - modelPosition.ProductOriPos.X, tempConv.leftPos.Y - modelPosition.ProductOriPos.Y, tempConv.leftPos.Z - modelPosition.ProductOriPos.Z);
+                                product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.LeftPos.X - modelPosition.ProductOriPos.X, tempConv.LeftPos.Y - modelPosition.ProductOriPos.Y, tempConv.LeftPos.Z - modelPosition.ProductOriPos.Z);
                                 pathNodes.RemoveAt(0);
                             }
                             break;
@@ -250,30 +250,30 @@ namespace CS3D
 
                             tempConv = (Stacker1_2)tempConv;
 
-                            if (x > tempConv.rightTopPos.X)//X 未就绪
+                            if (x > tempConv.RightTopPos.X)//X 未就绪
                             {
-                                if (z < tempConv.rightTopPos.Z)//Z未就绪
+                                if (z < tempConv.RightTopPos.Z)//Z未就绪
                                 {
-                                    tempConv.innerOffSet = new Point3D(tempConv.innerOffSet.X - tempConv.speed, tempConv.innerOffSet.Y, tempConv.innerOffSet.Z + tempConv.speed);
-                                    product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.innerOffSet.X, tempOffSet.Y + tempConv.innerOffSet.Y, tempOffSet.Z + tempConv.innerOffSet.Z);
+                                    tempConv.InnerOffSet = new Point3D(tempConv.InnerOffSet.X - tempConv.Speed, tempConv.InnerOffSet.Y, tempConv.InnerOffSet.Z + tempConv.Speed);
+                                    product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.InnerOffSet.X, tempOffSet.Y + tempConv.InnerOffSet.Y, tempOffSet.Z + tempConv.InnerOffSet.Z);
                                 }
                                 else//Z就绪
                                 {
-                                    tempConv.innerOffSet = new Point3D(tempConv.innerOffSet.X - tempConv.speed, tempConv.innerOffSet.Y, tempConv.rightTopPos.Z - modelPosition.ProductOriPos.Z);
-                                    product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.innerOffSet.X, tempOffSet.Y + tempConv.innerOffSet.Y, tempConv.rightTopPos.Z - modelPosition.ProductOriPos.Z);
+                                    tempConv.InnerOffSet = new Point3D(tempConv.InnerOffSet.X - tempConv.Speed, tempConv.InnerOffSet.Y, tempConv.RightTopPos.Z - modelPosition.ProductOriPos.Z);
+                                    product_Info[shelfNo].ProductOffSet = new Point3D(tempOffSet.X + tempConv.InnerOffSet.X, tempOffSet.Y + tempConv.InnerOffSet.Y, tempConv.RightTopPos.Z - modelPosition.ProductOriPos.Z);
                                 }
                             }
                             else//X就绪
                             {
-                                if (z < tempConv.rightTopPos.Z)//Z未就绪
+                                if (z < tempConv.RightTopPos.Z)//Z未就绪
                                 {
-                                    tempConv.innerOffSet = new Point3D(tempConv.rightTopPos.X - modelPosition.ProductOriPos.X, tempConv.innerOffSet.Y, tempConv.innerOffSet.Z + tempConv.speed);
-                                    product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.rightTopPos.X - modelPosition.ProductOriPos.X, tempOffSet.Y + tempConv.innerOffSet.Y, tempOffSet.Z + tempConv.innerOffSet.Z);
+                                    tempConv.InnerOffSet = new Point3D(tempConv.RightTopPos.X - modelPosition.ProductOriPos.X, tempConv.InnerOffSet.Y, tempConv.InnerOffSet.Z + tempConv.Speed);
+                                    product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.RightTopPos.X - modelPosition.ProductOriPos.X, tempOffSet.Y + tempConv.InnerOffSet.Y, tempOffSet.Z + tempConv.InnerOffSet.Z);
                                 }
                                 else//Z就绪
                                 {
-                                    tempConv.innerOffSet = new Point3D(tempConv.rightTopPos.X - modelPosition.ProductOriPos.X, tempConv.innerOffSet.Y, tempConv.rightTopPos.Z - modelPosition.ProductOriPos.Z);
-                                    product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.rightTopPos.X - modelPosition.ProductOriPos.X, tempConv.rightTopPos.Y - modelPosition.ProductOriPos.Y, tempConv.rightTopPos.Z - modelPosition.ProductOriPos.Z);
+                                    tempConv.InnerOffSet = new Point3D(tempConv.RightTopPos.X - modelPosition.ProductOriPos.X, tempConv.InnerOffSet.Y, tempConv.RightTopPos.Z - modelPosition.ProductOriPos.Z);
+                                    product_Info[shelfNo].ProductOffSet = new Point3D(tempConv.RightTopPos.X - modelPosition.ProductOriPos.X, tempConv.RightTopPos.Y - modelPosition.ProductOriPos.Y, tempConv.RightTopPos.Z - modelPosition.ProductOriPos.Z);
                                     pathNodes.RemoveAt(0);
                                 }
                             }
@@ -289,107 +289,107 @@ namespace CS3D
                 //perspectiveCamera.Position = new Point3D(perspectiveCamera.Position.X + tempOffSet.X, perspectiveCamera.Position.Y + tempOffSet.Y, perspectiveCamera.Position.Z + tempOffSet.Z);
             }
         }
-        public void Update(string conveyorName, bool isReady)
+        public void Update(string conveyorName, bool IsReady)
         {
             switch (conveyorName)
             {
                 case "conveyor_1":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("conveyor_1"))
+                        if (pathNodes[i].Name.Equals("conveyor_1"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
-                    conveyor_1.isReady = isReady;
+                    conveyor_1.IsReady = IsReady;
                     break;
                 case "conveyor_4":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("conveyor_4"))
+                        if (pathNodes[i].Name.Equals("conveyor_4"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
                 case "conveyor_3":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("conveyor_3"))
+                        if (pathNodes[i].Name.Equals("conveyor_3"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
                 case "conveyor_18":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("conveyor_18"))
+                        if (pathNodes[i].Name.Equals("conveyor_18"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
                 case "conveyor_17":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("conveyor_17"))
+                        if (pathNodes[i].Name.Equals("conveyor_17"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
                 case "ds_1":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("ds_1"))
+                        if (pathNodes[i].Name.Equals("ds_1"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
                 case "ds_3":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("ds_3"))
+                        if (pathNodes[i].Name.Equals("ds_3"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
                 case "ds_5":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("ds_5"))
+                        if (pathNodes[i].Name.Equals("ds_5"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
                 case "stacker1_1":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("stacker1_1"))
+                        if (pathNodes[i].Name.Equals("stacker1_1"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
                 case "stacker1_2":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("stacker1_2"))
+                        if (pathNodes[i].Name.Equals("stacker1_2"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
                 case "stacker1_3":
                     for (int i = 0; i < pathNodes.Count; i++)
                     {
-                        if (pathNodes[i].name.Equals("stacker1_3"))
+                        if (pathNodes[i].Name.Equals("stacker1_3"))
                         {
-                            pathNodes[i].isReady = true;
+                            pathNodes[i].IsReady = true;
                         }
                     }
                     break;
