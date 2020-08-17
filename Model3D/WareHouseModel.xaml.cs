@@ -99,6 +99,24 @@ namespace CS3D
 
                 StackerPartsInfo VIFS001 = new StackerPartsInfo("VIFS001");
                 stackerParts_Info.Add(VIFS001.ModelName, VIFS001);
+
+                StackerPartsInfo zaihuotai002 = new StackerPartsInfo("zaihuotai002");
+                stackerParts_Info.Add(zaihuotai002.ModelName, zaihuotai002);
+
+                StackerPartsInfo duiduojilizhu002 = new StackerPartsInfo("duiduojilizhu002");
+                stackerParts_Info.Add(duiduojilizhu002.ModelName, duiduojilizhu002);
+
+                StackerPartsInfo shangcha002 = new StackerPartsInfo("shangcha002");
+                stackerParts_Info.Add(shangcha002.ModelName, shangcha002);
+
+                StackerPartsInfo xiacha002 = new StackerPartsInfo("xiacha002");
+                stackerParts_Info.Add(xiacha002.ModelName, xiacha002);
+
+                StackerPartsInfo zhongcha002 = new StackerPartsInfo("zhongcha002");
+                stackerParts_Info.Add(zhongcha002.ModelName, zhongcha002);
+
+                StackerPartsInfo VIFS002 = new StackerPartsInfo("VIFS002");
+                stackerParts_Info.Add(VIFS002.ModelName, VIFS002);
             }
             catch (Exception ex)
             {
@@ -561,8 +579,8 @@ namespace CS3D
             Conveyor conveyor = (Conveyor)this.FindName(conveyorName);
             if (conveyor != null)
             {
-                conveyor.isReady = isReady;
-                conveyor.direction = direction;
+                conveyor.IsReady = isReady;
+                conveyor.Direction = direction;
                 conveyor.Notify();
             }
         }

@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media.Media3D;
 
 namespace CS3D
@@ -105,25 +101,25 @@ namespace CS3D
         public DateTime LastUpTime { get => lastUpTime; set => lastUpTime = value; }
         public ModelVisual3D Model { get => model; set => model = value; }
 
-       
+
         private int line;
 
-       
+
         private int level;
 
-       
+
         private int column;
 
-      
+
         private string productName;
-      
+
         private string productId;
         /// <summary>
         /// 货物在世界坐标系中的偏移量
         /// </summary>
         private Point3D productOffSet = new Point3D();
 
-       
+
         private int shelfState;
 
         private DateTime lastUpTime;
@@ -166,52 +162,52 @@ namespace CS3D
 
     public class ModelPosition
     {
-       
-      
+
+
         private Point3D productOriPos;
 
-       
+
         private Point3D stockInEntranceOriPos;
 
         private Point3D shelfOriPos;
 
         private double shelfDistance;
 
-        
+
         private Point3D stackerOriPos_1;
 
-       
+
         private Point3D platformOriPos_1;
 
-       
+
         private Point3D topForkOriPos_1;
 
-     
+
         private Point3D middleForkOriPos_1;
 
-      
+
         private Point3D bottomForkOriPos_1;
 
-      
-        private Point3D vIFS_1;
-       
 
-     
+        private Point3D vIFS_1;
+
+
+
         private Point3D stackerOriPos_2;
 
-      
+
         private Point3D platformOriPos_2;
 
-       
+
         private Point3D topForkOriPos_2;
 
-       
+
         private Point3D middleForkOriPos_2;
 
-       
+
         private Point3D bottomForkOriPos_2;
 
-      
+
         private Point3D vIFS_2;
         public ModelPosition()
         {
@@ -377,18 +373,34 @@ namespace CS3D
             else if (level == 2)
             {
                 z = 2411.056;
+                if(line==3 || line == 6)
+                {
+                    z = 2571.928;
+                }
             }
             else if (level == 3)
             {
                 z = 3911.056;
+                if (line == 3 || line == 6)
+                {
+                    z = 4071.928;
+                }
             }
             else if (level == 4)
             {
                 z = 5411.056;
+                if (line == 3 || line == 6)
+                {
+                    z = 5571.928;
+                }
             }
             else if (level == 5)
             {
                 z = 6911.056;
+                if (line == 3 || line == 6)
+                {
+                    z = 7071.928;
+                }
             }
 
             if (line == 1)
@@ -447,10 +459,53 @@ namespace CS3D
             return point3D;
         }
 
+        /// <summary>
+        /// 获取货物模型的绝对坐标
+        /// </summary>
+        /// <param name="shelfNo"></param>
+        /// <returns></returns>
         public Point3D GetShelfPos(string shelfNo)
         {
             Point3D offset = Get_ShelfState_1_OffSet(shelfNo);
             return new Point3D(offset.X + productOriPos.X, offset.Y + productOriPos.Y, offset.Z + productOriPos.Z);
+        }
+
+        /// <summary>
+        /// 解析 排层列 序号
+        /// </summary>
+        /// <param name="shelfNo"></param>
+        /// <param name="line"></param>
+        /// <param name="level"></param>
+        /// <param name="column"></param>
+        public void Get_Line_Level_Column(string shelfNo, out int line, out int level, out int column)
+        {
+            string[] shelfNo_ = shelfNo.Trim().Split('.');
+            line = Convert.ToInt32(shelfNo_[0]);
+            level = Convert.ToInt32(shelfNo_[1]);
+            column = Convert.ToInt32(shelfNo_[2]);
+        }
+
+        /// <summary>
+        /// 获取 对应的货架口的绝对位置信息
+        /// </summary>
+        /// <param name="shelfNo"></param>
+        /// <returns></returns>
+        public Point3D GetShelfLinePos(string shelfNo)
+        {
+            int line, level, column;
+            Get_Line_Level_Column(shelfNo, out line, out level, out column);
+            if (line.Equals(1) || line.Equals(2))
+            {
+                return new Point3D(GetShelfPos(shelfNo).X, TopForkOriPos_1.Y, GetShelfPos(shelfNo).Z);
+            }
+            else if (line.Equals(3) || line.Equals(4) || line.Equals(5) || line.Equals(6))
+            {
+                return new Point3D(GetShelfPos(shelfNo).X, TopForkOriPos_2.Y, GetShelfPos(shelfNo).Z);
+            }
+            else
+            {
+                throw new Exception("无法识别的货位号" + "GetShelfLinePos()");
+            }
         }
     }
 }

@@ -27,7 +27,7 @@
 			<frontPos>17473.725,-800.814,1430</frontPos>			
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -38,7 +38,7 @@
 			<frontPos>19737.023,-800,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -49,7 +49,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>15887.191,-1972.814,1430</leftPos>
 			<rightPos>13967.191,-1972.814,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -60,7 +60,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17813.725,-1972.814,1430</leftPos>
 			<rightPos>16953.725,-1972.814,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -71,7 +71,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>20077.023,-1979.767,1430</leftPos>
 			<rightPos>18867.023,-1979.767,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -89,7 +89,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17800,-1965,1425</leftPos>
 			<rightPos>16980,-1965,1425</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -100,7 +100,7 @@
 			<frontPos>17473.725,-3486.814,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -111,7 +111,7 @@
 			<frontPos>19737.023,-3486.449,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -122,7 +122,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>15887.191,-4658.449,1430</leftPos>
 			<rightPos>13967.191,-4658.449,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -133,7 +133,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17813.725,-4658.449,1430</leftPos>
 			<rightPos>16953.725,-4658.449,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -144,7 +144,7 @@
 			<frontPos>0,0,0</frontPos>			
 			<leftPos>20077.023,-4658.449,1430</leftPos>
 			<rightPos>18867.023,-4658.449,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -155,7 +155,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17800,-1965,1425</leftPos>
 			<rightPos>16980,-1965,1425</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -166,7 +166,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17800,-1965,1425</leftPos>
 			<rightPos>16980,-1965,1425</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -177,7 +177,7 @@
 			<frontPos>17473.725,-6383.631,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -188,7 +188,7 @@
 			<frontPos>19737.023,-6383.631,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -199,7 +199,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>15887.725,-7555.631,1430</leftPos>
 			<rightPos>13967.725,-7555.631,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -210,7 +210,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17813.725,-7555.631,1430</leftPos>
 			<rightPos>16953.725,-7555.631,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -221,7 +221,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>19737.023,-7555.631,1430</leftPos>
 			<rightPos>18867.023,-7555.631,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -232,7 +232,7 @@
 			<frontPos>19737.023,-9062.313,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -243,7 +243,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>15887.191,-10234.313,1430</leftPos>
 			<rightPos>13967.191,-10234.313,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -254,7 +254,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>19737.023,-10234.313,1430</leftPos>
 			<rightPos>16953.725,-10234.313,1430</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -265,6 +265,10 @@
 			<frontPos>17473.725,-1972.814,1430</frontPos>		
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
+			<leftTopPos>0,0,0</leftTopPos>
+			<leftBottomPos>0,0,0</leftBottomPos>
+			<rightTopPos>0,0,0</rightTopPos>
+			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_1>
 		<ds_2>
 			<speed>1</speed>
@@ -272,6 +276,10 @@
 			<frontPos>19737.023,-1979.767,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
+			<leftTopPos>0,0,0</leftTopPos>
+			<leftBottomPos>0,0,0</leftBottomPos>
+			<rightTopPos>0,0,0</rightTopPos>
+			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_2>
 		<ds_3>
 			<speed>1</speed>
@@ -279,6 +287,10 @@
 			<frontPos>17473.725,-4658.449,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
+			<leftTopPos>0,0,0</leftTopPos>
+			<leftBottomPos>0,0,0</leftBottomPos>
+			<rightTopPos>0,0,0</rightTopPos>
+			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_3>
 		<ds_4>
 			<speed>1</speed>
@@ -286,6 +298,10 @@
 			<frontPos>19737.023,-4658.449,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
+			<leftTopPos>0,0,0</leftTopPos>
+			<leftBottomPos>0,0,0</leftBottomPos>
+			<rightTopPos>0,0,0</rightTopPos>
+			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_4>
 		<ds_5>
 			<speed>1</speed>
@@ -293,6 +309,10 @@
 			<frontPos>17473.725,-7555.631,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
+			<leftTopPos>0,0,0</leftTopPos>
+			<leftBottomPos>0,0,0</leftBottomPos>
+			<rightTopPos>0,0,0</rightTopPos>
+			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_5>
 		<ds_6>
 			<speed>1</speed>
@@ -300,6 +320,10 @@
 			<frontPos>19737.023,-7555.631,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
+			<leftTopPos>0,0,0</leftTopPos>
+			<leftBottomPos>0,0,0</leftBottomPos>
+			<rightTopPos>0,0,0</rightTopPos>
+			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_6>
 		<ds_7>
 			<speed>1</speed>
@@ -307,6 +331,10 @@
 			<frontPos>19737.023,-10234.313,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
+			<leftTopPos>0,0,0</leftTopPos>
+			<leftBottomPos>0,0,0</leftBottomPos>
+			<rightTopPos>0,0,0</rightTopPos>
+			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_7>
 		
 		<stacker1_1>
@@ -315,7 +343,7 @@
 			<frontPos>13967.191,-3342.328,1430</frontPos>		
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -327,7 +355,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>13967.191,-3342.328,1430</leftBottomPos>
 			<rightTopPos>0,-3342.328,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>			
@@ -339,7 +367,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -351,8 +379,8 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
-			<leftBottomPos>0,0,0</leftBottomPos>
+			<leftTopPos>0,0,0</leftTopPos>
+			<leftBottomPos>13967.191,-3342.328,1430</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</stacker1_4>
@@ -363,7 +391,7 @@
 			<frontPos>13967.191,-4658.449,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -371,11 +399,11 @@
 
 		<stacker2_1>
 			<speed>1</speed>
-			<backPos>13967.191,-7555.631,1430</backPos>
-			<frontPos>13967.191,-8918.343,1430</frontPos>
+			<backPos>13953.455,-7555.631,1430</backPos>
+			<frontPos>13953.455,-8918.343,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -389,7 +417,7 @@
 			<rightPos>0,0,0</rightPos>
 			<leftBottomPos>13967.191,-8918.343,1430</leftBottomPos>
 			<righttopPos>0,0,0</righttopPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -401,7 +429,7 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
@@ -413,8 +441,8 @@
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
-			<leftBottomPos>0,0,0</leftBottomPos>
+			<leftTopPos>0,0,0</leftTopPos>
+			<leftBottomPos>13967.191,-8918.343,1430</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</stacker2_4>
@@ -425,7 +453,7 @@
 			<frontPos>13967.191,-10234.313,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
-			<letfTopPos>0,0,0</letfTopPos>
+			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>

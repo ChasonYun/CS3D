@@ -36,7 +36,7 @@ namespace CS3D
 
         private void btnPutIn_Click(object sender, RoutedEventArgs e)
         {
-            model.StockIn("01.04.20");
+            model.StockIn("06.04.01");
         }
 
         private void btnInitWareHouse_Click(object sender, RoutedEventArgs e)
@@ -79,6 +79,51 @@ namespace CS3D
         private void btnS_3_Click(object sender, RoutedEventArgs e)
         {
             model.SetConveyor("stacker1_3", true);
+        }
+
+        private void btnC_8_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("conveyor_8", true);
+        }
+
+        private void btnD_3_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("ds_3", true);
+        }
+
+        private void btnC_15_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("conveyor_15", true);
+        }
+
+        private void btnD_5_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("ds_5", true);
+        }
+
+        private void btnC_18_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("conveyor_18", true);
+        }
+
+        private void btnS_21_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("stacker2_1", true);
+        }
+
+        private void btnS_22_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("stacker2_2", true);
+        }
+
+        private void btnS_23_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("stacker2_3", true);
+        }
+
+        private void btnC_17_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("conveyor_17", true);
         }
     }
 }

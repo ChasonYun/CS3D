@@ -9,12 +9,13 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" >
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="获取库位信息" x:Name="btnInitWareHouse" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnInitWareHouse_Click" />
-                <Button Content="入库（01.04.20）" x:Name="btnPutIn" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnPutIn_Click" />
+                <Button Content="入库（03.04.04）" x:Name="btnPutIn" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnPutIn_Click" />
                 <Button Content="conveyor_1" x:Name="btnC_1" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnC_1_Click" />
                 <Button Content="ds_1" x:Name="btnD_1" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnD_1_Click" />
                 <Button Content="conveyor_4" x:Name="btnC_4" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnC_4_Click" />
@@ -23,8 +24,22 @@
                 <Button Content="stacker1-2" x:Name="btnS_2" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnS_2_Click" />
                 <Button Content="stacker1-3" x:Name="btnS_3" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnS_3_Click" />
             </StackPanel>
+        
         </Grid>
         <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="conveyor_8" x:Name="btnC_8" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnC_8_Click" />
+                <Button Content="ds_3" x:Name="btnD_3" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnD_3_Click" />
+                <Button Content="conveyor_15" x:Name="btnC_15" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnC_15_Click" />
+                <Button Content="ds_5" x:Name="btnD_5" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnD_5_Click" />
+                <Button Content="conveyor_18" x:Name="btnC_18" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnC_18_Click" />
+                <Button Content="conveyor_17" x:Name="btnC_17" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnC_17_Click" />
+                <Button Content="stacker2-1" x:Name="btnS_21" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnS_21_Click" />
+                <Button Content="stacker2-2" x:Name="btnS_22" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnS_22_Click" />
+                <Button Content="stacker2-3" x:Name="btnS_23" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnS_23_Click" />
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2">
             <ContentControl x:Name="testControl"/>
         </Grid>
     </Grid>
