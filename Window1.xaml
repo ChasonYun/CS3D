@@ -40,7 +40,28 @@
             </StackPanel>
         </Grid>
         <Grid Grid.Row="2">
-            <ContentControl x:Name="testControl"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="100"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <ContentControl x:Name="testControl"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Green">
+                    <TextBlock Text="shelfNo" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" Margin="2"></TextBlock>
+                    <TextBlock x:Name="tbxShelfNo" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" ></TextBlock>
+                    <TextBlock Text="shelfState" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" Margin="2"></TextBlock>
+                    <TextBlock x:Name="tbxShelfState" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" ></TextBlock>
+                    <TextBlock Text="productName" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" Margin="2"></TextBlock>
+                    <TextBlock x:Name="tbxProductName" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" ></TextBlock>
+                    <TextBlock Text="productId" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" Margin="2"></TextBlock>
+                    <TextBlock x:Name="tbxProductId" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" ></TextBlock>
+                    <TextBlock Text="productId" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" Margin="2"></TextBlock>
+                    <TextBlock x:Name="tbxLastUpTime" TextAlignment="Center" Background="Gray" Height="20" FontSize="15" ></TextBlock>
+                </StackPanel>
+               
+            </Grid>
         </Grid>
     </Grid>
 </Window>

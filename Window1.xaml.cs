@@ -26,13 +26,17 @@ namespace CS3D
         {
             InitializeComponent();
             testControl.Content = model;
+            model.GetProductmsg += Model_GetProductmsg;
         }
 
-        private void btnStart_Click(object sender, RoutedEventArgs e)
+        private void Model_GetProductmsg(string shelfNo, string shelfState, string productName, string productId, DateTime lastUpTime)
         {
-            
+            tbxShelfNo.Text = shelfNo;
+            tbxShelfState.Text = shelfState;
+            tbxProductName.Text = productName;
+            tbxProductId.Text = productId;
+            tbxLastUpTime.Text = lastUpTime.ToString();
         }
-
 
         private void btnPutIn_Click(object sender, RoutedEventArgs e)
         {

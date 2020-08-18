@@ -291,7 +291,7 @@ namespace CS3D
         /// <summary>
         /// 入库口模型起点绝对坐标
         /// </summary>
-        public Point3D StockInEntrance { get => stockInEntranceOriPos; set => stockInEntranceOriPos = value; }
+        public Point3D StockInEntranceOriPos { get => stockInEntranceOriPos; set => stockInEntranceOriPos = value; }
         /// <summary>
         /// 堆垛机立柱 1 绝对坐标
         /// </summary>

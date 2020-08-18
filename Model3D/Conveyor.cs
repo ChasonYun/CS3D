@@ -21,10 +21,11 @@ namespace CS3D
     {
         private bool isReady_;
         private Direction direction_;
-        private Point3D innerOffSet_;
 
         private string name_;
-        private double speed_;
+        private double speed_x;
+        private double speed_y;
+        private double speed_z;
 
         private Point3D backPos_;
         private Point3D frontPos_;
@@ -35,11 +36,14 @@ namespace CS3D
         private Point3D rightBottomPos_;
         private Point3D leftTopPos_;
         private Point3D leftBottomPos_;
+
         public Conveyor(string name, Direction direction)
         {
             this.name_ = name;
             this.direction_ = direction;
-            this.speed_ = GetSpeed(name_);
+            this.speed_x = GetSpeed_X(name_);
+            this.speed_y = GetSpeed_Y(name_);
+            this.speed_z = GetSpeed_Z(name_);
             this.backPos_ = GetBackPos(name_);
             this.frontPos_ = GetFrontPos(name_);
             this.rightPos_ = GetRightPos(name_);
@@ -52,8 +56,9 @@ namespace CS3D
         public bool IsReady { get => isReady_; set => isReady_ = value; }
 
 
-        public double Speed { get => speed_; }
-        public Point3D InnerOffSet { get => innerOffSet_; set => innerOffSet_ = value; }
+        public double Speed_X { get => speed_x; }
+        public double Speed_Y { get => speed_y; }
+        public double Speed_Z { get => speed_z; }
 
         public Point3D BackPos { get => backPos_; set => backPos_ = value; }
 
@@ -74,7 +79,7 @@ namespace CS3D
 
         public Point3D RightBottomPos { get => rightBottomPos_; set => rightBottomPos_ = value; }
 
-        protected ArrayList observers = new ArrayList();//
+        protected ArrayList observers = new ArrayList();
 
         public void Attach(IMission mission)
         {
@@ -86,11 +91,18 @@ namespace CS3D
             observers.Remove(mission);
         }
 
-        public virtual double GetSpeed(string conveyorName)
+        public virtual double GetSpeed_X(string conveyorName)
         {
-            return Convert.ToDouble(XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/speed"));
+            return Convert.ToDouble(XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/speed_x"));
         }
-
+        public virtual double GetSpeed_Y(string conveyorName)
+        {
+            return Convert.ToDouble(XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/speed_y"));
+        }
+        public virtual double GetSpeed_Z(string conveyorName)
+        {
+            return Convert.ToDouble(XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/speed_z"));
+        }
         public virtual Point3D GetBackPos(string conveyorName)
         {
             string tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + conveyorName + "/backPos");
@@ -299,7 +311,6 @@ namespace CS3D
 
     public class Conveyor_15 : Conveyor
     {
-        private bool isReady_;
         public Conveyor_15(Direction direction) : base("conveyor_15", direction)
         {
 
@@ -468,7 +479,7 @@ namespace CS3D
 
     }
 
-    public class Stacker2_3 : Conveyor//入库/出库
+    public class Stacker2_3 : Conveyor//放入库位
     {
 
         public Stacker2_3(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker2_3", direction)

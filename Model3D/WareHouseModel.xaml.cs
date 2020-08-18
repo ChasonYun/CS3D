@@ -28,6 +28,11 @@ namespace CS3D
 
         public static event HintEventHandler HintEvent;
 
+
+        public delegate void GetProductMsg(string shelfNo, string shelfState, string productName, string productId, DateTime lastUpTime);
+
+        public event GetProductMsg GetProductmsg;
+
         private Point3D initPosition;//记录相机初始信息
         private Vector3D initLookDirection;
         private Vector3D initUpDirection;
@@ -351,8 +356,30 @@ namespace CS3D
         {
             tempPoint = Mouse.GetPosition(e.Source as FrameworkElement);
             VP3D.Focus();
+            tempPoint = e.GetPosition(VP3D);
+            PointHitTestParameters hitTestParameters = new PointHitTestParameters(tempPoint);
+            VisualTreeHelper.HitTest(VP3D, null, ResultCallback, hitTestParameters);
         }
 
+        public HitTestResultBehavior ResultCallback(HitTestResult result)
+        {
+            RayHitTestResult rayHitTest = result as RayHitTestResult;
+            if (rayHitTest != null)
+            {
+                RayMeshGeometry3DHitTestResult rayMeshGeometry3DHitTestResult = rayHitTest as RayMeshGeometry3DHitTestResult;
+                if (rayMeshGeometry3DHitTestResult != null)
+                {
+                    foreach(var temp in product_Info.Values)
+                    {
+                        if(temp.Model.Content== rayMeshGeometry3DHitTestResult.ModelHit)
+                        {
+                            GetProductmsg(temp.ShelfNo, temp.ShelfState.ToString(), temp.ProductName, temp.ProductId, temp.LastUpTime);
+                        }
+                    }
+                }
+            }
+            return HitTestResultBehavior.Continue;
+        }
 
         private void VP3D_MouseWheel(object sender, MouseWheelEventArgs e)
         {
@@ -548,12 +575,11 @@ namespace CS3D
 
                 productInfo.ShelfNo = shelfNo;
                 productInfo.Model = cloneModel;
-                productInfo.ProductOffSet = (Point3D)(modelPosition.StockInEntrance - modelPosition.ProductOriPos);
+                productInfo.ProductOffSet = (Point3D)(modelPosition.StockInEntranceOriPos - modelPosition.ProductOriPos);
                 product_Info.Add(shelfNo, productInfo);
-                mission = new Mission("StockIn", shelfNo, modelPosition, product_Info, stackerParts_Info, perspectiveCamera);
+                mission = new Mission("StockIn", shelfNo, modelPosition, product_Info, stackerParts_Info);
                 missionList.Add(mission);
             }
-
         }
 
         public void SetConveyor(string conveyorName, bool isReady)
@@ -614,6 +640,13 @@ namespace CS3D
             foreach (ShelfInfo shelfInfo in shelf_Info.Values)
             {
                 shelfInfo.Model.Content.Transform = new TranslateTransform3D() { OffsetX = shelfInfo.ShelfOffSet.X, OffsetY = shelfInfo.ShelfOffSet.Y, OffsetZ = shelfInfo.ShelfOffSet.Z };
+            }
+            if (mission != null)
+            {
+                Point3D tempWorldPosition = ((Mission)mission).worldPosition;
+                Point3D tempCameraPosition = Point3D.Add(tempWorldPosition, new Vector3D(3000, 2000, 2000));
+                perspectiveCamera.Position = new Point3D(tempCameraPosition.X, tempCameraPosition.Z, -tempCameraPosition.Y);
+                cameraLookDirection = new Vector3D(3000,2000,-2000);
             }
         }
 

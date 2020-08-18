@@ -1,30 +1,50 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Config>
 	<Model3D>
-		<CodingRules>6,5,36	</CodingRules><!--排层列-->		
-		<GoodsSize>1000,1200,1300</GoodsSize><!--货物长宽高-->		
-		<ProductOriPos>17473.725,3000,655</ProductOriPos><!--货物模型 起始绝对坐标 -->		
-		<StockInEntranceOriPos>17473.725,200,1430</StockInEntranceOriPos><!--入库口坐标-->
-		<ShelfOriPos>12694.44,-1999.992,1347</ShelfOriPos><!--01.01.01 坐标-->
-		<ShelfDistance>-2390</ShelfDistance><!--货架 x 方向间距-->	
-		
-		<StackerOriPos_1>13749.056, -3407.414, 4108.809</StackerOriPos_1><!--堆垛机立柱1 -->
-		<PlatformOriPos_1>13967.191, -3334.417, 699.658</PlatformOriPos_1><!-- 载货台 1-->
-		<TopForkOriPos_1>13967.191, -3342.328, 820.658</TopForkOriPos_1><!--上叉 1-->
-		<MiddleForkOriPos_1>13967.191, -3342.43, 785.158</MiddleForkOriPos_1><!--中叉 1-->
-		<BottomForkOriPos_1>13967.191, -3342.478, 747.158</BottomForkOriPos_1><!--下叉 1-->
-		<VIFS_1>13978.008, -3351.014, 1849.265</VIFS_1><!--VISF 1-->
-		<StackerOriPos_2>13735.319, -8983.278, 4108.809</StackerOriPos_2><!--堆垛机立柱2 -->		
-		<PlatformOriPos_2>13953.455, -8910.281, 701.015</PlatformOriPos_2><!-- 载货台 2-->
-		<TopForkOriPos_2>13953.455, -8918.193, 822.015</TopForkOriPos_2><!--上叉 2-->
-		<MiddleForkOriPos_2>13953.455, -8918.295, 786.515</MiddleForkOriPos_2><!--中叉 2-->
-		<BottomForkOriPos_2>13953.455, -8918.343, 748.515</BottomForkOriPos_2><!--下叉 2-->
-		<VIFS_2>13964.271, -8926.879, 1850.622</VIFS_2><!--VISF 2-->
-		
+		<CodingRules>6,5,36	</CodingRules>
+		<!--排层列-->
+		<GoodsSize>1000,1200,1300</GoodsSize>
+		<!--货物长宽高-->
+		<ProductOriPos>17473.725,3000,655</ProductOriPos>
+		<!--货物模型 起始绝对坐标 -->
+		<StockInEntranceOriPos>17473.725,200,1430</StockInEntranceOriPos>
+		<!--入库口坐标-->
+		<ShelfOriPos>12694.44,-1999.992,1347</ShelfOriPos>
+		<!--01.01.01 坐标-->
+		<ShelfDistance>-2390</ShelfDistance>
+		<!--货架 x 方向间距-->
+
+		<StackerOriPos_1>13749.056,-3407.414,4108.809</StackerOriPos_1>
+		<!--堆垛机立柱1 -->
+		<PlatformOriPos_1>13967.191,-3337.417,1093.416</PlatformOriPos_1>
+		<!-- 载货台 1-->
+		<TopForkOriPos_1>13967.191,-3342.328,820.658</TopForkOriPos_1>
+		<!--上叉 1-->
+		<MiddleForkOriPos_1>13967.191,-3342.43,785.158</MiddleForkOriPos_1>
+		<!--中叉 1-->
+		<BottomForkOriPos_1>13967.191,-3342.478,747.158</BottomForkOriPos_1>
+		<!--下叉 1-->
+		<VIFS_1>13978.008,-3351.014,1849.265</VIFS_1>
+		<!--VISF 1-->
+		<StackerOriPos_2>13735.319,-8983.278,4108.809</StackerOriPos_2>
+		<!--堆垛机立柱2 -->
+		<PlatformOriPos_2>13953.455,-8910.281,701.015</PlatformOriPos_2>
+		<!-- 载货台 2-->
+		<TopForkOriPos_2>13953.455,-8918.193,822.015</TopForkOriPos_2>
+		<!--上叉 2-->
+		<MiddleForkOriPos_2>13953.455,-8918.295,786.515</MiddleForkOriPos_2>
+		<!--中叉 2-->
+		<BottomForkOriPos_2>13953.455,-8918.343,748.515</BottomForkOriPos_2>
+		<!--下叉 2-->
+		<VIFS_2>13964.271,-8926.879,1850.622</VIFS_2>
+		<!--VISF 2-->
+
 		<conveyor_1>
-			<speed>1</speed>			
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>17473.725,200.814,1430</backPos>
-			<frontPos>17473.725,-800.814,1430</frontPos>			
+			<frontPos>17473.725,-800.814,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
@@ -33,7 +53,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_1>
 		<conveyor_2>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>19737.023,200,1430</backPos>
 			<frontPos>19737.023,-800,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -44,7 +66,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_2>
 		<conveyor_3>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>15887.191,-1972.814,1430</leftPos>
@@ -55,7 +79,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_3>
 		<conveyor_4>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17813.725,-1972.814,1430</leftPos>
@@ -66,7 +92,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_4>
 		<conveyor_5>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>20077.023,-1979.767,1430</leftPos>
@@ -77,14 +105,18 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_5>
 		<conveyor_6>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17800,-1965,1425</leftPos>
 			<rightPos>16980,-1965,1425</rightPos>
 		</conveyor_6>
 		<conveyor_7>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17800,-1965,1425</leftPos>
@@ -95,7 +127,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_7>
 		<conveyor_8>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>17473.725,-3144.814,1430</backPos>
 			<frontPos>17473.725,-3486.814,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -106,7 +140,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_8>
 		<conveyor_9>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>19737.023,-3151.767,1430</backPos>
 			<frontPos>19737.023,-3486.449,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -117,7 +153,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_9>
 		<conveyor_10>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>15887.191,-4658.449,1430</leftPos>
@@ -128,7 +166,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_10>
 		<conveyor_11>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17813.725,-4658.449,1430</leftPos>
@@ -139,9 +179,11 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_11>
 		<conveyor_12>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
-			<frontPos>0,0,0</frontPos>			
+			<frontPos>0,0,0</frontPos>
 			<leftPos>20077.023,-4658.449,1430</leftPos>
 			<rightPos>18867.023,-4658.449,1430</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
@@ -150,7 +192,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_12>
 		<conveyor_13>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17800,-1965,1425</leftPos>
@@ -161,7 +205,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_13>
 		<conveyor_14>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17800,-1965,1425</leftPos>
@@ -172,7 +218,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_14>
 		<conveyor_15>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>17473.725,-5830.449,1430</backPos>
 			<frontPos>17473.725,-6383.631,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -183,7 +231,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_15>
 		<conveyor_16>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>19737.023,-5830.449,1430</backPos>
 			<frontPos>19737.023,-6383.631,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -194,7 +244,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_16>
 		<conveyor_17>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>15887.725,-7555.631,1430</leftPos>
@@ -205,7 +257,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_17>
 		<conveyor_18>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>17813.725,-7555.631,1430</leftPos>
@@ -216,7 +270,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_18>
 		<conveyor_19>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>19737.023,-7555.631,1430</leftPos>
@@ -227,7 +283,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_19>
 		<conveyor_20>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>19737.023,-8727.313,1430</backPos>
 			<frontPos>19737.023,-9062.313,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -238,7 +296,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_20>
 		<conveyor_21>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>15887.191,-10234.313,1430</leftPos>
@@ -249,7 +309,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_21>
 		<conveyor_22>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>19737.023,-10234.313,1430</leftPos>
@@ -260,9 +322,11 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</conveyor_22>
 		<ds_1>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>17473.725,-1972.814,1430</backPos>
-			<frontPos>17473.725,-1972.814,1430</frontPos>		
+			<frontPos>17473.725,-1972.814,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
@@ -271,7 +335,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_1>
 		<ds_2>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>19737.023,-1979.767,1430</backPos>
 			<frontPos>19737.023,-1979.767,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -282,7 +348,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_2>
 		<ds_3>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>17473.725,-4658.449,1430</backPos>
 			<frontPos>17473.725,-4658.449,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -293,7 +361,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_3>
 		<ds_4>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>19737.023,-4658.449,1430</backPos>
 			<frontPos>19737.023,-4658.449,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -304,7 +374,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_4>
 		<ds_5>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>17473.725,-7555.631,1430</backPos>
 			<frontPos>17473.725,-7555.631,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -315,7 +387,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_5>
 		<ds_6>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>19737.023,-7555.631,1430</backPos>
 			<frontPos>19737.023,-7555.631,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -326,7 +400,9 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_6>
 		<ds_7>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>19737.023,-10234.313,1430</backPos>
 			<frontPos>19737.023,-10234.313,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -336,11 +412,13 @@
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</ds_7>
-		
+
 		<stacker1_1>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>13967.191,-1979.767,1430</backPos>
-			<frontPos>13967.191,-3342.328,1430</frontPos>		
+			<frontPos>13967.191,-3342.328,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
@@ -350,7 +428,9 @@
 		</stacker1_1>
 
 		<stacker1_2>
-			<speed>1</speed>
+			<speed_x>20</speed_x>
+			<speed_y>20</speed_y>
+			<speed_z>20</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -358,13 +438,15 @@
 			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>13967.191,-3342.328,1430</leftBottomPos>
 			<rightTopPos>0,-3342.328,0</rightTopPos>
-			<rightBottomPos>0,0,0</rightBottomPos>			
+			<rightBottomPos>0,0,0</rightBottomPos>
 		</stacker1_2>
-		
+
 		<stacker1_3>
-			<speed>1</speed>
-			<backPos>0,0,0</backPos>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<frontPos>0,0,0</frontPos>
+			<backPos>0,0,0</backPos>
 			<leftPos>0,0,0</leftPos>
 			<rightPos>0,0,0</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
@@ -374,7 +456,9 @@
 		</stacker1_3>
 
 		<stacker1_4>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -386,7 +470,9 @@
 		</stacker1_4>
 
 		<stacker1_5>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>13967.191,-3342.328,1430</backPos>
 			<frontPos>13967.191,-4658.449,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -398,7 +484,9 @@
 		</stacker1_5>
 
 		<stacker2_1>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>13953.455,-7555.631,1430</backPos>
 			<frontPos>13953.455,-8918.343,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -410,7 +498,9 @@
 		</stacker2_1>
 
 		<stacker2_2>
-			<speed>1</speed>
+			<speed_x>20</speed_x>
+			<speed_y>20</speed_y>
+			<speed_z>20</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -424,7 +514,9 @@
 		</stacker2_2>
 
 		<stacker2_3>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -436,7 +528,9 @@
 		</stacker2_3>
 
 		<stacker2_4>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
 			<leftPos>0,0,0</leftPos>
@@ -448,7 +542,9 @@
 		</stacker2_4>
 
 		<stacker2_5>
-			<speed>1</speed>
+			<speed_x>10</speed_x>
+			<speed_y>10</speed_y>
+			<speed_z>10</speed_z>
 			<backPos>13967.191,-8918.343,1430</backPos>
 			<frontPos>13967.191,-10234.313,1430</frontPos>
 			<leftPos>0,0,0</leftPos>
