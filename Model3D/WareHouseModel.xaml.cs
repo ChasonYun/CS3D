@@ -239,9 +239,9 @@ namespace CS3D
                 chain_7.Material = diffMat_chain7;
                 conveyor_14.Material = diffMat_conveyor14;
                 chain_14.Material = diffMat_chain14;
-
                 conveyor_6.Material = diffMat_conveyor6;
                 chain_6.Material = diffMat_chain6;
+
                 //conveyor_222.Material = diffMat_conveyor;
                 //conveyor_223.Material = diffMat_conveyor;
                 //conveyor_224.Material = diffMat_conveyor;
@@ -288,7 +288,6 @@ namespace CS3D
                 Prism_006.Material = diffMat_Prism;
                 Prism_007.Material = diffMat_Prism;
                 Prism_008.Material = diffMat_Prism;
-                touchscreen_.Material = diffMat_shangcha;
                 Rec_24097686.Material = diffMat_Ground;
 
                 originProduct_.Material = diffMat_goods;
