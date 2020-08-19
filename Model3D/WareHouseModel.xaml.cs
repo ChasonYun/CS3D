@@ -140,9 +140,15 @@ namespace CS3D
         DiffuseMaterial diffMat_shangcha;
         DiffuseMaterial diffMat_zhongcha;
         DiffuseMaterial diffMat_xiacha;
-        DiffuseMaterial diffMat_conveyor1282;
-        DiffuseMaterial diffMat_chain1282;
-        DiffuseMaterial diffMat_conveyor;
+
+        DiffuseMaterial diffMat_conveyor14;
+        DiffuseMaterial diffMat_chain14;
+
+        DiffuseMaterial diffMat_conveyor7;
+        DiffuseMaterial diffMat_chain7;
+
+        DiffuseMaterial diffMat_conveyor6;
+        DiffuseMaterial diffMat_chain6;
 
         DiffuseMaterial diffMat_obj36_56;
 
@@ -169,9 +175,11 @@ namespace CS3D
                 diffMat_zhongcha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
                 diffMat_xiacha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
 
-                diffMat_conveyor1282 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173,175,154)));
-                diffMat_chain1282 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(30, 30, 30)));
-                diffMat_conveyor = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/14124rm2.jpg", UriKind.Relative))));
+                diffMat_conveyor7 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173,175,154)));
+                diffMat_chain7 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(30, 30, 30)));
+
+                diffMat_conveyor6 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(94, 80, 80)));
+                diffMat_chain6 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(30, 30, 30)));
 
                 diffMat_obj36_56 = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303097.jpg", UriKind.Relative))));
 
@@ -227,31 +235,33 @@ namespace CS3D
                 BASEBOX_001.Material = diffMat_BASEBOX;
                 BASEBOX_002.Material = diffMat_BASEBOX;
 
-                conveyor_1282.Material = diffMat_conveyor1282;
-                chain_1282.Material = diffMat_chain1282;
-                conveyor_1283.Material = diffMat_conveyor1282;
-                chain_1283.Material = diffMat_chain1282;
+                conveyor_7.Material = diffMat_conveyor7;
+                chain_7.Material = diffMat_chain7;
+                conveyor_14.Material = diffMat_conveyor14;
+                chain_14.Material = diffMat_chain14;
 
-                conveyor_222.Material = diffMat_conveyor;
-                conveyor_223.Material = diffMat_conveyor;
-                conveyor_224.Material = diffMat_conveyor;
-                conveyor_225.Material = diffMat_conveyor;
+                conveyor_6.Material = diffMat_conveyor6;
+                chain_6.Material = diffMat_chain6;
+                //conveyor_222.Material = diffMat_conveyor;
+                //conveyor_223.Material = diffMat_conveyor;
+                //conveyor_224.Material = diffMat_conveyor;
+                //conveyor_6.Material = diffMat_conveyor;
 
-                conveyor_1284.Material = diffMat_conveyor;
-                conveyor_1285.Material = diffMat_conveyor;
-                conveyor_1286.Material = diffMat_conveyor;
-                conveyor_1287.Material = diffMat_conveyor;
-                conveyor_1290.Material = diffMat_conveyor;
-                conveyor_1291.Material = diffMat_conveyor;
-                conveyor_1292.Material = diffMat_conveyor;
-                conveyor_1294.Material = diffMat_conveyor;
-                conveyor_1295.Material = diffMat_conveyor;
-                conveyor_1296.Material = diffMat_conveyor;
+                //conveyor_1284.Material = diffMat_conveyor;
+                //conveyor_1285.Material = diffMat_conveyor;
+                //conveyor_1286.Material = diffMat_conveyor;
+                //conveyor_1287.Material = diffMat_conveyor;
+                //conveyor_1290.Material = diffMat_conveyor;
+                //conveyor_1291.Material = diffMat_conveyor;
+                //conveyor_1292.Material = diffMat_conveyor;
+                //conveyor_1294.Material = diffMat_conveyor;
+                //conveyor_1295.Material = diffMat_conveyor;
+                //conveyor_1296.Material = diffMat_conveyor;
 
-                Led_zhijia_042.Material = diffMat_conveyor;
-                Led_zhijia_043.Material = diffMat_conveyor;
-                obj_178.Material = diffMat_conveyor;
-                obj_179.Material = diffMat_conveyor;
+                //Led_zhijia_042.Material = diffMat_conveyor;
+                //Led_zhijia_043.Material = diffMat_conveyor;
+                //obj_178.Material = diffMat_conveyor;
+                //obj_179.Material = diffMat_conveyor;
 
                 obj_036.Material = diffMat_obj36_56;
                 obj_056.Material = diffMat_obj36_56;
