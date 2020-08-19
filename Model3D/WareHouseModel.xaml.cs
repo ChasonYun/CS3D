@@ -136,12 +136,12 @@ namespace CS3D
         DiffuseMaterial diffMat_Prism;
 
         DiffuseMaterial diffMat_duiduojilizhu;
-        DiffuseMaterial diffMat_palletCorral;
         DiffuseMaterial diffMat_BASEBOX;
         DiffuseMaterial diffMat_shangcha;
         DiffuseMaterial diffMat_zhongcha;
         DiffuseMaterial diffMat_xiacha;
         DiffuseMaterial diffMat_conveyor1282;
+        DiffuseMaterial diffMat_chain1282;
         DiffuseMaterial diffMat_conveyor;
 
         DiffuseMaterial diffMat_obj36_56;
@@ -150,6 +150,7 @@ namespace CS3D
         DiffuseMaterial diffMat_BOX;
         DiffuseMaterial diffMat_goods;
         DiffuseMaterial diffMat_Pallet;
+        DiffuseMaterial diffMat_Ground;
         /// <summary>
         /// 初始化刷子工具
         /// </summary>
@@ -163,12 +164,13 @@ namespace CS3D
                 brushDuiduojilizhu.TileMode = TileMode.Tile;
                 diffMat_duiduojilizhu = new DiffuseMaterial(brushDuiduojilizhu);
 
-                diffMat_palletCorral = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303099.jpg", UriKind.Relative))));
                 diffMat_BASEBOX = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303096.jpg", UriKind.Relative))));
                 diffMat_shangcha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
                 diffMat_zhongcha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
                 diffMat_xiacha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
-                diffMat_conveyor1282 = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/105.jpg", UriKind.Relative))));
+
+                diffMat_conveyor1282 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173,175,154)));
+                diffMat_chain1282 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(30, 30, 30)));
                 diffMat_conveyor = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/14124rm2.jpg", UriKind.Relative))));
 
                 diffMat_obj36_56 = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303097.jpg", UriKind.Relative))));
@@ -187,6 +189,7 @@ namespace CS3D
                 diffMat_Prism = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303098.jpg", UriKind.Relative))));
 
                 diffMat_Pallet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM91450h.jpg", UriKind.Relative))));
+                diffMat_Ground = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(255,255,255)));
             }
             catch (Exception ex)
             {
@@ -219,14 +222,15 @@ namespace CS3D
                 VIFS_002.Material = diffMat_VIFS;
 
 
-                pallet_corral_001.Material = diffMat_palletCorral;
-                pallet_corral_002.Material = diffMat_palletCorral;
+               
 
                 BASEBOX_001.Material = diffMat_BASEBOX;
                 BASEBOX_002.Material = diffMat_BASEBOX;
 
                 conveyor_1282.Material = diffMat_conveyor1282;
+                chain_1282.Material = diffMat_chain1282;
                 conveyor_1283.Material = diffMat_conveyor1282;
+                chain_1283.Material = diffMat_chain1282;
 
                 conveyor_222.Material = diffMat_conveyor;
                 conveyor_223.Material = diffMat_conveyor;
@@ -275,7 +279,7 @@ namespace CS3D
                 Prism_007.Material = diffMat_Prism;
                 Prism_008.Material = diffMat_Prism;
                 touchscreen_.Material = diffMat_shangcha;
-                Rec_24097686.Material = diffMat_Pallet;
+                Rec_24097686.Material = diffMat_Ground;
 
                 originProduct_.Material = diffMat_goods;
 
@@ -363,6 +367,11 @@ namespace CS3D
 
         public HitTestResultBehavior ResultCallback(HitTestResult result)
         {
+            var tempModel = result.VisualHit as ModelVisual3D;
+            if (tempModel != null)
+            {
+
+            }
             RayHitTestResult rayHitTest = result as RayHitTestResult;
             if (rayHitTest != null)
             {
