@@ -141,14 +141,21 @@ namespace CS3D
         DiffuseMaterial diffMat_zhongcha;
         DiffuseMaterial diffMat_xiacha;
 
-        DiffuseMaterial diffMat_conveyor14;
-        DiffuseMaterial diffMat_chain14;
 
         DiffuseMaterial diffMat_conveyor7;
         DiffuseMaterial diffMat_chain7;
 
         DiffuseMaterial diffMat_conveyor6;
         DiffuseMaterial diffMat_chain6;
+
+        DiffuseMaterial diffMat_conveyor1;
+        DiffuseMaterial diffMat_roller1;
+
+        DiffuseMaterial diffMat_obj178;
+        DiffuseMaterial diffMat_sick1;
+        DiffuseMaterial diffMat_sick2;
+        DiffuseMaterial diffMat_track_top;
+        DiffuseMaterial diffMat_track_bottom;
 
         DiffuseMaterial diffMat_obj36_56;
 
@@ -157,6 +164,10 @@ namespace CS3D
         DiffuseMaterial diffMat_goods;
         DiffuseMaterial diffMat_Pallet;
         DiffuseMaterial diffMat_Ground;
+        DiffuseMaterial diffMat_track001;
+        DiffuseMaterial diffMat_obj036;
+        DiffuseMaterial diffMat_laser;
+        DiffuseMaterial diffMat_obj018;
         /// <summary>
         /// 初始化刷子工具
         /// </summary>
@@ -165,17 +176,17 @@ namespace CS3D
 
             try
             {
-                ImageBrush brushDuiduojilizhu = new ImageBrush();
-                brushDuiduojilizhu.ImageSource = new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303099.jpg", UriKind.Relative));
-                brushDuiduojilizhu.TileMode = TileMode.Tile;
-                diffMat_duiduojilizhu = new DiffuseMaterial(brushDuiduojilizhu);
+                //ImageBrush brushDuiduojilizhu = new ImageBrush();
+                //brushDuiduojilizhu.ImageSource = new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303099.jpg", UriKind.Relative));
+                //brushDuiduojilizhu.TileMode = TileMode.Tile;
+                diffMat_duiduojilizhu = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(224, 145, 92)));
 
                 diffMat_BASEBOX = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303096.jpg", UriKind.Relative))));
                 diffMat_shangcha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
                 diffMat_zhongcha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
                 diffMat_xiacha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
 
-                diffMat_conveyor7 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173,175,154)));
+                diffMat_conveyor7 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 175, 154)));
                 diffMat_chain7 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(30, 30, 30)));
 
                 diffMat_conveyor6 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(94, 80, 80)));
@@ -192,12 +203,29 @@ namespace CS3D
                 brushGoods.TileMode = TileMode.Tile;
                 diffMat_goods = new DiffuseMaterial(brushGoods);
 
-                diffMat_VIFS = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM91450i.jpg", UriKind.Relative))));
+                diffMat_VIFS = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(203,210,239)));
                 diffMat_zaihuotai = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(200, 164, 134)));
-                diffMat_Prism = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303098.jpg", UriKind.Relative))));
+              
+
 
                 diffMat_Pallet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM91450h.jpg", UriKind.Relative))));
-                diffMat_Ground = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(255,255,255)));
+                diffMat_Ground = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(255, 255, 255)));
+                diffMat_conveyor7 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 175, 154)));
+                diffMat_chain7 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(30, 30, 30)));
+                diffMat_conveyor6 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(95, 80, 80)));
+                diffMat_chain6 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(30, 30, 30)));
+                diffMat_conveyor1 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(128, 128, 128)));
+                diffMat_roller1 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(129, 47, 231)));
+                diffMat_obj178 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(128, 128, 128)));
+                diffMat_sick1 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(19, 152, 210)));
+                diffMat_sick2 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(39, 39, 39)));
+                diffMat_Prism = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(119, 228, 12)));
+                diffMat_track_top = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(15, 15, 15)));
+                diffMat_track_bottom = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 173, 173)));
+                diffMat_track001 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(141, 141, 141)));
+                diffMat_obj036 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 173, 173)));
+                diffMat_laser = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(24, 24, 24)));
+                diffMat_obj018 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 173, 173)));
             }
             catch (Exception ex)
             {
@@ -230,59 +258,100 @@ namespace CS3D
                 VIFS_002.Material = diffMat_VIFS;
 
 
-               
+
 
                 BASEBOX_001.Material = diffMat_BASEBOX;
                 BASEBOX_002.Material = diffMat_BASEBOX;
 
                 conveyor_7.Material = diffMat_conveyor7;
                 chain_7.Material = diffMat_chain7;
-                conveyor_14.Material = diffMat_conveyor14;
-                chain_14.Material = diffMat_chain14;
+                conveyor_14.Material = diffMat_conveyor7;
+                chain_14.Material = diffMat_chain7;
+
                 conveyor_6.Material = diffMat_conveyor6;
                 chain_6.Material = diffMat_chain6;
+                conveyor_5.Material = diffMat_conveyor6;
+                chain_5.Material = diffMat_chain6;
+                conveyor_4.Material = diffMat_conveyor6;
+                chain_4.Material = diffMat_chain6;
+                conveyor_3.Material = diffMat_conveyor6;
+                chain_3.Material = diffMat_chain6;
+                conveyor_13.Material = diffMat_conveyor6;
+                chain_13.Material = diffMat_chain6;
+                conveyor_12.Material = diffMat_conveyor6;
+                chain_12.Material = diffMat_chain6;
+                conveyor_11.Material = diffMat_conveyor6;
+                chain_11.Material = diffMat_chain6;
+                conveyor_10.Material = diffMat_conveyor6;
+                chain_10.Material = diffMat_chain6;
+                conveyor_19.Material = diffMat_conveyor6;
+                chain_19.Material = diffMat_chain6;
+                conveyor_18.Material = diffMat_conveyor6;
+                chain_18.Material = diffMat_chain6;
+                conveyor_17.Material = diffMat_conveyor6;
+                chain_17.Material = diffMat_chain6;
+                conveyor_22.Material = diffMat_conveyor6;
+                chain_22.Material = diffMat_chain6;
+                conveyor_23.Material = diffMat_conveyor6;
+                chain_23.Material = diffMat_chain6;
+                conveyor_21.Material = diffMat_conveyor6;
+                chain_21.Material = diffMat_chain6;
 
-                //conveyor_222.Material = diffMat_conveyor;
-                //conveyor_223.Material = diffMat_conveyor;
-                //conveyor_224.Material = diffMat_conveyor;
-                //conveyor_6.Material = diffMat_conveyor;
-
-                //conveyor_1284.Material = diffMat_conveyor;
-                //conveyor_1285.Material = diffMat_conveyor;
-                //conveyor_1286.Material = diffMat_conveyor;
-                //conveyor_1287.Material = diffMat_conveyor;
-                //conveyor_1290.Material = diffMat_conveyor;
-                //conveyor_1291.Material = diffMat_conveyor;
-                //conveyor_1292.Material = diffMat_conveyor;
-                //conveyor_1294.Material = diffMat_conveyor;
-                //conveyor_1295.Material = diffMat_conveyor;
-                //conveyor_1296.Material = diffMat_conveyor;
-
+                conveyor_1.Material = diffMat_conveyor1;
+                roller_1.Material = diffMat_roller1;
+                conveyor_2.Material = diffMat_conveyor1;
+                roller_2.Material = diffMat_roller1;
+                conveyor_ds2.Material = diffMat_conveyor1;
+                roller_ds2.Material = diffMat_roller1;
+                conveyor_ds1.Material = diffMat_conveyor1;
+                roller_ds1.Material = diffMat_roller1;
+                conveyor_9.Material = diffMat_conveyor1;
+                roller_9.Material = diffMat_roller1;
+                conveyor_8.Material = diffMat_conveyor1;
+                roller_8.Material = diffMat_roller1;
+                conveyor_ds4.Material = diffMat_conveyor1;
+                roller_ds4.Material = diffMat_roller1;
+                conveyor_ds3.Material = diffMat_conveyor1;
+                roller_ds3.Material = diffMat_roller1;
+                conveyor_16.Material = diffMat_conveyor1;
+                roller_16.Material = diffMat_roller1;
+                conveyor_15.Material = diffMat_conveyor1;
+                roller_15.Material = diffMat_roller1;
+                conveyor_ds6.Material = diffMat_conveyor1;
+                roller_ds6.Material = diffMat_roller1;
+                conveyor_ds5.Material = diffMat_conveyor1;
+                roller_ds5.Material = diffMat_roller1;
+                conveyor_20.Material = diffMat_conveyor1;
+                roller_20.Material = diffMat_roller1;
+                conveyor_ds7.Material = diffMat_conveyor1;
+                roller_ds7.Material = diffMat_roller1;
+                track_top_1.Material = diffMat_track_top;
+                track_top_2.Material = diffMat_track_top;
+                track_bottom_1.Material = diffMat_track_bottom;
+                track_bottom_2.Material = diffMat_track_bottom;
+                rack_001.Material = diffMat_track001;
+                rack_002.Material = diffMat_track001;
+                obj_058.Material = diffMat_track001;
+                obj_036.Material = diffMat_obj036;
+                obj_056.Material = diffMat_obj036;
+                obj_037.Material = diffMat_obj036;
+                obj_057.Material = diffMat_obj036;
+                laser_left_1.Material = diffMat_laser;
+                laser_left_2.Material = diffMat_laser;
+                laser_right_1.Material= diffMat_laser;
+                laser_right_2.Material = diffMat_laser;
                 //Led_zhijia_042.Material = diffMat_conveyor;
                 //Led_zhijia_043.Material = diffMat_conveyor;
-                //obj_178.Material = diffMat_conveyor;
-                //obj_179.Material = diffMat_conveyor;
+                obj_178.Material = diffMat_obj178;
+                obj_179.Material = diffMat_obj178;
+                obj_018.Material = diffMat_obj018;
+                obj_038.Material = diffMat_obj018;
+                obj_059.Material = diffMat_obj018;
+                sick_11.Material = diffMat_sick1;
+                sick_21.Material = diffMat_sick1;
+                sick_12.Material = diffMat_sick2;
+                sick_22.Material = diffMat_sick2;
 
-                obj_036.Material = diffMat_obj36_56;
-                obj_056.Material = diffMat_obj36_56;
-                rack_001.Material = diffMat_obj36_56;
-                rack_002.Material = diffMat_obj36_56;
-
-
-                obj_018.Material = diffMat_rack;
-              
-
-                obj_037.Material = diffMat_rack;
-                obj_038.Material = diffMat_rack;
-               
-
-                obj_056.Material = diffMat_rack;
-                obj_057.Material = diffMat_rack;
-                obj_058.Material = diffMat_rack;
-                obj_059.Material = diffMat_rack;
-              
-                Box_344569.Material = diffMat_BOX;
-                Box_344570.Material = diffMat_BOX;
 
                 Prism_005.Material = diffMat_Prism;
                 Prism_006.Material = diffMat_Prism;
@@ -290,7 +359,7 @@ namespace CS3D
                 Prism_008.Material = diffMat_Prism;
                 Rec_24097686.Material = diffMat_Ground;
 
-                originProduct_.Material = diffMat_goods;
+              
 
             }
             catch (Exception ex)
@@ -335,7 +404,7 @@ namespace CS3D
             {
                 if (HintEvent != null) HintEvent(string.Format("WareHouseModel_InitModel has exception:" + ex.ToString()));
             }
-           
+
         }
 
         /// <summary>
@@ -387,9 +456,9 @@ namespace CS3D
                 RayMeshGeometry3DHitTestResult rayMeshGeometry3DHitTestResult = rayHitTest as RayMeshGeometry3DHitTestResult;
                 if (rayMeshGeometry3DHitTestResult != null)
                 {
-                    foreach(var temp in product_Info.Values)
+                    foreach (var temp in product_Info.Values)
                     {
-                        if(temp.Model.Content== rayMeshGeometry3DHitTestResult.ModelHit)
+                        if (temp.Model.Content == rayMeshGeometry3DHitTestResult.ModelHit)
                         {
                             GetProductmsg(temp.ShelfNo, temp.ShelfState.ToString(), temp.ProductName, temp.ProductId, temp.LastUpTime);
                         }
@@ -437,23 +506,19 @@ namespace CS3D
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
 
-            //ModelVisual3D test = new ModelVisual3D();
-            //test.Content = originProduct.Content.Clone();
-            //RootGeometryContainer.Children.Add(test);
-            //Point3D temp = new Point3D(-23880.56, -2199.992, 14486.056);
-            //test.Transform = new TranslateTransform3D() { OffsetX = temp.X, OffsetY = temp.Y, OffsetZ = temp.Z };
+         
             testi++;
             if (testi == 1)
             {
-                xiacha001.Content.Transform = new TranslateTransform3D() { OffsetX = 1000 };
+                perspectiveCamera.Position = new Point3D(perspectiveCamera.Position.X + 1000, perspectiveCamera.Position.Y, perspectiveCamera.Position.Z);
             }
             if (testi == 2)
             {
-                zhongcha001.Content.Transform = new TranslateTransform3D() { OffsetX = 2000 };
+                perspectiveCamera.Position = new Point3D(perspectiveCamera.Position.X, perspectiveCamera.Position.Y + 1000, perspectiveCamera.Position.Z);
             }
             if (testi == 3)
             {
-                shangcha001.Content.Transform = new TranslateTransform3D() { OffsetX = 3000 };
+                perspectiveCamera.Position = new Point3D(perspectiveCamera.Position.X, perspectiveCamera.Position.Y, perspectiveCamera.Position.Z + 1000);
             }
             if (testi == 4)
             {
@@ -554,7 +619,7 @@ namespace CS3D
                         info.ProductOffSet = modelPosition.Get_ShelfState_1_OffSet(info.ShelfNo);
 
                         ModelVisual3D cloneModel = new ModelVisual3D();
-                        cloneModel.Content = originProduct.Content.Clone();
+                        //cloneModel.Content = originProduct.Content.Clone();
                         RootGeometryContainer.Children.Add(cloneModel);
 
                         info.Model = cloneModel;
@@ -588,7 +653,7 @@ namespace CS3D
                 ProductInfo productInfo = new ProductInfo();
 
                 ModelVisual3D cloneModel = new ModelVisual3D();
-                cloneModel.Content = originProduct.Content.Clone();
+                //cloneModel.Content = originProduct.Content.Clone();
                 RootGeometryContainer.Children.Add(cloneModel);
 
                 productInfo.ShelfNo = shelfNo;
@@ -664,7 +729,7 @@ namespace CS3D
                 Point3D tempWorldPosition = ((Mission)mission).worldPosition;
                 Point3D tempCameraPosition = Point3D.Add(tempWorldPosition, new Vector3D(3000, 2000, 2000));
                 perspectiveCamera.Position = new Point3D(tempCameraPosition.X, tempCameraPosition.Z, -tempCameraPosition.Y);
-                cameraLookDirection = new Vector3D(3000,2000,-2000);
+                cameraLookDirection = new Vector3D(3000, 2000, -2000);
             }
         }
 

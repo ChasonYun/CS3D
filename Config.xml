@@ -564,6 +564,6 @@
 		<!--用户名称-->
 		<UserId>root</UserId>
 		<!--密码-->
-		<Passsword>1234</Passsword>
+		<Passsword>123456</Passsword>
 	</MySqlParam>
 </Config>
