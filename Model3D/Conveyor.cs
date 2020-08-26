@@ -6,78 +6,101 @@ namespace CS3D
 {
     public enum Direction//运动方向
     {
-        Right = 1,
-        Left,
-        Front,
-        Back,
-        Bottom,
-        Top,
-        Top_Rigth,
-        Bottom_Right,
-        Top_Left,
-        Bottom_Left
+        Horizontal = 1,//横向移动  左右
+        Vertical,//纵向移动  前后
+        Oblique,//斜（斜 左 右 上 下）
+        PickUpPort,//取货 放货
+        Ex_Import//放货
     }
     public class Conveyor
     {
         private bool isReady_;
-        private Direction direction_;
 
         private string name_;
         private double speed_x;
         private double speed_y;
         private double speed_z;
 
-        private Point3D backPos_;
-        private Point3D frontPos_;
-        private Point3D leftPos_;
-        private Point3D rightPos_;
 
-        private Point3D rightTopPos_;
-        private Point3D rightBottomPos_;
-        private Point3D leftTopPos_;
-        private Point3D leftBottomPos_;
+        private Point3D startPos_;
+        private Point3D endPos_;
+        private Direction direction_;
 
-        public Conveyor(string name, Direction direction)
+        public Conveyor(string name,string missionType,string shelfNo,Direction direction,ModelPosition modelPosition)
         {
             this.name_ = name;
             this.direction_ = direction;
             this.speed_x = GetSpeed_X(name_);
             this.speed_y = GetSpeed_Y(name_);
             this.speed_z = GetSpeed_Z(name_);
-            this.backPos_ = GetBackPos(name_);
-            this.frontPos_ = GetFrontPos(name_);
-            this.rightPos_ = GetRightPos(name_);
-            this.leftPos_ = GetLeftPos(name_);
-            this.rightTopPos_ = GetRightTopPos(name_);
-            this.rightBottomPos_ = GetRightBottomPos(name_);
-            this.leftTopPos_ = GetLeftTopPos(name_);
-            this.leftBottomPos_ = GetLeftBottomPos(name_);
+            if (missionType.Equals("StockIn"))
+            {
+
+                switch (direction)
+                {
+                    case Direction.Horizontal://输送带 横向
+                        this.startPos_ = GetLeftPos(name);
+                        this.endPos_ = GetRightPos(name);
+                        break;
+                    case Direction.Vertical://输送带 纵向
+                        this.startPos_ = GetBackPos(name);
+                        this.endPos_ = GetFrontPos(name);
+                        break;
+                    case Direction.Oblique://堆垛机 斜向
+                        this.startPos_ = GetLeftBottomPos(name);
+                        this.endPos_ = modelPosition.GetShelfLinePos(shelfNo);
+                        break;
+                    case Direction.PickUpPort://取放货口 
+                        this.startPos_ = GetBackPos(name);
+                        this.endPos_ = GetFrontPos(name);
+                        break;
+                    case Direction.Ex_Import://进出货位
+                        this.startPos_ = modelPosition.GetShelfLinePos(shelfNo);
+                        this.endPos_ = modelPosition.GetShelfPos(shelfNo);
+                        break;
+                }
+
+            }else if (missionType.Equals("StockOut"))
+            {
+                switch (direction)
+                {
+                    case Direction.Horizontal:
+                        this.startPos_ = GetRightPos(Name);
+                        this.endPos_ = GetLeftPos(Name);
+                        break;
+                    case Direction.Vertical:
+                        this.startPos_ = GetFrontPos(Name);
+                        this.endPos_ = GetBackPos(Name);
+                        break;
+                    case Direction.Oblique:
+                        this.endPos_ = GetLeftBottomPos(this.Name);//终点 
+                        this.startPos_ = modelPosition.GetShelfLinePos(shelfNo);//巷道中的位置
+                        break;
+                    case Direction.PickUpPort:
+                        this.startPos_ = GetBackPos(name);
+                        this.endPos_ = GetFrontPos(name);
+                        break;
+                    case Direction.Ex_Import:
+                        this.startPos_ = modelPosition.GetShelfPos(shelfNo);
+                        this.endPos_ = modelPosition.GetShelfLinePos(shelfNo);
+                        break;
+                }
+               
+            }
+
         }
         public bool IsReady { get => isReady_; set => isReady_ = value; }
-
 
         public double Speed_X { get => speed_x; }
         public double Speed_Y { get => speed_y; }
         public double Speed_Z { get => speed_z; }
 
-        public Point3D BackPos { get => backPos_; set => backPos_ = value; }
-
-        public Point3D FrontPos { get => frontPos_; set => frontPos_ = value; }
-
-        public Point3D LeftPos { get => leftPos_; }
-        public Point3D RightPos { get => rightPos_; }
-
         public string Name { get => name_; }
 
+        public Point3D StartPos { get => startPos_; set => startPos_ = value; }
+
+        public Point3D EndPos { get => endPos_; set => endPos_ = value; }
         public Direction Direction { get => direction_; set => direction_ = value; }
-
-        public Point3D LeftBottomPos { get => leftBottomPos_; set => leftBottomPos_ = value; }
-
-        public Point3D RightTopPos { get => rightTopPos_; set => rightTopPos_ = value; }
-
-        public Point3D LeftTopPos { get => leftTopPos_; set => leftTopPos_ = value; }
-
-        public Point3D RightBottomPos { get => rightBottomPos_; set => rightBottomPos_ = value; }
 
         protected ArrayList observers = new ArrayList();
 
@@ -187,7 +210,6 @@ namespace CS3D
         }
 
 
-
         public void Notify()//通知方法
         {
             foreach (var obs in observers)
@@ -197,317 +219,4 @@ namespace CS3D
         }
     }
 
-    public class Conveyor_1 : Conveyor
-    {
-        public Conveyor_1(Direction direction) : base("conveyor_1", direction)
-        {
-
-        }
-    }
-
-    public class Conveyor_2 : Conveyor
-    {
-        public Conveyor_2(Direction direction) : base("conveyor_2", direction)
-        {
-
-        }
-    }
-    public class Conveyor_3 : Conveyor
-    {
-
-        public Conveyor_3(Direction direction) : base("conveyor_3", direction)
-        {
-
-        }
-    }
-    public class Conveyor_4 : Conveyor
-    {
-
-        public Conveyor_4(Direction direction) : base("conveyor_4", direction)
-        {
-
-        }
-    }
-    public class Conveyor_5 : Conveyor
-    {
-
-        public Conveyor_5(Direction direction) : base("conveyor_5", direction)
-        {
-
-        }
-    }
-
-    public class Conveyor_6 : Conveyor
-    {
-
-        public Conveyor_6(Direction direction) : base("conveyor_6", direction)
-        {
-
-        }
-    }
-    public class Conveyor_7 : Conveyor
-    {
-        public Conveyor_7(Direction direction) : base("conveyor_7", direction)
-        {
-
-        }
-    }
-    public class Conveyor_8 : Conveyor
-    {
-        public Conveyor_8(Direction direction) : base("conveyor_8", direction)
-        {
-
-        }
-    }
-    public class Conveyor_9 : Conveyor
-    {
-
-        public Conveyor_9(Direction direction) : base("conveyor_9", direction)
-        {
-
-        }
-    }
-    public class Conveyor_10 : Conveyor
-    {
-
-        public Conveyor_10(Direction direction) : base("conveyor_10", direction)
-        {
-
-        }
-    }
-    public class Conveyor_11 : Conveyor
-    {
-
-        public Conveyor_11(Direction direction) : base("conveyor_11", direction)
-        {
-
-        }
-    }
-    public class Conveyor_12 : Conveyor
-    {
-
-        public Conveyor_12(Direction direction) : base("conveyor_12", direction)
-        {
-
-        }
-    }
-    public class Conveyor_13 : Conveyor
-    {
-
-        public Conveyor_13(Direction direction) : base("conveyor_13", direction)
-        {
-
-        }
-    }
-
-    public class Conveyor_14 : Conveyor
-    {
-
-        public Conveyor_14(Direction direction) : base("conveyor_14", direction)
-        {
-
-        }
-    }
-
-    public class Conveyor_15 : Conveyor
-    {
-        public Conveyor_15(Direction direction) : base("conveyor_15", direction)
-        {
-
-        }
-    }
-    public class Conveyor_16 : Conveyor
-    {
-
-        public Conveyor_16(Direction direction) : base("conveyor_16", direction)
-        {
-
-        }
-    }
-    public class Conveyor_17 : Conveyor
-    {
-        public Conveyor_17(Direction direction) : base("conveyor_17", direction)
-        {
-
-        }
-    }
-    public class Conveyor_18 : Conveyor
-    {
-        public Conveyor_18(Direction direction) : base("conveyor_18", direction)
-        {
-
-        }
-    }
-    public class Conveyor_19 : Conveyor
-    {
-
-        public Conveyor_19(Direction direction) : base("conveyor_19", direction)
-        {
-
-        }
-    }
-    public class Conveyor_20 : Conveyor
-    {
-
-        public Conveyor_20(Direction direction) : base("conveyor_20", direction)
-        {
-
-        }
-    }
-    public class Conveyor_21 : Conveyor
-    {
-
-        public Conveyor_21(Direction direction) : base("conveyor_21", direction)
-        {
-
-        }
-    }
-
-    public class DS_1 : Conveyor
-    {
-        public DS_1(Direction direction) : base("ds_1", direction)
-        {
-
-        }
-    }
-    public class DS_2 : Conveyor
-    {
-        public DS_2(Direction direction) : base("ds_2", direction)
-        {
-
-        }
-    }
-    public class DS_3 : Conveyor
-    {
-        public DS_3(Direction direction) : base("ds_3", direction)
-        {
-
-        }
-    }
-    public class DS_4 : Conveyor
-    {
-        public DS_4(Direction direction) : base("ds_4", direction)
-        {
-
-        }
-    }
-    public class DS_5 : Conveyor
-    {
-        public DS_5(Direction direction) : base("ds_5", direction)
-        {
-
-        }
-    }
-
-
-
-
-    public class Stacker1_1 : Conveyor//取货口
-    {
-        public Stacker1_1(Direction direction) : base("stacker1_1", direction)
-        {
-
-        }
-    }
-
-    public class Stacker1_2 : Conveyor//移动
-    {
-
-        public Stacker1_2(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker1_2", direction)
-        {
-            try
-            {
-                this.RightTopPos = modelPosition.GetShelfLinePos(shelfNo);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.ToString());
-            }
-        }
-    }
-
-    public class Stacker1_3 : Conveyor//送入库位
-    {
-
-        public Stacker1_3(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker1_3", direction)
-        {
-
-            if (direction == Direction.Front)
-            {
-                this.BackPos = modelPosition.GetShelfLinePos(shelfNo);
-                this.FrontPos = modelPosition.GetShelfPos(shelfNo);
-            }
-            else if (direction == Direction.Back)
-            {
-                this.BackPos = modelPosition.GetShelfPos(shelfNo);
-                this.FrontPos = modelPosition.GetShelfLinePos(shelfNo);
-            }
-
-        }
-
-    }
-    public class Stacker1_4 : Conveyor//移动
-    {
-        public Stacker1_4(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker1_4", direction)
-        {
-
-        }
-    }
-    public class Stacker1_5 : Conveyor//放货口
-    {
-        public Stacker1_5(Direction direction) : base("stacker1_5", direction)
-        {
-
-        }
-    }
-
-    public class Stacker2_1 : Conveyor//取货口
-    {
-        public Stacker2_1(Direction direction) : base("stacker2_1", direction)
-        {
-
-        }
-    }
-
-    public class Stacker2_2 : Conveyor//移动
-    {
-
-        public Stacker2_2(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker2_2", direction)
-        {
-            this.RightTopPos = modelPosition.GetShelfLinePos(shelfNo);
-        }
-
-    }
-
-    public class Stacker2_3 : Conveyor//放入库位
-    {
-
-        public Stacker2_3(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker2_3", direction)
-        {
-            if (direction == Direction.Front)
-            {
-                this.BackPos = modelPosition.GetShelfLinePos(shelfNo);
-                this.FrontPos = modelPosition.GetShelfPos(shelfNo);
-            }
-            else if (direction == Direction.Back)
-            {
-                this.BackPos = modelPosition.GetShelfPos(shelfNo);
-                this.FrontPos = modelPosition.GetShelfLinePos(shelfNo);
-            }
-        }
-    }
-    public class Stacker2_4 : Conveyor//移动
-    {
-        public Stacker2_4(Direction direction, string shelfNo, ModelPosition modelPosition) : base("stacker2_4", direction)
-        {
-
-        }
-    }
-    public class Stacker2_5 : Conveyor//出库口
-    {
-        public Stacker2_5(Direction direction) : base("stacker2_5", direction)
-        {
-
-        }
-    }
 }

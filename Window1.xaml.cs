@@ -38,14 +38,25 @@ namespace CS3D
             tbxLastUpTime.Text = lastUpTime.ToString();
         }
 
+        int count = 0;
         private void btnPutIn_Click(object sender, RoutedEventArgs e)
         {
-            model.StockIn("06.04.01");
+            //if (count == 0)
+            //{
+            //    model.StockIn("01.04.01");
+
+            //}
+            //else if (count == 1)
+            //{
+            //    model.StockIn("02.04.01");
+            //}
+            model.StockOut("01.02.01");
+            count++;
         }
 
         private void btnInitWareHouse_Click(object sender, RoutedEventArgs e)
         {
-            model.Reset(MysqlDBHandler.Instance.GetStoreHouseState());//
+            model.Reset();//
         }
 
         private void btnC_1_Click(object sender, RoutedEventArgs e)
@@ -128,6 +139,46 @@ namespace CS3D
         private void btnC_17_Click(object sender, RoutedEventArgs e)
         {
             model.SetConveyor("conveyor_17", true);
+        }
+
+        private void btnS_4_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("stacker1_4", true);
+        }
+
+        private void btnC_10_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("conveyor_10", true);
+        }
+
+        private void btnC_11_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("conveyor_11", true);
+        }
+
+        private void btnC_12_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("conveyor_12", true);
+        }
+
+        private void btnD_4_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("ds_4", true);
+        }
+
+        private void btnC_9_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("conveyor_9", true);
+        }
+
+        private void btnD_2_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("ds_2", true);
+        }
+
+        private void btnC_2_Click(object sender, RoutedEventArgs e)
+        {
+            model.SetConveyor("conveyor_2", true);
         }
     }
 }

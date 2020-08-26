@@ -5,7 +5,7 @@
 		<!--排层列-->
 		<GoodsSize>1000,1200,1300</GoodsSize>
 		<!--货物长宽高-->
-		<ProductOriPos>17473.725,3000,655</ProductOriPos>
+		<ProductOriPos>17473.725,3000,55</ProductOriPos>
 		<!--货物模型 起始绝对坐标 -->
 		<StockInEntranceOriPos>17473.725,200,1430</StockInEntranceOriPos>
 		<!--入库口坐标-->
@@ -84,7 +84,7 @@
 			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
-			<leftPos>17813.725,-1972.814,1430</leftPos>
+			<leftPos>17473.725,-1972.814,1430</leftPos>
 			<rightPos>16953.725,-1972.814,1430</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
@@ -97,7 +97,7 @@
 			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
-			<leftPos>20077.023,-1979.767,1430</leftPos>
+			<leftPos>19737.023,-1979.767,1430</leftPos>
 			<rightPos>18867.023,-1979.767,1430</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
@@ -110,8 +110,8 @@
 			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
-			<leftPos>17800,-1965,1425</leftPos>
-			<rightPos>16980,-1965,1425</rightPos>
+			<leftPos>17800,-1965,1430</leftPos>
+			<rightPos>16980,-1965,1430</rightPos>
 		</conveyor_6>
 		<conveyor_7>
 			<speed_x>10</speed_x>
@@ -119,8 +119,8 @@
 			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
-			<leftPos>17800,-1965,1425</leftPos>
-			<rightPos>16980,-1965,1425</rightPos>
+			<leftPos>17800,-1965,1430</leftPos>
+			<rightPos>16980,-1965,1430</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
@@ -171,7 +171,7 @@
 			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
-			<leftPos>17813.725,-4658.449,1430</leftPos>
+			<leftPos>17473.725,-4658.449,1430</leftPos>
 			<rightPos>16953.725,-4658.449,1430</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
@@ -184,7 +184,7 @@
 			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
-			<leftPos>20077.023,-4658.449,1430</leftPos>
+			<leftPos>19737.023,-4658.449,1430</leftPos>
 			<rightPos>18867.023,-4658.449,1430</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
@@ -197,8 +197,8 @@
 			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
-			<leftPos>17800,-1965,1425</leftPos>
-			<rightPos>16980,-1965,1425</rightPos>
+			<leftPos>17800,-1965,1430</leftPos>
+			<rightPos>16980,-1965,1430</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
@@ -210,8 +210,8 @@
 			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
-			<leftPos>17800,-1965,1425</leftPos>
-			<rightPos>16980,-1965,1425</rightPos>
+			<leftPos>17800,-1965,1430</leftPos>
+			<rightPos>16980,-1965,1430</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
@@ -262,7 +262,7 @@
 			<speed_z>10</speed_z>
 			<backPos>0,0,0</backPos>
 			<frontPos>0,0,0</frontPos>
-			<leftPos>17813.725,-7555.631,1430</leftPos>
+			<leftPos>17473.725,-7555.631,1430</leftPos>
 			<rightPos>16953.725,-7555.631,1430</rightPos>
 			<leftTopPos>0,0,0</leftTopPos>
 			<leftBottomPos>0,0,0</leftBottomPos>
@@ -453,23 +453,9 @@
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
-		</stacker1_3>
+		</stacker1_3>		
 
 		<stacker1_4>
-			<speed_x>10</speed_x>
-			<speed_y>10</speed_y>
-			<speed_z>10</speed_z>
-			<backPos>,0,0</backPos>
-			<frontPos>0,0,0</frontPos>
-			<leftPos>0,0,0</leftPos>
-			<rightPos>0,0,0</rightPos>
-			<leftTopPos>0,0,0</leftTopPos>
-			<leftBottomPos>13967.191,-3342.328,1430</leftBottomPos>
-			<rightTopPos>0,0,0</rightTopPos>
-			<rightBottomPos>0,0,0</rightBottomPos>
-		</stacker1_4>
-
-		<stacker1_5>
 			<speed_x>10</speed_x>
 			<speed_y>10</speed_y>
 			<speed_z>10</speed_z>
@@ -481,7 +467,7 @@
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
-		</stacker1_5>
+		</stacker1_4>
 
 		<stacker2_1>
 			<speed_x>10</speed_x>
@@ -527,21 +513,8 @@
 			<rightBottomPos>0,0,0</rightBottomPos>
 		</stacker2_3>
 
+	
 		<stacker2_4>
-			<speed_x>10</speed_x>
-			<speed_y>10</speed_y>
-			<speed_z>10</speed_z>
-			<backPos>,0,0</backPos>
-			<frontPos>0,0,0</frontPos>
-			<leftPos>0,0,0</leftPos>
-			<rightPos>0,0,0</rightPos>
-			<leftTopPos>0,0,0</leftTopPos>
-			<leftBottomPos>13967.191,-8918.343,1430</leftBottomPos>
-			<rightTopPos>0,0,0</rightTopPos>
-			<rightBottomPos>0,0,0</rightBottomPos>
-		</stacker2_4>
-
-		<stacker2_5>
 			<speed_x>10</speed_x>
 			<speed_y>10</speed_y>
 			<speed_z>10</speed_z>
@@ -553,7 +526,7 @@
 			<leftBottomPos>0,0,0</leftBottomPos>
 			<rightTopPos>0,0,0</rightTopPos>
 			<rightBottomPos>0,0,0</rightBottomPos>
-		</stacker2_5>
+		</stacker2_4>
 	</Model3D>
 
 	<MySqlParam>

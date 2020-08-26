@@ -33,6 +33,7 @@ namespace CS3D
 
         public event GetProductMsg GetProductmsg;
 
+
         private Point3D initPosition;//记录相机初始信息
         private Vector3D initLookDirection;
         private Vector3D initUpDirection;
@@ -58,6 +59,7 @@ namespace CS3D
         /// 任务队列
         /// </summary>
         List<IMission> missionList = new List<IMission>();
+        private readonly object obj_missionList = new object();
 
         public WareHouseModel()
         {
@@ -186,11 +188,8 @@ namespace CS3D
                 diffMat_zhongcha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
                 diffMat_xiacha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
 
-                diffMat_conveyor7 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 175, 154)));
-                diffMat_chain7 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(30, 30, 30)));
+               
 
-                diffMat_conveyor6 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(94, 80, 80)));
-                diffMat_chain6 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(30, 30, 30)));
 
                 diffMat_obj36_56 = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303097.jpg", UriKind.Relative))));
 
@@ -340,7 +339,7 @@ namespace CS3D
                 laser_left_2.Material = diffMat_laser;
                 laser_right_1.Material= diffMat_laser;
                 laser_right_2.Material = diffMat_laser;
-                //Led_zhijia_042.Material = diffMat_conveyor;
+                //Led_zhijia_042.Material = diffMat_conveyor;入
                 //Led_zhijia_043.Material = diffMat_conveyor;
                 obj_178.Material = diffMat_obj178;
                 obj_179.Material = diffMat_obj178;
@@ -357,9 +356,7 @@ namespace CS3D
                 Prism_006.Material = diffMat_Prism;
                 Prism_007.Material = diffMat_Prism;
                 Prism_008.Material = diffMat_Prism;
-                Rec_24097686.Material = diffMat_Ground;
-
-              
+               
 
             }
             catch (Exception ex)
@@ -598,11 +595,11 @@ namespace CS3D
         /// <summary>
         /// 刷新仓库状态 维护 模型数据字典
         /// </summary>
-        /// <param name="StoreHouseStateDT">仓库库位信息表</param>
-        public void Reset(DataTable StoreHouseStateDT)
+        public void Reset()
         {
             try
             {
+                DataTable StoreHouseStateDT = MysqlDBHandler.Instance.GetStoreHouseState();
                 if (StoreHouseStateDT != null)
                 {
                     ProductInfo info;
@@ -619,7 +616,7 @@ namespace CS3D
                         info.ProductOffSet = modelPosition.Get_ShelfState_1_OffSet(info.ShelfNo);
 
                         ModelVisual3D cloneModel = new ModelVisual3D();
-                        //cloneModel.Content = originProduct.Content.Clone();
+                        cloneModel.Content = originProduct.Content.Clone();
                         RootGeometryContainer.Children.Add(cloneModel);
 
                         info.Model = cloneModel;
@@ -638,14 +635,10 @@ namespace CS3D
 
         }
 
-        public void Reset(string[] names)
-        {
-            foreach (string str in names)
-            {
-                product_Info[str].ProductOffSet = new Point3D(0, 9000, 0);
-            }
-        }
-
+        /// <summary>
+        /// 入库
+        /// </summary>
+        /// <param name="shelfNo"></param>
         public void StockIn(string shelfNo)
         {
             if (!product_Info.ContainsKey(shelfNo))
@@ -653,18 +646,73 @@ namespace CS3D
                 ProductInfo productInfo = new ProductInfo();
 
                 ModelVisual3D cloneModel = new ModelVisual3D();
-                //cloneModel.Content = originProduct.Content.Clone();
+                cloneModel.Content = originProduct.Content.Clone();
                 RootGeometryContainer.Children.Add(cloneModel);
 
                 productInfo.ShelfNo = shelfNo;
                 productInfo.Model = cloneModel;
-                productInfo.ProductOffSet = (Point3D)(modelPosition.StockInEntranceOriPos - modelPosition.ProductOriPos);
+                productInfo.ProductOffSet = (Point3D)(modelPosition.StockInEntranceOriPos - modelPosition.ProductOriPos);//入货口初始位置
                 product_Info.Add(shelfNo, productInfo);
                 mission = new Mission("StockIn", shelfNo, modelPosition, product_Info, stackerParts_Info);
-                missionList.Add(mission);
+                mission.MisSuccess += Mission_MisSuccess;
+                lock (obj_missionList)
+                {
+                    missionList.Add(mission);
+                }
+            }
+            else
+            {
+                if (HintEvent != null) HintEvent("StockIn has exception:货位冲突");
+            }
+            
+        }
+
+        /// <summary>
+        /// 出库
+        /// </summary>
+        /// <param name="shelfNo"></param>
+        public void StockOut(string shelfNo)
+        {
+            if (!product_Info.ContainsKey(shelfNo))
+            {
+                if (HintEvent != null) HintEvent(string.Format("WareHouseModel_StockOut has exception:shelfNo does not exit"));
+                return;
+            }
+            else
+            {
+                mission = new Mission("StockOut", shelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission.MisSuccess += Mission_MisSuccess;
+                lock (obj_missionList)
+                {
+                    missionList.Add(mission);
+                }
+            }
+
+        }
+
+        private void Mission_MisSuccess(IMission mission,string missionType, string shelfNo)
+        {
+            switch (missionType)//执行完是否需要重新拉取货物数据库
+            {
+                case "StockIn":
+                    Reset();
+                    lock (obj_missionList)
+                    {
+                        missionList.Remove(mission);
+                    }
+                    break;
+                case "StockOut":
+
+                    break;
+                        
             }
         }
 
+        /// <summary>
+        /// 通知 所有任务 输送带状态更改
+        /// </summary>
+        /// <param name="conveyorName"></param>
+        /// <param name="isReady"></param>
         public void SetConveyor(string conveyorName, bool isReady)
         {
             foreach (var mission in missionList)
@@ -677,23 +725,7 @@ namespace CS3D
 
 
 
-        /// <summary>
-        /// 通知信号  输送带名称 是否就绪  运动方向
-        /// </summary>
-        /// <param name="conveyorName"></param>
-        /// <param name="isReady"></param>
-        /// <param name="direction"></param>
-        public void SetConveyor(string conveyorName, bool isReady, Direction direction)
-        {
-            Conveyor conveyor = (Conveyor)this.FindName(conveyorName);
-            if (conveyor != null)
-            {
-                conveyor.IsReady = isReady;
-                conveyor.Direction = direction;
-                conveyor.Notify();
-            }
-        }
-
+  
 
 
         /// <summary>
@@ -724,9 +756,9 @@ namespace CS3D
             {
                 shelfInfo.Model.Content.Transform = new TranslateTransform3D() { OffsetX = shelfInfo.ShelfOffSet.X, OffsetY = shelfInfo.ShelfOffSet.Y, OffsetZ = shelfInfo.ShelfOffSet.Z };
             }
-            if (mission != null)
+            if (missionList.Count != 0)
             {
-                Point3D tempWorldPosition = ((Mission)mission).worldPosition;
+                Point3D tempWorldPosition = ((Mission)missionList[missionList.Count - 1]).worldPosition;
                 Point3D tempCameraPosition = Point3D.Add(tempWorldPosition, new Vector3D(3000, 2000, 2000));
                 perspectiveCamera.Position = new Point3D(tempCameraPosition.X, tempCameraPosition.Z, -tempCameraPosition.Y);
                 cameraLookDirection = new Vector3D(3000, 2000, -2000);
