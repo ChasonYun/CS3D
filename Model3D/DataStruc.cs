@@ -209,6 +209,9 @@ namespace CS3D
 
 
         private Point3D vIFS_2;
+
+        private Point3D productStackerOriPos_1;
+        private Point3D productStackerOriPos_2;
         public ModelPosition()
         {
             try
@@ -276,6 +279,14 @@ namespace CS3D
                 tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "VIFS_2");
                 tempStrs = tempStr.Trim().Split(',');
                 vIFS_2 = new Point3D(Convert.ToDouble(tempStrs[0]), Convert.ToDouble(tempStrs[1]), Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "ProductStackerOriPos_1");
+                tempStrs = tempStr.Trim().Split(',');
+                productStackerOriPos_1 = new Point3D(Convert.ToDouble(tempStrs[0]), Convert.ToDouble(tempStrs[1]), Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "ProductStackerOriPos_2");
+                tempStrs = tempStr.Trim().Split(',');
+                productStackerOriPos_2 = new Point3D(Convert.ToDouble(tempStrs[0]), Convert.ToDouble(tempStrs[1]), Convert.ToDouble(tempStrs[2]));
 
             }
             catch (Exception ex)
@@ -350,6 +361,8 @@ namespace CS3D
         /// 货架X间距
         /// </summary>
         public double ShelfDistance { get => shelfDistance; set => shelfDistance = value; }
+        public Point3D ProductStackerOriPos_1 { get => productStackerOriPos_1; set => productStackerOriPos_1 = value; }
+        public Point3D ProductStackerOriPos_2 { get => productStackerOriPos_2; set => productStackerOriPos_2 = value; }
 
         /// <summary>
         /// 获取指定库位号 相对于 原始货物模型的 相对位移

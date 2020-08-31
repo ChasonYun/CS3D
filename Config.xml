@@ -14,6 +14,12 @@
 		<ShelfDistance>-2390</ShelfDistance>
 		<!--货架 x 方向间距-->
 
+		<ProductStackerOriPos_1>13967.191,-3342.328,1430</ProductStackerOriPos_1>
+		<!--堆垛机 左下 起始位置 1-->
+		
+		<ProductStackerOriPos_2>13967.191,-8918.343,1430</ProductStackerOriPos_2>
+		<!--堆垛机 左下 起始位置 2-->
+		
 		<StackerOriPos_1>13749.056,-3407.414,4108.809</StackerOriPos_1>
 		<!--堆垛机立柱1 -->
 		<PlatformOriPos_1>13967.191,-3337.417,1093.416</PlatformOriPos_1>

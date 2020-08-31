@@ -26,7 +26,7 @@ namespace CS3D
     {
         public delegate void HintEventHandler(string msg);
 
-        public static event HintEventHandler HintEvent;
+        public event HintEventHandler HintEvent;
 
 
         public delegate void GetProductMsg(string shelfNo, string shelfState, string productName, string productId, DateTime lastUpTime);
@@ -41,9 +41,7 @@ namespace CS3D
 
         private ModelPosition modelPosition;//模型  位置信息
 
-        private int line;
-        private int level;
-        private int column;
+      
 
         private Timer timer = new Timer();
 
@@ -70,12 +68,12 @@ namespace CS3D
                 InitColor();
                 InitModel();
                 timer.Elapsed += Timer_Elapsed;
-                timer.Interval = 1;
+                timer.Interval = 50;
                 timer.Start();
             }
             catch (Exception ex)
             {
-                if (HintEvent != null) HintEvent(string.Format("WareHouseModel has exception:" + ex.ToString()));
+                HintEvent(string.Format("WareHouseModel has exception:" + ex.ToString()));
             }
         }
         private void InitSetData()
@@ -127,7 +125,7 @@ namespace CS3D
             }
             catch (Exception ex)
             {
-                if (HintEvent != null) HintEvent(string.Format("InitGetXmlData has exception:" + ex.ToString()));
+                HintEvent(string.Format("WareHouseModel_InitGetXmlData has exception:" + ex.ToString()));
             }
         }
 
@@ -188,7 +186,7 @@ namespace CS3D
                 diffMat_zhongcha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
                 diffMat_xiacha = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303059.jpg", UriKind.Relative))));
 
-               
+
 
 
                 diffMat_obj36_56 = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM303097.jpg", UriKind.Relative))));
@@ -202,9 +200,9 @@ namespace CS3D
                 brushGoods.TileMode = TileMode.Tile;
                 diffMat_goods = new DiffuseMaterial(brushGoods);
 
-                diffMat_VIFS = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(203,210,239)));
+                diffMat_VIFS = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(203, 210, 239)));
                 diffMat_zaihuotai = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(200, 164, 134)));
-              
+
 
 
                 diffMat_Pallet = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/CM91450h.jpg", UriKind.Relative))));
@@ -228,7 +226,7 @@ namespace CS3D
             }
             catch (Exception ex)
             {
-                if (HintEvent != null) HintEvent(string.Format("WareHouseModel_InitBrush has exception:" + ex.ToString()));
+                HintEvent(string.Format("WareHouseModel_InitBrush has exception:" + ex.ToString()));
             }
             //堆垛机立柱
 
@@ -337,7 +335,7 @@ namespace CS3D
                 obj_057.Material = diffMat_obj036;
                 laser_left_1.Material = diffMat_laser;
                 laser_left_2.Material = diffMat_laser;
-                laser_right_1.Material= diffMat_laser;
+                laser_right_1.Material = diffMat_laser;
                 laser_right_2.Material = diffMat_laser;
                 //Led_zhijia_042.Material = diffMat_conveyor;入
                 //Led_zhijia_043.Material = diffMat_conveyor;
@@ -356,12 +354,12 @@ namespace CS3D
                 Prism_006.Material = diffMat_Prism;
                 Prism_007.Material = diffMat_Prism;
                 Prism_008.Material = diffMat_Prism;
-               
+
 
             }
             catch (Exception ex)
             {
-                if (HintEvent != null) HintEvent(string.Format("WareHouseModel_InitColor has exception:" + ex.ToString()));
+                HintEvent(string.Format("WareHouseModel_InitColor has exception:" + ex.ToString()));
             }
 
         }
@@ -399,7 +397,7 @@ namespace CS3D
             }
             catch (Exception ex)
             {
-                if (HintEvent != null) HintEvent(string.Format("WareHouseModel_InitModel has exception:" + ex.ToString()));
+                HintEvent(string.Format("WareHouseModel_InitModel has exception:" + ex.ToString()));
             }
 
         }
@@ -433,56 +431,82 @@ namespace CS3D
 
         private void VP3D_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            tempPoint = Mouse.GetPosition(e.Source as FrameworkElement);
-            VP3D.Focus();
-            tempPoint = e.GetPosition(VP3D);
-            PointHitTestParameters hitTestParameters = new PointHitTestParameters(tempPoint);
-            VisualTreeHelper.HitTest(VP3D, null, ResultCallback, hitTestParameters);
+            try
+            {
+                tempPoint = Mouse.GetPosition(e.Source as FrameworkElement);
+                VP3D.Focus();
+                tempPoint = e.GetPosition(VP3D);
+                PointHitTestParameters hitTestParameters = new PointHitTestParameters(tempPoint);
+                VisualTreeHelper.HitTest(VP3D, null, ResultCallback, hitTestParameters);
+            }
+            catch (Exception ex)
+            {
+                HintEvent(string.Format("WareHouseModel_ResultCallback has exception:" + ex.ToString()));
+            }
+
         }
 
         public HitTestResultBehavior ResultCallback(HitTestResult result)
         {
-            var tempModel = result.VisualHit as ModelVisual3D;
-            if (tempModel != null)
+            try
             {
-
-            }
-            RayHitTestResult rayHitTest = result as RayHitTestResult;
-            if (rayHitTest != null)
-            {
-                RayMeshGeometry3DHitTestResult rayMeshGeometry3DHitTestResult = rayHitTest as RayMeshGeometry3DHitTestResult;
-                if (rayMeshGeometry3DHitTestResult != null)
+                var tempModel = result.VisualHit as ModelVisual3D;
+                if (tempModel != null)
                 {
-                    foreach (var temp in product_Info.Values)
+
+                }
+                RayHitTestResult rayHitTest = result as RayHitTestResult;
+                if (rayHitTest != null)
+                {
+                    RayMeshGeometry3DHitTestResult rayMeshGeometry3DHitTestResult = rayHitTest as RayMeshGeometry3DHitTestResult;
+                    if (rayMeshGeometry3DHitTestResult != null)
                     {
-                        if (temp.Model.Content == rayMeshGeometry3DHitTestResult.ModelHit)
+                        foreach (var temp in product_Info.Values)
                         {
-                            GetProductmsg(temp.ShelfNo, temp.ShelfState.ToString(), temp.ProductName, temp.ProductId, temp.LastUpTime);
+                            if (temp.Model.Content == rayMeshGeometry3DHitTestResult.ModelHit)
+                            {
+                                GetProductmsg(temp.ShelfNo, temp.ShelfState.ToString(), temp.ProductName, temp.ProductId, temp.LastUpTime);
+                            }
                         }
                     }
                 }
             }
+            catch (Exception ex)
+            {
+
+                throw new Exception("ResultCallback" + ex.ToString());
+            }
+
             return HitTestResultBehavior.Continue;
         }
 
         private void VP3D_MouseWheel(object sender, MouseWheelEventArgs e)
         {
-            if (e.Delta > 0)
+            try
             {
-                perspectiveCamera.FieldOfView -= 10;
-                if (perspectiveCamera.FieldOfView <= 0)
+                if (e.Delta > 0)
                 {
-                    perspectiveCamera.FieldOfView = 1;
+                    perspectiveCamera.FieldOfView -= 10;
+                    if (perspectiveCamera.FieldOfView <= 0)
+                    {
+                        perspectiveCamera.FieldOfView = 1;
+                    }
+                }
+                else if (e.Delta < 0)
+                {
+                    perspectiveCamera.FieldOfView += 10;
+                    if (perspectiveCamera.FieldOfView > 180)
+                    {
+                        perspectiveCamera.FieldOfView = 179;
+                    }
                 }
             }
-            else if (e.Delta < 0)
+            catch (Exception ex)
             {
-                perspectiveCamera.FieldOfView += 10;
-                if (perspectiveCamera.FieldOfView > 180)
-                {
-                    perspectiveCamera.FieldOfView = 179;
-                }
+                HintEvent(string.Format("WareHouseModel_VP3D_MouseWheel has exception:" + ex.ToString()));
+
             }
+
         }
         private void btnReset_Click(object sender, RoutedEventArgs e)
         {
@@ -503,7 +527,7 @@ namespace CS3D
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
 
-         
+
             testi++;
             if (testi == 1)
             {
@@ -630,7 +654,7 @@ namespace CS3D
             }
             catch (Exception ex)
             {
-                if (HintEvent != null) HintEvent(string.Format("WareHouseModel_Reset has exception:" + ex.ToString()));
+                HintEvent(string.Format("WareHouseModel_Reset has exception:" + ex.ToString()));
             }
 
         }
@@ -653,7 +677,7 @@ namespace CS3D
                 productInfo.Model = cloneModel;
                 productInfo.ProductOffSet = (Point3D)(modelPosition.StockInEntranceOriPos - modelPosition.ProductOriPos);//入货口初始位置
                 product_Info.Add(shelfNo, productInfo);
-                mission = new Mission("StockIn", shelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission = new Mission(MissionType.StockIn, shelfNo, modelPosition, product_Info, stackerParts_Info);
                 mission.MisSuccess += Mission_MisSuccess;
                 lock (obj_missionList)
                 {
@@ -662,9 +686,9 @@ namespace CS3D
             }
             else
             {
-                if (HintEvent != null) HintEvent("StockIn has exception:货位冲突");
+                HintEvent("WareHouseModel_StockIn has exception:shelfNo already exit");
             }
-            
+
         }
 
         /// <summary>
@@ -673,38 +697,73 @@ namespace CS3D
         /// <param name="shelfNo"></param>
         public void StockOut(string shelfNo)
         {
+            try
+            {
+                if (!product_Info.ContainsKey(shelfNo))
+                {
+                    HintEvent(string.Format("WareHouseModel_StockOut has exception:shelfNo does not exit"));
+                    return;
+                }
+                else
+                {
+                    mission = new Mission(MissionType.StockOut, shelfNo, modelPosition, product_Info, stackerParts_Info);
+                    mission.MisSuccess += Mission_MisSuccess;
+                    lock (obj_missionList)
+                    {
+                        missionList.Add(mission);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HintEvent("WareHouseModel_StockOut has exception:" + ex.ToString());
+            }
+        }
+
+        public void Sorting(string shelfNo)
+        {
             if (!product_Info.ContainsKey(shelfNo))
             {
-                if (HintEvent != null) HintEvent(string.Format("WareHouseModel_StockOut has exception:shelfNo does not exit"));
+                HintEvent(string.Format("WareHouseModel_Sorting has exception:shelfNo_{0} does not exit", shelfNo));
                 return;
             }
             else
             {
-                mission = new Mission("StockOut", shelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission = new Mission(MissionType.Sorting, shelfNo, modelPosition, product_Info, stackerParts_Info);
                 mission.MisSuccess += Mission_MisSuccess;
                 lock (obj_missionList)
                 {
                     missionList.Add(mission);
                 }
             }
-
         }
 
-        private void Mission_MisSuccess(IMission mission,string missionType, string shelfNo)
+        private void Mission_MisSuccess(IMission mission, MissionType missionType, string shelfNo)
         {
-            switch (missionType)//执行完是否需要重新拉取货物数据库
+            try
             {
-                case "StockIn":
-                    Reset();
-                    lock (obj_missionList)
-                    {
-                        missionList.Remove(mission);
-                    }
-                    break;
-                case "StockOut":
+                switch (missionType)//执行完是否需要重新拉取货物数据库
+                {
+                    case MissionType.StockIn:
+                        Reset();
+                        lock (obj_missionList)
+                        {
+                            missionList.Remove(mission);
+                        }
+                        break;
+                    case MissionType.StockOut:
+                        lock (obj_missionList)
+                        {
+                            missionList.Remove(mission);
+                        }
+                        product_Info.Remove(shelfNo);
+                        break;
 
-                    break;
-                        
+                }
+            }
+            catch(Exception ex)
+            {
+                HintEvent("WareHouseModel_Mission_MisSuccess has exception:" + ex.ToString());
             }
         }
 
@@ -715,17 +774,25 @@ namespace CS3D
         /// <param name="isReady"></param>
         public void SetConveyor(string conveyorName, bool isReady)
         {
-            foreach (var mission in missionList)
+            try
             {
-                mission.Update(conveyorName, isReady);
+                foreach (var mission in missionList)
+                {
+                    mission.Update(conveyorName, isReady);
+                }
             }
+            catch (Exception ex)
+            {
+                HintEvent("WareHouseModel_SetConveyor has exception:" + ex.ToString());
+            }
+            
         }
 
 
 
 
 
-  
+
 
 
         /// <summary>
@@ -790,6 +857,7 @@ namespace CS3D
             public int RowNo { get => rowNo; set => rowNo = value; }
             public int ColumnNo { get => columnNo; set => columnNo = value; }
         }
+
 
     }
 

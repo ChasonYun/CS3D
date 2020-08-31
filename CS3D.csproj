@@ -103,6 +103,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="IWareHouseModel.cs" />
     <Compile Include="Model3D\DataStruc.cs" />
     <Compile Include="Model3D\Conveyor.cs" />
     <Compile Include="Model3D\Mission.cs" />
@@ -111,7 +112,6 @@
     <Compile Include="Model3D\WareHouseModel.xaml.cs">
       <DependentUpon>WareHouseModel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Stacker.cs" />
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
