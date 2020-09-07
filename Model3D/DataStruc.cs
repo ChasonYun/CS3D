@@ -212,6 +212,23 @@ namespace CS3D
 
         private Point3D productStackerOriPos_1;
         private Point3D productStackerOriPos_2;
+
+        private Point3D cameraPosition;
+        private Vector3D lookDirection;
+        private Vector3D cameraOffSet_HV;
+        private Vector3D cameraOffSet_Port;
+        private Vector3D cameraOffSet_RoadWay;
+        private Vector3D cameraOffSet_Shelf;
+
+        private Vector3D cameraOffSet_HV_LookDirection;
+        private Vector3D cameraOffSet_Port_LookDirection;
+        private Vector3D cameraOffSet_RoadWay_LookDirection;
+        private Vector3D cameraOffSet_Shelf_LookDirection;
+
+        private Vector3D cameraOffSet_HV_UpDirection;
+        private Vector3D cameraOffSet_Port_UpDirection;
+        private Vector3D cameraOffSet_RoadWay_UpDirection;
+        private Vector3D cameraOffSet_Shelf_UpDirection;
         public ModelPosition()
         {
             try
@@ -288,6 +305,54 @@ namespace CS3D
                 tempStrs = tempStr.Trim().Split(',');
                 productStackerOriPos_2 = new Point3D(Convert.ToDouble(tempStrs[0]), Convert.ToDouble(tempStrs[1]), Convert.ToDouble(tempStrs[2]));
 
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_HV");
+                tempStrs = tempStr.Trim().Split(',');
+                cameraOffSet_HV = new Vector3D(Convert.ToDouble(tempStrs[0]), Convert.ToDouble(tempStrs[1]), Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_Port");
+                tempStrs = tempStr.Trim().Split(',');
+                cameraOffSet_Port = new Vector3D(Convert.ToDouble(tempStrs[0]), Convert.ToDouble(tempStrs[1]), Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_RoadWay");
+                tempStrs = tempStr.Trim().Split(',');
+                cameraOffSet_RoadWay = new Vector3D(Convert.ToDouble(tempStrs[0]), Convert.ToDouble(tempStrs[1]), Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_Shelf");
+                tempStrs = tempStr.Trim().Split(',');
+                cameraOffSet_Shelf = new Vector3D(Convert.ToDouble(tempStrs[0]), Convert.ToDouble(tempStrs[1]), Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_HV_LookDirection");
+                tempStrs = tempStr.Trim().Split(',');
+                cameraOffSet_HV_LookDirection = new Vector3D(-Convert.ToDouble(tempStrs[0]), -Convert.ToDouble(tempStrs[1]), -Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_Port_LookDirection");
+                tempStrs = tempStr.Trim().Split(',');
+                cameraOffSet_Port_LookDirection = new Vector3D(-Convert.ToDouble(tempStrs[0]), -Convert.ToDouble(tempStrs[1]), -Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_RoadWay_LookDirection");
+                tempStrs = tempStr.Trim().Split(',');
+                cameraOffSet_RoadWay_LookDirection = new Vector3D(-Convert.ToDouble(tempStrs[0]), -Convert.ToDouble(tempStrs[1]), -Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_Shelf_LookDirection");
+                tempStrs = tempStr.Trim().Split(',');
+                cameraOffSet_Shelf_LookDirection = new Vector3D(-Convert.ToDouble(tempStrs[0]), -Convert.ToDouble(tempStrs[1]), -Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_HV_UpDirection");
+                tempStrs = tempStr.Trim().Split(',');
+                CameraOffSet_HV_UpDirection = new Vector3D(-Convert.ToDouble(tempStrs[0]), -Convert.ToDouble(tempStrs[1]), -Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_Port_UpDirection");
+                tempStrs = tempStr.Trim().Split(',');
+                CameraOffSet_Port_UpDirection = new Vector3D(-Convert.ToDouble(tempStrs[0]), -Convert.ToDouble(tempStrs[1]), -Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_RoadWay_UpDirection");
+                tempStrs = tempStr.Trim().Split(',');
+                CameraOffSet_RoadWay_UpDirection = new Vector3D(-Convert.ToDouble(tempStrs[0]), -Convert.ToDouble(tempStrs[1]), -Convert.ToDouble(tempStrs[2]));
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "CameraOffSet_Shelf_UpDirection");
+                tempStrs = tempStr.Trim().Split(',');
+                CameraOffSet_Shelf_UpDirection = new Vector3D(-Convert.ToDouble(tempStrs[0]), -Convert.ToDouble(tempStrs[1]), -Convert.ToDouble(tempStrs[2]));
+
             }
             catch (Exception ex)
             {
@@ -363,6 +428,20 @@ namespace CS3D
         public double ShelfDistance { get => shelfDistance; set => shelfDistance = value; }
         public Point3D ProductStackerOriPos_1 { get => productStackerOriPos_1; set => productStackerOriPos_1 = value; }
         public Point3D ProductStackerOriPos_2 { get => productStackerOriPos_2; set => productStackerOriPos_2 = value; }
+        public Point3D OriCameraPosition { get => cameraPosition; set => cameraPosition = value; }
+        public Vector3D CameraOffSet_HV { get => cameraOffSet_HV; set => cameraOffSet_HV = value; }
+        public Vector3D CameraOffSet_Port { get => cameraOffSet_Port; set => cameraOffSet_Port = value; }
+        public Vector3D CameraOffSet_RoadWay { get => cameraOffSet_RoadWay; set => cameraOffSet_RoadWay = value; }
+        public Vector3D CameraOffSet_Shelf { get => cameraOffSet_Shelf; set => cameraOffSet_Shelf = value; }
+        public Vector3D LookDirection { get => lookDirection; set => lookDirection = value; }
+        public Vector3D CameraOffSet_HV_LookDirection { get => cameraOffSet_HV_LookDirection; set => cameraOffSet_HV_LookDirection = value; }
+        public Vector3D CameraOffSet_Port_LookDirection { get => cameraOffSet_Port_LookDirection; set => cameraOffSet_Port_LookDirection = value; }
+        public Vector3D CameraOffSet_RoadWay_LookDirection { get => cameraOffSet_RoadWay_LookDirection; set => cameraOffSet_RoadWay_LookDirection = value; }
+        public Vector3D CameraOffSet_Shelf_LookDirection { get => cameraOffSet_Shelf_LookDirection; set => cameraOffSet_Shelf_LookDirection = value; }
+        public Vector3D CameraOffSet_HV_UpDirection { get => cameraOffSet_HV_UpDirection; set => cameraOffSet_HV_UpDirection = value; }
+        public Vector3D CameraOffSet_Port_UpDirection { get => cameraOffSet_Port_UpDirection; set => cameraOffSet_Port_UpDirection = value; }
+        public Vector3D CameraOffSet_Shelf_UpDirection { get => cameraOffSet_Shelf_UpDirection; set => cameraOffSet_Shelf_UpDirection = value; }
+        public Vector3D CameraOffSet_RoadWay_UpDirection { get => cameraOffSet_RoadWay_UpDirection; set => cameraOffSet_RoadWay_UpDirection = value; }
 
         /// <summary>
         /// 获取指定库位号 相对于 原始货物模型的 相对位移
@@ -386,7 +465,7 @@ namespace CS3D
             else if (level == 2)
             {
                 z = 2411.056;
-                if(line==3 || line == 6)
+                if (line == 3 || line == 6)
                 {
                     z = 2571.928;
                 }

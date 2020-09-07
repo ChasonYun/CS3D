@@ -41,12 +41,12 @@ namespace CS3D
 
         private ModelPosition modelPosition;//模型  位置信息
 
-      
+
 
         private Timer timer = new Timer();
 
         /// <summary>
-        /// 全局模型  
+        /// 模型  
         /// </summary>
         private Dictionary<string, ProductInfo> product_Info = new Dictionary<string, ProductInfo>();
         private Dictionary<string, StackerPartsInfo> stackerParts_Info = new Dictionary<string, StackerPartsInfo>();
@@ -86,6 +86,8 @@ namespace CS3D
                 initLookDirection = perspectiveCamera.LookDirection;
                 initUpDirection = perspectiveCamera.UpDirection;
                 initFieldofView = perspectiveCamera.FieldOfView;
+                modelPosition.OriCameraPosition = initPosition;
+                modelPosition.LookDirection = initLookDirection;
 
                 StackerPartsInfo zaihuotai001 = new StackerPartsInfo("zaihuotai001");
                 stackerParts_Info.Add(zaihuotai001.ModelName, zaihuotai001);
@@ -663,7 +665,7 @@ namespace CS3D
         /// 入库
         /// </summary>
         /// <param name="shelfNo"></param>
-        public void StockIn(string shelfNo)
+        public void ProdIn(string missionId, string shelfNo)
         {
             if (!product_Info.ContainsKey(shelfNo))
             {
@@ -677,7 +679,7 @@ namespace CS3D
                 productInfo.Model = cloneModel;
                 productInfo.ProductOffSet = (Point3D)(modelPosition.StockInEntranceOriPos - modelPosition.ProductOriPos);//入货口初始位置
                 product_Info.Add(shelfNo, productInfo);
-                mission = new Mission(MissionType.StockIn, shelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission = new Mission(missionId, MissionType.ProdIn, shelfNo, modelPosition, product_Info, stackerParts_Info);
                 mission.MisSuccess += Mission_MisSuccess;
                 lock (obj_missionList)
                 {
@@ -695,7 +697,7 @@ namespace CS3D
         /// 出库
         /// </summary>
         /// <param name="shelfNo"></param>
-        public void StockOut(string shelfNo)
+        public void ProdOut(string missionId, string shelfNo)
         {
             try
             {
@@ -706,7 +708,7 @@ namespace CS3D
                 }
                 else
                 {
-                    mission = new Mission(MissionType.StockOut, shelfNo, modelPosition, product_Info, stackerParts_Info);
+                    mission = new Mission(missionId, MissionType.ProdOut, shelfNo, modelPosition, product_Info, stackerParts_Info);
                     mission.MisSuccess += Mission_MisSuccess;
                     lock (obj_missionList)
                     {
@@ -720,16 +722,117 @@ namespace CS3D
             }
         }
 
-        public void Sorting(string shelfNo)
+
+        /// <summary>
+        /// 移库
+        /// </summary>
+        /// <param name="startShelf">起始货位号</param>
+        /// <param name="endShelf">终点货位号</param>
+        public void ProdTransfer(string missionId, string startShelfNo, string endShelfNo)
         {
-            if (!product_Info.ContainsKey(shelfNo))
+            if (!product_Info.ContainsKey(startShelfNo))
             {
-                HintEvent(string.Format("WareHouseModel_Sorting has exception:shelfNo_{0} does not exit", shelfNo));
+                HintEvent(string.Format("WareHouseModel_ProdTransfer has exception:shelfNo_{0} does not exit", startShelfNo));
+                return;
+            }
+            if (product_Info.ContainsKey(endShelfNo))
+            {
+                HintEvent(string.Format("WareHouseModel_ProdTransfer has exception:shelfNo_{0}  already exit", endShelfNo));
                 return;
             }
             else
             {
-                mission = new Mission(MissionType.Sorting, shelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission = new Mission(missionId, MissionType.ProdTransfer, startShelfNo + " " + endShelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission.MisSuccess += Mission_MisSuccess;
+                lock (obj_missionList)
+                {
+                    missionList.Add(mission);
+                }
+            }
+        }
+
+        public void BackIn(string missionId, string shelfNo)
+        {
+            if (!product_Info.ContainsKey(shelfNo))
+            {
+                HintEvent(string.Format("WareHouseModel_BackIn has exception:shelfNo_{0} does not exit", shelfNo));
+                return;
+            }
+            else
+            {
+                mission = new Mission(missionId, MissionType.BackIn, shelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission.MisSuccess += Mission_MisSuccess;
+                lock (obj_missionList)
+                {
+                    missionList.Add(mission);
+                }
+            }
+        }
+
+        public void PalletOut(string missionId, string shelfNo)
+        {
+            if (!product_Info.ContainsKey(shelfNo))
+            {
+                HintEvent(string.Format("WareHouseModel_PalletOut has exception:shelfNo_{0} does not exit", shelfNo));
+                return;
+            }
+            else
+            {
+                mission = new Mission(missionId, MissionType.PalletOut, shelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission.MisSuccess += Mission_MisSuccess;
+                lock (obj_missionList)
+                {
+                    missionList.Add(mission);
+                }
+            }
+        }
+
+        public void AddPallet(string missionId, string shelfNo)
+        {
+            if (!product_Info.ContainsKey(shelfNo))
+            {
+                HintEvent(string.Format("WareHouseModel_AddPallet has exception:shelfNo_{0} does not exit", shelfNo));
+                return;
+            }
+            else
+            {
+                mission = new Mission(missionId, MissionType.AddPallet, shelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission.MisSuccess += Mission_MisSuccess;
+                lock (obj_missionList)
+                {
+                    missionList.Add(mission);
+                }
+            }
+        }
+
+        public void PalletIn(string missionId, string shelfNo)
+        {
+            if (!product_Info.ContainsKey(shelfNo))
+            {
+                HintEvent(string.Format("WareHouseModel_PalletIn has exception:shelfNo_{0} does not exit", shelfNo));
+                return;
+            }
+            else
+            {
+                mission = new Mission(missionId, MissionType.PalletIn, shelfNo, modelPosition, product_Info, stackerParts_Info);
+                mission.MisSuccess += Mission_MisSuccess;
+                lock (obj_missionList)
+                {
+                    missionList.Add(mission);
+                }
+            }
+        }
+
+        public void GetPallet(string missionId, string shelfNo)
+        {
+            if (!product_Info.ContainsKey(shelfNo))
+            {
+                HintEvent(string.Format("WareHouseModel_GetPallet has exception:shelfNo_{0} does not exit", shelfNo));
+                return;
+            }
+            else
+            {
+                mission = new Mission(missionId, MissionType.GetPallet, shelfNo, modelPosition, product_Info, stackerParts_Info);
                 mission.MisSuccess += Mission_MisSuccess;
                 lock (obj_missionList)
                 {
@@ -742,26 +845,28 @@ namespace CS3D
         {
             try
             {
+                lock (obj_missionList)
+                {
+                    missionList.Remove(mission);
+                    mission.Dispose();//释放时钟资源  由GC 进行
+                }
                 switch (missionType)//执行完是否需要重新拉取货物数据库
                 {
-                    case MissionType.StockIn:
-                        Reset();
-                        lock (obj_missionList)
-                        {
-                            missionList.Remove(mission);
-                        }
+                    case MissionType.ProdIn:
+                        //Reset();
+
                         break;
-                    case MissionType.StockOut:
-                        lock (obj_missionList)
-                        {
-                            missionList.Remove(mission);
-                        }
-                        product_Info.Remove(shelfNo);
+                    case MissionType.ProdOut:
+
+                        //product_Info.Remove(shelfNo);
+                        break;
+                    case MissionType.AddPallet:
+
                         break;
 
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 HintEvent("WareHouseModel_Mission_MisSuccess has exception:" + ex.ToString());
             }
@@ -772,20 +877,20 @@ namespace CS3D
         /// </summary>
         /// <param name="conveyorName"></param>
         /// <param name="isReady"></param>
-        public void SetConveyor(string conveyorName, bool isReady)
+        public void SetConveyor(string missionId, string conveyorName, bool isReady)
         {
             try
             {
                 foreach (var mission in missionList)
                 {
-                    mission.Update(conveyorName, isReady);
+                    mission.Update(missionId, conveyorName, isReady);
                 }
             }
             catch (Exception ex)
             {
                 HintEvent("WareHouseModel_SetConveyor has exception:" + ex.ToString());
             }
-            
+
         }
 
 
@@ -823,13 +928,15 @@ namespace CS3D
             {
                 shelfInfo.Model.Content.Transform = new TranslateTransform3D() { OffsetX = shelfInfo.ShelfOffSet.X, OffsetY = shelfInfo.ShelfOffSet.Y, OffsetZ = shelfInfo.ShelfOffSet.Z };
             }
-            if (missionList.Count != 0)
+            lock (obj_missionList)
             {
-                Point3D tempWorldPosition = ((Mission)missionList[missionList.Count - 1]).worldPosition;
-                Point3D tempCameraPosition = Point3D.Add(tempWorldPosition, new Vector3D(3000, 2000, 2000));
-                perspectiveCamera.Position = new Point3D(tempCameraPosition.X, tempCameraPosition.Z, -tempCameraPosition.Y);
-                cameraLookDirection = new Vector3D(3000, 2000, -2000);
+                if (missionList.Count != 0)
+                {
+                    perspectiveCamera.Position = ((Mission)missionList[missionList.Count - 1]).cameraPosition;
+                    perspectiveCamera.LookDirection = ((Mission)missionList[missionList.Count - 1]).cameraLookDirection;
+                }
             }
+
         }
 
         public class WarehouseLocation
