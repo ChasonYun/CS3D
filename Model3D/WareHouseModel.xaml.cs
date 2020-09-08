@@ -40,6 +40,7 @@ namespace CS3D
         private double initFieldofView;
 
         private ModelPosition modelPosition;//模型  位置信息
+        private bool shiftPerspective = false;//视角切换
 
 
 
@@ -170,6 +171,9 @@ namespace CS3D
         DiffuseMaterial diffMat_obj036;
         DiffuseMaterial diffMat_laser;
         DiffuseMaterial diffMat_obj018;
+
+        DiffuseMaterial diffMat_isSelected;
+        DiffuseMaterial diffMat_notSelected;
         /// <summary>
         /// 初始化刷子工具
         /// </summary>
@@ -225,6 +229,9 @@ namespace CS3D
                 diffMat_obj036 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 173, 173)));
                 diffMat_laser = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(24, 24, 24)));
                 diffMat_obj018 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 173, 173)));
+
+                diffMat_isSelected = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(240, 85, 65)));
+                diffMat_notSelected = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/wood.jpg", UriKind.Relative))));
             }
             catch (Exception ex)
             {
@@ -467,6 +474,7 @@ namespace CS3D
                         {
                             if (temp.Model.Content == rayMeshGeometry3DHitTestResult.ModelHit)
                             {
+                                ChangeAppearance(temp.ShelfNo);
                                 GetProductmsg(temp.ShelfNo, temp.ShelfState.ToString(), temp.ProductName, temp.ProductId, temp.LastUpTime);
                             }
                         }
@@ -480,6 +488,43 @@ namespace CS3D
             }
 
             return HitTestResultBehavior.Continue;
+        }
+
+        string tempSelectedShelfNo = null;
+        /// <summary>
+        /// 选中的物体更改外观 
+        /// </summary>
+        private void ChangeAppearance(string shelfNo)
+        {
+            try
+            {
+                //ModelVisual3D model = new ModelVisual3D();
+                //model.Children.
+                GeometryModel3D geometryOri = new GeometryModel3D();
+                geometryOri.Geometry = origin_Product.Geometry;//
+                geometryOri.Material = diffMat_notSelected;
+
+                GeometryModel3D geometrySelected = new GeometryModel3D();
+                geometrySelected.Geometry = origin_Product.Geometry;//
+                geometrySelected.Material = diffMat_isSelected;
+
+                if (string.IsNullOrEmpty(tempSelectedShelfNo))
+                {
+                    tempSelectedShelfNo = shelfNo;
+                    product_Info[shelfNo].Model.Content = geometrySelected;
+                }
+                else
+                {
+                    product_Info[tempSelectedShelfNo].Model.Content = geometryOri;
+                    product_Info[shelfNo].Model.Content = geometrySelected;
+                    tempSelectedShelfNo = shelfNo;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
         }
 
         private void VP3D_MouseWheel(object sender, MouseWheelEventArgs e)
@@ -519,7 +564,14 @@ namespace CS3D
 
         }
 
+        private void btnSwitchView_Click(object sender, RoutedEventArgs e)
+        {
+            shiftPerspective = !shiftPerspective;
+        }
+
         int testi = 0;
+
+        public bool ShiftPerspective { get => shiftPerspective; set => shiftPerspective = value; }
 
         /// <summary>
         /// 测试按钮
@@ -528,8 +580,6 @@ namespace CS3D
         /// <param name="e"></param>
         private void btnTest_Click(object sender, RoutedEventArgs e)
         {
-
-
             testi++;
             if (testi == 1)
             {
@@ -894,12 +944,6 @@ namespace CS3D
         }
 
 
-
-
-
-
-
-
         /// <summary>
         /// 时钟事件
         /// </summary>
@@ -928,14 +972,28 @@ namespace CS3D
             {
                 shelfInfo.Model.Content.Transform = new TranslateTransform3D() { OffsetX = shelfInfo.ShelfOffSet.X, OffsetY = shelfInfo.ShelfOffSet.Y, OffsetZ = shelfInfo.ShelfOffSet.Z };
             }
-            lock (obj_missionList)
+            if (shiftPerspective)
             {
-                if (missionList.Count != 0)
+                lock (obj_missionList)
                 {
-                    perspectiveCamera.Position = ((Mission)missionList[missionList.Count - 1]).cameraPosition;
-                    perspectiveCamera.LookDirection = ((Mission)missionList[missionList.Count - 1]).cameraLookDirection;
+                    if (missionList.Count != 0)
+                    {
+                        perspectiveCamera.Position = ((Mission)missionList[missionList.Count - 1]).cameraPosition;
+                        perspectiveCamera.LookDirection = ((Mission)missionList[missionList.Count - 1]).cameraLookDirection;
+                    }
+                }
+                if (!shiftPerspective)
+                {
+                    perspectiveCamera.Position = initPosition;
+                    perspectiveCamera.LookDirection = initLookDirection;
                 }
             }
+            //else
+            //{
+            //    perspectiveCamera.Position = initPosition;
+            //    perspectiveCamera.LookDirection = initLookDirection;
+            //}
+
 
         }
 

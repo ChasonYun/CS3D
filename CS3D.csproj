@@ -246,7 +246,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="image\wood.jpg" />
+    <Content Include="image\wood.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="image\屏幕.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

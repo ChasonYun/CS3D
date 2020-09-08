@@ -35,6 +35,7 @@
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/cm95510a.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/105.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/115.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/wood.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/%e5%b1%8f%e5%b9%95.jpg")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/%e6%9d%a1%e7%a0%81%e6%89%ab%e6%8f%8f.png")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("image/%e8%93%9d%e8%89%b2%e6%9d%bf%e5%87%b9%e5%87%b8.jpg")]

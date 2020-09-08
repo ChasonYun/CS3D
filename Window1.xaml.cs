@@ -36,15 +36,20 @@ namespace CS3D
             model.HintEvent += Model_HintEvent;
         }
 
+        private void btnShiftPerspective_Click(object sender, RoutedEventArgs e)
+        {
+            model.ShiftPerspective = !model.ShiftPerspective;
+        }
+
         int count = 0;
         private void btnPutIn_Click(object sender, RoutedEventArgs e)
         {
-            //model.ProdIn("ProdIn", "01.04.01");
+            model.ProdIn("ProdIn", "01.04.01");
 
             if (count == 0)
             {
-                missionId = "ProdOut";
-                model.ProdOut(missionId, "04.02.01");
+                //missionId = "ProdOut";
+                //model.ProdOut(missionId, "04.02.01");
 
                 //missionId = "PalletOut";
                 //model.PalletOut(missionId, "04.02.01");
@@ -127,6 +132,8 @@ namespace CS3D
             }
             conveyor_22 = !conveyor_22;
         }
+
+       
 
         private void btnC_21_Click(object sender, RoutedEventArgs e)
         {

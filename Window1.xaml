@@ -23,7 +23,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="获取库位信息" x:Name="btnInitWareHouse" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnInitWareHouse_Click" />
                 <Button Content="出/入库" x:Name="btnPutIn" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnPutIn_Click" />
-
+                <Button Content="视角转换" x:Name="btnShiftPerspective" Background="Green" Margin="2" Width="80" Height="30" FontSize="10" Click="btnShiftPerspective_Click" />
             </StackPanel>
         </Grid>
         <Grid Grid.Row="1">

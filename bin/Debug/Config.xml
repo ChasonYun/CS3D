@@ -48,11 +48,11 @@
 		<CameraOffSet_HV_LookDirection>1,1,1</CameraOffSet_HV_LookDirection>
 		<CameraOffSet_HV_UpDirection>0,1,0</CameraOffSet_HV_UpDirection>
 
-		<CameraOffSet_Port>0,2000,2000</CameraOffSet_Port>
-		<CameraOffSet_Port_LookDirection>0,1,2</CameraOffSet_Port_LookDirection>
+		<CameraOffSet_Port>0,2000,3000</CameraOffSet_Port>
+		<CameraOffSet_Port_LookDirection>0,1,1</CameraOffSet_Port_LookDirection>
 		<CameraOffSet_Port_UpDirection>0,1,0</CameraOffSet_Port_UpDirection>
 
-		<CameraOffSet_RoadWay>0,0,2000</CameraOffSet_RoadWay>
+		<CameraOffSet_RoadWay>0,0,7430</CameraOffSet_RoadWay>
 		<CameraOffSet_RoadWay_LookDirection>0,0.5,3</CameraOffSet_RoadWay_LookDirection>
 		<CameraOffSet_RoadWay_UpDirection>0,1,0</CameraOffSet_RoadWay_UpDirection>
 

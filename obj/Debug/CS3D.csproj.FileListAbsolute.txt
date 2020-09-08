@@ -291,3 +291,4 @@ E:\Model3D\obj\Debug\CS3D.csproj.CoreCompileInputs.cache
 E:\Model3D\obj\Debug\CS3D.csproj.CopyComplete
 E:\Model3D\obj\Debug\CS3D.exe
 E:\Model3D\obj\Debug\CS3D.pdb
+E:\CS3D\bin\Debug\image\wood.jpg

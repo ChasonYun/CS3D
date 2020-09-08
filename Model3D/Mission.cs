@@ -560,20 +560,19 @@ namespace CS3D
                                 break;
                             case Direction_.PortIn:
                                 SetStackerPos(shelfNo);
-                                Move_Fork_In(shelfNo, currentConv);
+                                Move_Port_In(shelfNo, currentConv);
                                 break;
                             case Direction_.PortOut:
                                 SetStackerPos(shelfNo);//堆垛机立柱 载货台位置
-                                Move_Fork_Out(shelfNo, currentConv);
+                                Move_Port_Out(shelfNo, currentConv);
                                 break;
                             case Direction_.ShelfIn:
-                                SetStackerPos(shelfNo);//堆垛机跟随
+                                SetStackerPos(shelfNo);//
                                 Move_Shelf_In(shelfNo, currentConv);
                                 break;
                             case Direction_.ShelfOut:
-                                leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
-                                Move_Vertical(shelfNo, leftVector, currentConv);
-                                SetStackerPos(shelfNo);//堆垛机跟随
+                                SetStackerPos(shelfNo);//
+                                Move_Shelf_Out(shelfNo, currentConv);
                                 break;
                             case Direction_.Roadway://斜 左上  左下  右上 右下  需要有堆垛机参与  
                                 leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
@@ -763,36 +762,43 @@ namespace CS3D
             }
         }
 
-        bool iSForkOutSuccess = false;
+        bool isPortInDone = false;
         /// <summary>
         ///  货叉移动  入库口位置
         /// </summary>
         /// <param name="startPos">货叉起始位置 </param>
         /// <param name="endPos">货叉终点位置 </param>
         /// <param name="currentConv"></param>
-        private void Move_Fork_In(string shelfNo, Conveyor currentConv)
+        private void Move_Port_In(string shelfNo, Conveyor currentConv)
         {
             try
             {
                 string str = null;
-                if (endLine.Equals(1) || endLine.Equals(2))
+                Point3D bottomForkOriPos = new Point3D();
+                Point3D stackerOffSet = new Point3D();
+                if (!isPortInDone)
                 {
-                    str = "shangcha001";
-                }
-                else if (endLine.Equals(3) || endLine.Equals(4) || endLine.Equals(5) || endLine.Equals(6))//2  堆垛机
-                {
-                    str = "shangcha002";
-                }
-
-                if (!iSForkOutSuccess)
-                {
-                    if (stackerParts_Info[str].StackerOffSet.Y < (currentConv.StartPos.Y - modelPosition.BottomForkOriPos_1.Y))
+                    GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                    if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) > 0)
                     {
                         stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y + currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
-                        if (stackerParts_Info[str].StackerOffSet.Y >= (currentConv.StartPos.Y - modelPosition.BottomForkOriPos_1.Y))
+                        GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                        if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) <= 0)
                         {
-                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.StartPos.Y - modelPosition.BottomForkOriPos_1.Y, stackerParts_Info[str].StackerOffSet.Z);
-                            iSForkOutSuccess = true;
+                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.StartPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                            //currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                            isPortInDone = true;
+                        }
+                    }
+                    else if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) < 0)
+                    {
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y - currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
+                        GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                        if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) >= 0)
+                        {
+                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.StartPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                            //currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                            isPortInDone = true;
                         }
                     }
                 }
@@ -800,14 +806,17 @@ namespace CS3D
                 {
                     Vector3D leftVector = new Vector3D();
                     leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
+                    GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
                     if (leftVector.Y > 0)
                     {
                         product_Info[shelfNo].ProductOffSet = new Point3D(product_Info[shelfNo].ProductOffSet.X, product_Info[shelfNo].ProductOffSet.Y + currentConv.Speed_Y, product_Info[shelfNo].ProductOffSet.Z);
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y + currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
                         leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
                         if (leftVector.Y <= 0)
                         {
+                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
                             currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
-                            iSForkOutSuccess = false;
+                            isPortInDone = false;
                         }
                     }
                     else if (leftVector.Y < 0)
@@ -817,55 +826,66 @@ namespace CS3D
                         leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
                         if (leftVector.Y >= 0)
                         {
-                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, 0, stackerParts_Info[str].StackerOffSet.Z);
+                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
                             currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
-                            iSForkOutSuccess = false;
+                            isPortInDone = false;
                         }
                     }
                     else
                     {
                         currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
-                        iSForkOutSuccess = false;
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                        isPortInDone = false;
                     }
 
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Move_Fork_In has exception:" + ex.ToString());
+                throw new Exception("Move_Port_In has exception:" + ex.ToString());
             }
         }
 
+        bool isPortOutDone = false;
         /// <summary>
-        /// 货叉移动 出库口位置
+        /// 货叉移动 出货口位置 1.货叉货物出 2.货叉收回
         /// </summary>
-        private void Move_Fork_Out(string shelfNo, Conveyor currentConv)
+        private void Move_Port_Out(string shelfNo, Conveyor currentConv)
         {
             try
             {
                 string str = null;
-                if (endLine.Equals(1) || endLine.Equals(2))
+                Point3D bottomForkOriPos = new Point3D();
+                Point3D stackerOffSet = new Point3D();
+                if (isPortOutDone)
                 {
-                    str = "shangcha001";
-                }
-                else if (endLine.Equals(3) || endLine.Equals(4) || endLine.Equals(5) || endLine.Equals(6))//2  堆垛机
-                {
-                    str = "shangcha002";
-                }
-                if (iSForkOutSuccess)
-                {
-                    if (stackerParts_Info[str].StackerOffSet.Y < (currentConv.EndPos.Y - modelPosition.BottomForkOriPos_1.Y))
+                    GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                    if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) > 0)
                     {
                         stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y + currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
-                        if (stackerParts_Info[str].StackerOffSet.Y >= (currentConv.StartPos.Y - modelPosition.BottomForkOriPos_1.Y))
+                        GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                        if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) <= 0)
                         {
-                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, 0, stackerParts_Info[str].StackerOffSet.Z);
-                            iSForkOutSuccess = false;
+                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.StartPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                            currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                            isPortOutDone = false;
+                        }
+                    }
+                    else if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) < 0)
+                    {
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y - currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
+                        GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                        if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) >= 0)
+                        {
+                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.StartPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                            currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                            isPortOutDone = false;
                         }
                     }
                 }
-                else
+                else//货物 货叉 同时出
                 {
+                    GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
                     Vector3D leftVector = new Vector3D();
                     leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
                     if (leftVector.Y > 0)
@@ -875,9 +895,10 @@ namespace CS3D
                         leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
                         if (leftVector.Y <= 0)
                         {
-                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - modelPosition.BottomForkOriPos_1.Y, stackerParts_Info[str].StackerOffSet.Z);
-                            currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
-                            iSForkOutSuccess = true;
+                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                            product_Info[shelfNo].ProductOffSet = new Point3D(currentConv.EndPos.X - modelPosition.ProductOriPos.X, currentConv.EndPos.Y - modelPosition.ProductOriPos.Y, currentConv.EndPos.Z - modelPosition.ProductOriPos.Z);
+                            //currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                            isPortOutDone = true;
                         }
                     }
                     else if (leftVector.Y < 0)
@@ -887,21 +908,24 @@ namespace CS3D
                         leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
                         if (leftVector.Y >= 0)
                         {
-                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - modelPosition.BottomForkOriPos_1.Y, stackerParts_Info[str].StackerOffSet.Z);
-                            currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
-                            iSForkOutSuccess = true;
+                            stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                            product_Info[shelfNo].ProductOffSet = new Point3D(currentConv.EndPos.X - modelPosition.ProductOriPos.X, currentConv.EndPos.Y - modelPosition.ProductOriPos.Y, currentConv.EndPos.Z - modelPosition.ProductOriPos.Z);
+                            //currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                            isPortOutDone = true;
                         }
                     }
                     else
                     {
-                        currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
-                        iSForkOutSuccess = true;
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                        product_Info[shelfNo].ProductOffSet = new Point3D(currentConv.EndPos.X - modelPosition.ProductOriPos.X, currentConv.EndPos.Y - modelPosition.ProductOriPos.Y, currentConv.EndPos.Z - modelPosition.ProductOriPos.Z);
+                        //currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                        isPortOutDone = true;
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception("Move_Fork_Out has exception:" + ex.ToString());
+                throw new Exception("Move_Port_Out has exception:" + ex.ToString());
             }
         }
 
@@ -914,16 +938,115 @@ namespace CS3D
         private void Move_Shelf_In(string shelfNo, Conveyor currentConv)
         {
             string str = null;
-            if (endLine.Equals(1) || endLine.Equals(2))
-            {
-                str = "shangcha001";
-            }
-            else if (endLine.Equals(3) || endLine.Equals(4) || endLine.Equals(5) || endLine.Equals(6))//2  堆垛机
-            {
-                str = "shangcha002";
-            }
+            Point3D bottomForkOriPos = new Point3D();
+            Point3D stackerOffSet = new Point3D();
+            GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
             if (!isShelfInDone)//货物货叉共同进入
             {
+                Vector3D leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
+                if (leftVector.Y > 0)
+                {
+                    product_Info[shelfNo].ProductOffSet = new Point3D(product_Info[shelfNo].ProductOffSet.X, product_Info[shelfNo].ProductOffSet.Y + currentConv.Speed_Y, product_Info[shelfNo].ProductOffSet.Z);
+                    stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y + currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
+                    leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
+                    if (leftVector.Y <= 0)
+                    {
+
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                        product_Info[shelfNo].ProductOffSet = new Point3D(currentConv.EndPos.X - modelPosition.ProductOriPos.X, currentConv.EndPos.Y - modelPosition.ProductOriPos.Y, currentConv.EndPos.Z - modelPosition.ProductOriPos.Z);
+                        //currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                        isShelfInDone = true;
+                    }
+                }
+                else if (leftVector.Y < 0)
+                {
+                    product_Info[shelfNo].ProductOffSet = new Point3D(product_Info[shelfNo].ProductOffSet.X, product_Info[shelfNo].ProductOffSet.Y - currentConv.Speed_Y, product_Info[shelfNo].ProductOffSet.Z);
+                    stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y - currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
+                    leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
+                    if (leftVector.Y >= 0)
+                    {
+
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                        product_Info[shelfNo].ProductOffSet = new Point3D(currentConv.EndPos.X - modelPosition.ProductOriPos.X, currentConv.EndPos.Y - modelPosition.ProductOriPos.Y, currentConv.EndPos.Z - modelPosition.ProductOriPos.Z);
+                        //currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                        isShelfInDone = true;
+                    }
+                }
+                else
+                {
+
+                    stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.EndPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                    product_Info[shelfNo].ProductOffSet = new Point3D(currentConv.EndPos.X - modelPosition.ProductOriPos.X, currentConv.EndPos.Y - modelPosition.ProductOriPos.Y, currentConv.EndPos.Z - modelPosition.ProductOriPos.Z);
+                    //currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                    isShelfInDone = true;
+                }
+            }
+            else//货叉单独出
+            {
+                GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) > 0)
+                {
+                    stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y + currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
+                    GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                    if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) <= 0)
+                    {
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.StartPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                        currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                        isShelfInDone = false;
+                    }
+                }
+                else if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) < 0)
+                {
+                    stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y - currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
+                    GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                    if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) >= 0)
+                    {
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.StartPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                        currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                        isShelfInDone = false;
+                    }
+                }
+            }
+        }
+
+        bool isShelfOutDone = false;
+        /// <summary>
+        /// 货物出 1.货叉进入（货物不动） 2.货叉出（货物出）
+        /// </summary>
+        /// <param name="shelfNo"></param>
+        /// <param name="currentConv"></param>
+        private void Move_Shelf_Out(string shelfNo, Conveyor currentConv)
+        {
+            string str = null;
+            Point3D bottomForkOriPos = new Point3D();
+            Point3D stackerOffSet = new Point3D();
+            if (!isShelfOutDone)//货叉进入
+            {
+                GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) > 0)
+                {
+                    stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y + currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
+                    GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                    if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) <= 0)
+                    {
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.StartPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                        isShelfOutDone = true;
+                    }
+                }
+                else if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) < 0)
+                {
+                    stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y - currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
+                    GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
+                    if (currentConv.StartPos.Y - (bottomForkOriPos.Y + stackerOffSet.Y) >= 0)
+                    {
+                        stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, currentConv.StartPos.Y - bottomForkOriPos.Y, stackerParts_Info[str].StackerOffSet.Z);
+                        isShelfOutDone = true;
+                    }
+                }
+            }
+            else
+            {
+                GetShelfForkPos(out str, out bottomForkOriPos, out stackerOffSet);
                 Vector3D leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
                 if (leftVector.Y > 0)
                 {
@@ -950,50 +1073,26 @@ namespace CS3D
                     currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
                 }
             }
-            else//货叉出
-            {
-
-            }
         }
 
-        private void Move_Shelf_Out(string shelfNo, Conveyor currentConv)
+        private void GetShelfForkPos(out string str, out Point3D bottomForkOriPos, out Point3D stackerOffSet_UpFork)
         {
-            string str = null;
+            str = null;
+            bottomForkOriPos = new Point3D();
+            stackerOffSet_UpFork = new Point3D();
             if (endLine.Equals(1) || endLine.Equals(2))
             {
                 str = "shangcha001";
+                bottomForkOriPos = modelPosition.BottomForkOriPos_1;
+                stackerOffSet_UpFork = stackerParts_Info[str].StackerOffSet;
             }
             else if (endLine.Equals(3) || endLine.Equals(4) || endLine.Equals(5) || endLine.Equals(6))//2  堆垛机
             {
                 str = "shangcha002";
-            }
-            Vector3D leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
-            if (leftVector.Y > 0)
-            {
-                product_Info[shelfNo].ProductOffSet = new Point3D(product_Info[shelfNo].ProductOffSet.X, product_Info[shelfNo].ProductOffSet.Y + currentConv.Speed_Y, product_Info[shelfNo].ProductOffSet.Z);
-                stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y + currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
-                leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
-                if (leftVector.Y <= 0)
-                {
-                    currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
-                }
-            }
-            else if (leftVector.Y < 0)
-            {
-                product_Info[shelfNo].ProductOffSet = new Point3D(product_Info[shelfNo].ProductOffSet.X, product_Info[shelfNo].ProductOffSet.Y - currentConv.Speed_Y, product_Info[shelfNo].ProductOffSet.Z);
-                stackerParts_Info[str].StackerOffSet = new Point3D(stackerParts_Info[str].StackerOffSet.X, stackerParts_Info[str].StackerOffSet.Y - currentConv.Speed_Y, stackerParts_Info[str].StackerOffSet.Z);
-                leftVector = GetLeftVector(shelfNo, currentConv.EndPos);
-                if (leftVector.Y >= 0)
-                {
-                    currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
-                }
-            }
-            else
-            {
-                currentConv = PathNodeDone(pathNodes, currentConv, shelfNo, product_Info);
+                bottomForkOriPos = modelPosition.BottomForkOriPos_2;
+                stackerOffSet_UpFork = stackerParts_Info[str].StackerOffSet;
             }
         }
-
 
 
         /// <summary>
@@ -1015,12 +1114,12 @@ namespace CS3D
             }
             else
             {
-                stackerParts_Info["duiduojilizhu002"].StackerOffSet = new Point3D(stackerOffset.X, 0, 0);
-                stackerParts_Info["zaihuotai002"].StackerOffSet = new Point3D(stackerOffset.X, 0, stackerOffset.Z);
-                stackerParts_Info["shangcha002"].StackerOffSet = new Point3D(stackerOffset.X, 0, stackerOffset.Z);
-                stackerParts_Info["zhongcha002"].StackerOffSet = new Point3D(stackerOffset.X, 0, stackerOffset.Z);
-                stackerParts_Info["xiacha002"].StackerOffSet = new Point3D(stackerOffset.X, 0, stackerOffset.Z);
-                stackerParts_Info["VIFS002"].StackerOffSet = new Point3D(stackerOffset.X, 0, stackerOffset.Z);
+                stackerParts_Info["duiduojilizhu002"].StackerOffSet = new Point3D(stackerOffset.X, stackerParts_Info["duiduojilizhu002"].StackerOffSet.Y, 0);
+                stackerParts_Info["zaihuotai002"].StackerOffSet = new Point3D(stackerOffset.X, stackerParts_Info["zaihuotai002"].StackerOffSet.Y, stackerOffset.Z);
+                stackerParts_Info["shangcha002"].StackerOffSet = new Point3D(stackerOffset.X, stackerParts_Info["shangcha002"].StackerOffSet.Y, stackerOffset.Z);
+                stackerParts_Info["zhongcha002"].StackerOffSet = new Point3D(stackerOffset.X, stackerParts_Info["zhongcha002"].StackerOffSet.Y, stackerOffset.Z);
+                stackerParts_Info["xiacha002"].StackerOffSet = new Point3D(stackerOffset.X, stackerParts_Info["xiacha002"].StackerOffSet.Y, stackerOffset.Z);
+                stackerParts_Info["VIFS002"].StackerOffSet = new Point3D(stackerOffset.X, stackerParts_Info["VIFS002"].StackerOffSet.Y, stackerOffset.Z);
             }
         }
 
@@ -1105,6 +1204,7 @@ namespace CS3D
             else if (currentConv.Direction.Equals(Direction_.Roadway))
             {
                 Point3D temp = Point3D.Add(worldPosition, modelPosition.CameraOffSet_RoadWay);
+                temp = new Point3D(worldPosition.X, worldPosition.Y, modelPosition.CameraOffSet_RoadWay.Z);
                 cameraPosition = new Point3D(temp.X, temp.Z, -temp.Y);
                 cameraLookDirection = new Vector3D(modelPosition.CameraOffSet_RoadWay_LookDirection.X, modelPosition.CameraOffSet_RoadWay_LookDirection.Z, -modelPosition.CameraOffSet_RoadWay_LookDirection.Y);
                 cameraUpDirection = modelPosition.CameraOffSet_RoadWay_UpDirection;
