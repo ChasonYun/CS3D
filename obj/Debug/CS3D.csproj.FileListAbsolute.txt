@@ -195,7 +195,6 @@ E:\CS3D\obj\Debug\CS3D.csproj.CopyComplete
 E:\CS3D\obj\Debug\CS3D.exe
 E:\CS3D\obj\Debug\CS3D.pdb
 E:\CS3D\bin\Debug\Config.xml
-E:\CS3D\obj\Debug\CS3D.csprojAssemblyReference.cache
 E:\Model3D\bin\Debug\image\code.jpg
 E:\Model3D\bin\Debug\image\14124rm2.jpg
 E:\Model3D\bin\Debug\image\22225CMA.jpg
@@ -292,3 +291,6 @@ E:\Model3D\obj\Debug\CS3D.csproj.CopyComplete
 E:\Model3D\obj\Debug\CS3D.exe
 E:\Model3D\obj\Debug\CS3D.pdb
 E:\CS3D\bin\Debug\image\wood.jpg
+E:\CS3D\obj\Debug\CS3D.csprojAssemblyReference.cache
+E:\CS3D\obj\Debug\Shelf.g.cs
+E:\CS3D\obj\Debug\Shelf.baml

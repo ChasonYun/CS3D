@@ -3,7 +3,7 @@ using System.Windows.Media.Media3D;
 
 namespace CS3D
 {
-    public class ProductInfo
+    public class ProductInfo:ICloneable
     {
         public delegate void HintEventHandler(string msg);
 
@@ -126,6 +126,10 @@ namespace CS3D
 
         private ModelVisual3D model;
 
+        public object Clone()
+        {
+            return this.MemberwiseClone();
+        }
     }
 
     /// <summary>
@@ -171,7 +175,11 @@ namespace CS3D
 
         private Point3D shelfOriPos;
 
-        private double shelfDistance;
+        private double shelfDistance_Column;
+        private double[] shelfDistance_Line;
+
+        private int shelflineNum;
+        private int shelfcolumnNum;
 
 
         private Point3D stackerOriPos_1;
@@ -245,8 +253,23 @@ namespace CS3D
                 tempStrs = tempStr.Trim().Split(',');
                 shelfOriPos = new Point3D(Convert.ToDouble(tempStrs[0]), Convert.ToDouble(tempStrs[1]), Convert.ToDouble(tempStrs[2]));
 
-                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "ShelfDistance");
-                shelfDistance = Convert.ToDouble(tempStr.Trim());
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "ShelfDistance_Column");
+                shelfDistance_Column = Convert.ToDouble(tempStr.Trim());
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "ShelfLineNum");
+                shelflineNum = Convert.ToInt32(tempStr.Trim());
+
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "ShelfColumnNum");
+                shelfcolumnNum = Convert.ToInt32(tempStr.Trim());
+
+                shelfDistance_Line = new double[shelflineNum + 1];
+                tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "ShelfDistance_Line");
+                tempStrs = tempStr.Trim().Split(',');
+                for (int i = 1; i < shelflineNum; i++)
+                {
+                    shelfDistance_Line[i + 1] = Convert.ToDouble(tempStrs[i].Trim());
+                }
+
 
                 tempStr = XmlHelper.Instance.GetXMLInformation("/Config/Model3D/" + "StackerOriPos_1");
                 tempStrs = tempStr.Trim().Split(',');
@@ -425,7 +448,7 @@ namespace CS3D
         /// <summary>
         /// 货架X间距
         /// </summary>
-        public double ShelfDistance { get => shelfDistance; set => shelfDistance = value; }
+        public double ShelfDistance_Column { get => shelfDistance_Column; set => shelfDistance_Column = value; }
         public Point3D ProductStackerOriPos_1 { get => productStackerOriPos_1; set => productStackerOriPos_1 = value; }
         public Point3D ProductStackerOriPos_2 { get => productStackerOriPos_2; set => productStackerOriPos_2 = value; }
         public Point3D OriCameraPosition { get => cameraPosition; set => cameraPosition = value; }
@@ -442,6 +465,10 @@ namespace CS3D
         public Vector3D CameraOffSet_Port_UpDirection { get => cameraOffSet_Port_UpDirection; set => cameraOffSet_Port_UpDirection = value; }
         public Vector3D CameraOffSet_Shelf_UpDirection { get => cameraOffSet_Shelf_UpDirection; set => cameraOffSet_Shelf_UpDirection = value; }
         public Vector3D CameraOffSet_RoadWay_UpDirection { get => cameraOffSet_RoadWay_UpDirection; set => cameraOffSet_RoadWay_UpDirection = value; }
+        public double[] ShelfDistance_Line { get => shelfDistance_Line; set => shelfDistance_Line = value; }
+
+        public int ShelfLineNum { get => shelflineNum; set => shelflineNum = value; }
+        public int ShelfColumnNum { get => shelfcolumnNum; set => shelfcolumnNum = value; }
 
         /// <summary>
         /// 获取指定库位号 相对于 原始货物模型的 相对位移

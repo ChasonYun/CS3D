@@ -2,6 +2,10 @@
 <Config>
 	<Model3D>
 		<CodingRules>6,5,36	</CodingRules>
+		<ShelfLineNum>6</ShelfLineNum>
+		<ShelfColumnNum>18</ShelfColumnNum>
+		<ShelfDistance_Line>0,-2654.513,-4244.306,-5575.865,-8230.378,-9549.324</ShelfDistance_Line>
+
 		<!--排层列-->
 		<GoodsSize>1000,1200,1300</GoodsSize>
 		<!--货物长宽高-->
@@ -11,7 +15,7 @@
 		<!--入库口坐标-->
 		<ShelfOriPos>12694.44,-1999.992,1347</ShelfOriPos>
 		<!--01.01.01 坐标-->
-		<ShelfDistance>-2390</ShelfDistance>
+		<ShelfDistance_Column>-2390</ShelfDistance_Column>
 		<!--货架 x 方向间距-->
 
 		<ProductStackerOriPos_1>13967.191,-3342.328,1430</ProductStackerOriPos_1>

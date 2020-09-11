@@ -112,6 +112,9 @@
     <Compile Include="Model3D\WareHouseModel.xaml.cs">
       <DependentUpon>WareHouseModel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Shelf.xaml.cs">
+      <DependentUpon>Shelf.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Model3D\WareHouseModel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Shelf.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

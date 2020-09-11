@@ -53,6 +53,9 @@ namespace CS3D
         private Dictionary<string, StackerPartsInfo> stackerParts_Info = new Dictionary<string, StackerPartsInfo>();
         private Dictionary<string, ShelfInfo> shelf_Info = new Dictionary<string, ShelfInfo>();
 
+        private Dictionary<string, ShelfInfo> selected_shelfInfo = new Dictionary<string, ShelfInfo>();
+        private Dictionary<string, ProductInfo> selected_productInfo = new Dictionary<string, ProductInfo>();
+
         IMission mission;
         /// <summary>
         /// 任务队列
@@ -170,7 +173,7 @@ namespace CS3D
         DiffuseMaterial diffMat_track001;
         DiffuseMaterial diffMat_obj036;
         DiffuseMaterial diffMat_laser;
-        DiffuseMaterial diffMat_obj018;
+        DiffuseMaterial diffMat_shelf;
 
         DiffuseMaterial diffMat_isSelected;
         DiffuseMaterial diffMat_notSelected;
@@ -228,7 +231,7 @@ namespace CS3D
                 diffMat_track001 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(141, 141, 141)));
                 diffMat_obj036 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 173, 173)));
                 diffMat_laser = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(24, 24, 24)));
-                diffMat_obj018 = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 173, 173)));
+                diffMat_shelf = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(173, 173, 173)));
 
                 diffMat_isSelected = new DiffuseMaterial(new SolidColorBrush(Color.FromRgb(240, 85, 65)));
                 diffMat_notSelected = new DiffuseMaterial(new ImageBrush(new BitmapImage(new Uri(Environment.CurrentDirectory + "/image/wood.jpg", UriKind.Relative))));
@@ -273,6 +276,8 @@ namespace CS3D
                 chain_7.Material = diffMat_chain7;
                 conveyor_14.Material = diffMat_conveyor7;
                 chain_14.Material = diffMat_chain7;
+
+                line1_1.Material = diffMat_shelf;
 
                 conveyor_6.Material = diffMat_conveyor6;
                 chain_6.Material = diffMat_chain6;
@@ -350,58 +355,43 @@ namespace CS3D
                 //Led_zhijia_043.Material = diffMat_conveyor;
                 obj_178.Material = diffMat_obj178;
                 obj_179.Material = diffMat_obj178;
-                obj_018.Material = diffMat_obj018;
-                obj_038.Material = diffMat_obj018;
-                obj_059.Material = diffMat_obj018;
                 sick_11.Material = diffMat_sick1;
                 sick_21.Material = diffMat_sick1;
                 sick_12.Material = diffMat_sick2;
                 sick_22.Material = diffMat_sick2;
 
-
                 Prism_005.Material = diffMat_Prism;
                 Prism_006.Material = diffMat_Prism;
                 Prism_007.Material = diffMat_Prism;
                 Prism_008.Material = diffMat_Prism;
-
-
             }
             catch (Exception ex)
             {
                 HintEvent(string.Format("WareHouseModel_InitColor has exception:" + ex.ToString()));
             }
-
         }
 
         private void InitModel()
         {
             try
             {
-                for (int i = 1; i <= 17; i++)
+                ShelfInfo shelfInfo = new ShelfInfo("line_1_1");
+                shelfInfo.Model = line_1_1;
+                shelfInfo.ShelfOffSet = new Point3D(0, 0, 0);
+                shelf_Info.Add(shelfInfo.ModelName, shelfInfo);
+                for (int i = 1; i <= modelPosition.ShelfColumnNum; i++)//column
                 {
-                    ModelVisual3D cloneModelShelf = new ModelVisual3D();
-                    cloneModelShelf.Content = obj018.Content.Clone();
-                    RootGeometryContainer.Children.Add(cloneModelShelf);
-                    ShelfInfo shelfInfo = new ShelfInfo("obj0" + (18 + i));
-                    shelfInfo.Model = cloneModelShelf;
-                    shelfInfo.ShelfOffSet = new Point3D(modelPosition.ShelfDistance * i, 0, 0);
-                    shelf_Info.Add(shelfInfo.ModelName, shelfInfo);
-
-                    ModelVisual3D cloneModelShelf_ = new ModelVisual3D();
-                    cloneModelShelf_.Content = obj038.Content.Clone();
-                    RootGeometryContainer.Children.Add(cloneModelShelf_);
-                    ShelfInfo shelfInfo_ = new ShelfInfo("obj0" + (38 + i));
-                    shelfInfo_.Model = cloneModelShelf_;
-                    shelfInfo_.ShelfOffSet = new Point3D(modelPosition.ShelfDistance * i, 0, 0);
-                    shelf_Info.Add(shelfInfo_.ModelName, shelfInfo_);
-
-                    ModelVisual3D _cloneModelShelf = new ModelVisual3D();
-                    _cloneModelShelf.Content = obj059.Content.Clone();
-                    RootGeometryContainer.Children.Add(_cloneModelShelf);
-                    ShelfInfo _shelfInfo = new ShelfInfo("obj0" + (59 + i));
-                    _shelfInfo.Model = _cloneModelShelf;
-                    _shelfInfo.ShelfOffSet = new Point3D(modelPosition.ShelfDistance * i, 0, 0);
-                    shelf_Info.Add(_shelfInfo.ModelName, _shelfInfo);
+                    for (int j = 1; j <= modelPosition.ShelfLineNum; j++)//line
+                    {
+                        if (i == 1 && j == 1) continue;
+                        ModelVisual3D cloneModelShelf = new ModelVisual3D();
+                        cloneModelShelf.Content = line_1_1.Content.Clone();
+                        RootGeometryContainer.Children.Add(cloneModelShelf);
+                        shelfInfo = new ShelfInfo("line_" + j + "_" + i);
+                        shelfInfo.Model = cloneModelShelf;
+                        shelfInfo.ShelfOffSet = new Point3D(modelPosition.ShelfDistance_Column * (i - 1), modelPosition.ShelfDistance_Line[j], 0);
+                        shelf_Info.Add(shelfInfo.ModelName, shelfInfo);
+                    }
                 }
             }
             catch (Exception ex)
@@ -446,16 +436,22 @@ namespace CS3D
                 VP3D.Focus();
                 tempPoint = e.GetPosition(VP3D);
                 PointHitTestParameters hitTestParameters = new PointHitTestParameters(tempPoint);
-                VisualTreeHelper.HitTest(VP3D, null, ResultCallback, hitTestParameters);
+                if (e.ClickCount == 2)
+                {
+                    VisualTreeHelper.HitTest(VP3D, null, ResultCallback_DoubleClick, hitTestParameters);//单击
+                }
+                else if (e.ClickCount == 1)
+                {
+                    VisualTreeHelper.HitTest(VP3D, null, ResultCallback_Click, hitTestParameters);//双击
+                }
             }
             catch (Exception ex)
             {
                 HintEvent(string.Format("WareHouseModel_ResultCallback has exception:" + ex.ToString()));
             }
-
         }
 
-        public HitTestResultBehavior ResultCallback(HitTestResult result)
+        public HitTestResultBehavior ResultCallback_Click(HitTestResult result)
         {
             try
             {
@@ -476,6 +472,63 @@ namespace CS3D
                             {
                                 ChangeAppearance(temp.ShelfNo);
                                 GetProductmsg(temp.ShelfNo, temp.ShelfState.ToString(), temp.ProductName, temp.ProductId, temp.LastUpTime);
+                                return HitTestResultBehavior.Stop;
+                            }
+                        }
+                        SetNotSelectedAppearance(pervSelectedShelfNo);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                HintEvent(string.Format("ResultCallback_Click" + ex.ToString()));
+            }
+
+            return HitTestResultBehavior.Continue;
+        }
+
+        public HitTestResultBehavior ResultCallback_DoubleClick(HitTestResult result)//双击货架展示某一排货物  可以旋转 展示 
+        {
+            try
+            {
+                var tempModel = result.VisualHit as ModelVisual3D;
+                if (tempModel != null)
+                {
+
+                }
+                RayHitTestResult rayHitTest = result as RayHitTestResult;
+                if (rayHitTest != null)
+                {
+                    RayMeshGeometry3DHitTestResult rayMeshGeometry3DHitTestResult = rayHitTest as RayMeshGeometry3DHitTestResult;
+                    if (rayMeshGeometry3DHitTestResult != null)
+                    {
+                        foreach (var temp in shelf_Info.Values)
+                        {
+                            if (temp.Model.Content == rayMeshGeometry3DHitTestResult.ModelHit)
+                            {
+                                selected_shelfInfo.Clear();
+                                selected_productInfo.Clear();
+                                string[] strs = temp.ModelName.Split('_');
+                                string selectedShelfLineNo = strs[1];
+                                foreach (var shelfInfo in shelf_Info.Keys)
+                                {
+                                    strs = shelfInfo.Split('_');
+                                    if (strs[1].Equals(selectedShelfLineNo))
+                                    {
+                                        selected_shelfInfo.Add(shelfInfo, shelf_Info[shelfInfo]);
+                                    }
+                                }
+                                foreach (var productInfo in product_Info.Keys)
+                                {
+                                    strs = productInfo.Split('.');
+                                    if (strs[0].Equals(selectedShelfLineNo.PadLeft(2, '0')))
+                                    {
+                                        selected_productInfo.Add(productInfo, (ProductInfo)product_Info[productInfo]);
+                                    }
+                                }
+                                SetNotSelectedAppearance(pervSelectedShelfNo);
+                                ShowShelf(selected_shelfInfo, selected_productInfo);
+                                return HitTestResultBehavior.Stop; ;
                             }
                         }
                     }
@@ -483,47 +536,89 @@ namespace CS3D
             }
             catch (Exception ex)
             {
-
-                throw new Exception("ResultCallback" + ex.ToString());
+                HintEvent(string.Format("ResultCallback" + ex.ToString()));
             }
 
             return HitTestResultBehavior.Continue;
         }
 
-        string tempSelectedShelfNo = null;
+        string pervSelectedShelfNo = null;
         /// <summary>
         /// 选中的物体更改外观 
         /// </summary>
-        private void ChangeAppearance(string shelfNo)
+        private void ChangeAppearance(string selectedShelfNo)
         {
             try
             {
-                //ModelVisual3D model = new ModelVisual3D();
-                //model.Children.
-                GeometryModel3D geometryOri = new GeometryModel3D();
-                geometryOri.Geometry = origin_Product.Geometry;//
-                geometryOri.Material = diffMat_notSelected;
-
-                GeometryModel3D geometrySelected = new GeometryModel3D();
-                geometrySelected.Geometry = origin_Product.Geometry;//
-                geometrySelected.Material = diffMat_isSelected;
-
-                if (string.IsNullOrEmpty(tempSelectedShelfNo))
+                if (string.IsNullOrEmpty(pervSelectedShelfNo))
                 {
-                    tempSelectedShelfNo = shelfNo;
-                    product_Info[shelfNo].Model.Content = geometrySelected;
+                    pervSelectedShelfNo = selectedShelfNo;
+                    SetSelectedAppearance(selectedShelfNo);
                 }
                 else
                 {
-                    product_Info[tempSelectedShelfNo].Model.Content = geometryOri;
-                    product_Info[shelfNo].Model.Content = geometrySelected;
-                    tempSelectedShelfNo = shelfNo;
+                    SetNotSelectedAppearance(pervSelectedShelfNo);
+                    SetSelectedAppearance(selectedShelfNo);
+                    pervSelectedShelfNo = selectedShelfNo;
                 }
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.ToString());
+                HintEvent(string.Format(ex.ToString()));
             }
+
+        }
+
+        /// <summary>
+        /// 更改 选中货物的外观
+        /// </summary>
+        /// <param name="shelfNo"></param>
+        private void SetSelectedAppearance(string currShelfNo)
+        {
+            try
+            {
+                GeometryModel3D geometrySelected = new GeometryModel3D();//改变选中货物外观
+                geometrySelected.Geometry = origin_Product.Geometry;//
+                geometrySelected.Material = diffMat_isSelected;
+                product_Info[currShelfNo].Model.Content = geometrySelected;
+            }
+            catch (Exception ex)
+            {
+                HintEvent(string.Format("SetNotSelectedAppearance has exception:" + ex.ToString()));
+            }
+        }
+
+        private void SetNotSelectedAppearance(string prevShelfNo)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(prevShelfNo))
+                {
+                    GeometryModel3D geometryOri = new GeometryModel3D();
+                    geometryOri.Geometry = origin_Product.Geometry;//
+                    geometryOri.Material = diffMat_notSelected;
+                    product_Info[prevShelfNo].Model.Content = geometryOri;
+                }
+            }
+            catch (Exception ex)
+            {
+                HintEvent(string.Format("SetNotSelectedAppearance has exception:" + ex.ToString()));
+            }
+        }
+
+        Shelf shelf;
+        private void ShowShelf(Dictionary<string, ShelfInfo> shelfInfo, Dictionary<string, ProductInfo> productInfo)
+        {
+            if (shelf == null)
+            {
+                shelf = new Shelf(originProduct, perspectiveCamera, shelfInfo, productInfo);
+            }
+            else
+            {
+                shelf.ShelfInfo = selected_shelfInfo;
+                shelf.ProdInfo = selected_productInfo;
+            }
+            shelf.ShowDialog();
 
         }
 
@@ -678,12 +773,10 @@ namespace CS3D
                 DataTable StoreHouseStateDT = MysqlDBHandler.Instance.GetStoreHouseState();
                 if (StoreHouseStateDT != null)
                 {
-                    ProductInfo info;
-                    //int tempState;
                     DataRow[] dataRows = StoreHouseStateDT.Select("ShelfState='1'");
                     foreach (DataRow dataRow in dataRows)
                     {
-                        info = new ProductInfo();
+                        ProductInfo info = new ProductInfo();
                         info.ShelfNo = dataRow[1].ToString();
                         info.ShelfState = Convert.ToInt32(dataRow[2].ToString());
                         info.ProductName = dataRow[3].ToString();
@@ -970,7 +1063,7 @@ namespace CS3D
             }
             foreach (ShelfInfo shelfInfo in shelf_Info.Values)
             {
-                shelfInfo.Model.Content.Transform = new TranslateTransform3D() { OffsetX = shelfInfo.ShelfOffSet.X, OffsetY = shelfInfo.ShelfOffSet.Y, OffsetZ = shelfInfo.ShelfOffSet.Z };
+                shelfInfo.Model.Content.Transform = new TranslateTransform3D() { OffsetX = shelfInfo.ShelfOffSet.X, OffsetY = shelfInfo.ShelfOffSet.Z, OffsetZ = -shelfInfo.ShelfOffSet.Y };
             }
             if (shiftPerspective)
             {
