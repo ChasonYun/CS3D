@@ -609,16 +609,16 @@ namespace CS3D
         Shelf shelf;
         private void ShowShelf(Dictionary<string, ShelfInfo> shelfInfo, Dictionary<string, ProductInfo> productInfo)
         {
-            if (shelf == null)
-            {
-                shelf = new Shelf(originProduct, perspectiveCamera, shelfInfo, productInfo);
-            }
-            else
-            {
-                shelf.ShelfInfo = selected_shelfInfo;
-                shelf.ProdInfo = selected_productInfo;
-            }
-            shelf.ShowDialog();
+            //if (shelf == null)
+            //{
+            //    shelf = new Shelf(originProduct, perspectiveCamera, shelfInfo, productInfo);
+            //}
+            //else
+            //{
+            //    shelf.ShelfInfo = selected_shelfInfo;
+            //    shelf.ProdInfo = selected_productInfo;
+            //}
+            //shelf.ShowDialog();
 
         }
 
